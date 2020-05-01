@@ -1,0 +1,14 @@
+.DS_Store
+
+# ignore files in folder foo
+Build/*
+Library/*
+
+PROCESS/*
+dev/*
+dev-pix/*
+dev-loop/*
+
+
+# but keep the folder
+!Library/.keep
