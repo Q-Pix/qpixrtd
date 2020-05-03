@@ -246,7 +246,7 @@ namespace Qpix
 
 
 
-    std::vector<std::vector<double>> Make_Reset_ResponseD(int Reset, int Pix_Size, double E_vel, int Event_Length, 
+    std::vector<std::vector<double>> Make_Reset_Response_DeadTime(int Reset, int Pix_Size, double E_vel, int Event_Length, 
                                                         int Pixels_Hit_Len, int Noise_Vector_Size, int Start_Time, int End_Time,
                                                         std::vector<double>& Gaussian_Noise, std::vector<std::vector<int>>& Pixels_Hit,
                                                         std::vector<std::vector<int>>& data2d, std::vector<Qpix::HIT>& Electron_Event_Vector,std::vector<std::vector<double>>& Dead_Time)

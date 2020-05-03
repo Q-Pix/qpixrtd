@@ -40,3 +40,14 @@ cd test02
 make test
 ./test
 ```
+
+### Example01
+This run through all functions to produce a QPIX response. It takes an input file fom the geant4 step and outputs a file that is similar to an expected output with a pixel location and reset time. 
+
+Once the enviorment is sourced the example can be made and ran by.
+```bash
+cd Example01
+make Example01
+./Example01
+```
+There is currently 3 example outputs from the geant4 of argon 39, muons, and protons. These are useful for some simple testing. 
