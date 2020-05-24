@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <ctime>
 
+
 int main() 
 {  
    clock_t time_req;
@@ -20,8 +21,8 @@ int main()
    Life_Time = 10000; // in mus
 
    //std::string Input_File  = "Muon_100.txt";
-   //std::string Input_File  = "Ar39_10k.txt";
-   std::string Input_File  = "Proton_100.txt";
+   std::string Input_File  = "Ar39_10k.txt";
+   //std::string Input_File  = "Proton_100.txt";
    std::string Output_File = "Example01_Output.txt";
 
    // Read out plane size in mm
@@ -30,6 +31,7 @@ int main()
 
    // Number of electrons for reset
    int Reset = 6000;
+   //int Reset = 1000;
 
 
    // Makes the Pixel plane with the params set above
@@ -103,9 +105,8 @@ int main()
    std::cout << "*********************************************" << std::endl;
    std::cout << "Writing the output file" << std::endl;
    // writes the reset as Xpix, Ypix, reset time, time since last reset
-   Qpix::Write_Reset_Data( Output_File, Event, Pixels_Hit_Len, Pixels_Hit, RTD);
+   Qpix::Write_Reset_Data( Output_File, Event, RTD);
 
-   
 
    std::cout << "done" << std::endl;
    time_req = clock() - time_req;

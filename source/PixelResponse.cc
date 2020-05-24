@@ -118,6 +118,8 @@ namespace Qpix
                     data2d[X_curr][Y_curr] = 0;
                     std::vector<double> tmp = {(double)X_curr, (double)Y_curr, (double)GlobalTime};
                     RTD.push_back(tmp);
+                    //std::cout << "before" << std::endl;
+                    //std::cout << (double)X_curr << " " << (double)Y_curr << " " << (double)GlobalTime << std::endl;
                     }
                 } 
                 GlobalTime+=1;
@@ -129,6 +131,8 @@ namespace Qpix
                 data2d[Pix_Xloc][Pix_Yloc] = 0;
                 std::vector<double> tmp = {(double)Pix_Xloc, (double)Pix_Yloc, Pix_time};
                 RTD.push_back(tmp);
+                //std::cout << "during" << std::endl;
+                //std::cout << (double)Pix_Xloc << " " << (double)Pix_Yloc << " " << Pix_time << std::endl;
             }
 
         }
@@ -147,6 +151,8 @@ namespace Qpix
                     data2d[X_curr][Y_curr] = 0;
                     std::vector<double> tmp = {(double)X_curr, (double)Y_curr, (double)GlobalTime};
                     RTD.push_back(tmp);
+                    //std::cout << "after" << std::endl;
+                    //std::cout << (double)X_curr << " " << (double)Y_curr << " " << (double)GlobalTime << std::endl;
                 }
             } 
             GlobalTime+=1;
@@ -184,7 +190,23 @@ namespace Qpix
 
 
 
-    void Write_Reset_Data(std::string Output_File, int eventnum, int Pixels_Hit_Len, std::vector<std::vector<int>>& Pixels_Hit, std::vector<std::vector<double>>& RTD)
+    void Write_Reset_Data(std::string Output_File, int eventnum, std::vector<std::vector<double>>& RTD)
+    {
+        int RTD_len = RTD.size();
+        std::ofstream data_out;
+        data_out.open (Output_File , std::ios::ate);
+
+        for (int i = 0; i < RTD_len; i++)
+        {
+            //if (RTD[i][3]<0.1){std::cout<<"DT too small"<<std::endl;}
+            data_out << eventnum << ' ' << RTD[i][0] << ' ' << RTD[i][1] << ' ' << RTD[i][2] << std::endl;
+        }
+        data_out.close();
+        data_out.clear();
+    }
+
+
+    /* void Write_Reset_Data(std::string Output_File, int eventnum, int Pixels_Hit_Len, std::vector<std::vector<int>>& Pixels_Hit, std::vector<std::vector<double>>& RTD)
     {
         int RTD_len = RTD.size();
         std::ofstream data_out;
@@ -212,8 +234,7 @@ namespace Qpix
         }
         data_out.close();
         data_out.clear();
-    }
-
+    } */
 
 
 
