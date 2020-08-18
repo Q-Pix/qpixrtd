@@ -20,6 +20,8 @@
 
 // Qpix includes
 #include "Qpix/ReadG4root.h"
+#include "Qpix/PixelResponse.h"
+
 
 #include <ctime>
 
@@ -53,6 +55,44 @@ int main()
 
 
   std::cout << "size of hit_e = " << hit_e.size() << std::endl;
+
+
+  std::cout << "*********************************************" << std::endl;
+  std::cout << "Making the readout plane" << std::endl;
+  std::vector<std::vector<int>> data2d;
+  bool Make_Noise=false;
+  data2d = Qpix::Setup_Readout_Plane(LAr_params, Make_Noise);
+
+
+
+  std::vector<std::vector<int>> Pixels_Hit;
+  Pixels_Hit = Qpix::Find_Unique_Pixels(LAr_params, hit_e);
+
+  int Pixels_Hit_Len = Pixels_Hit.size();
+  std::cout << "Which hit "<< Pixels_Hit_Len << " unique pixels" << std::endl;
+
+
+  std::cout << "*********************************************" << std::endl;
+  std::cout << "Making the noise vector" << std::endl;
+  std::vector<double> Gaussian_Noise;
+  int Noise_Vector_Size = 10000;
+  Gaussian_Noise = Qpix::Make_Gaussian_Noise(30, Noise_Vector_Size);
+
+
+  std::cout << "*********************************************" << std::endl;
+  std::cout << "Starting the Qpix response" << std::endl;
+  std::vector<std::vector<double>> RTD;
+  RTD = Qpix::Reset_Response(LAr_params, Gaussian_Noise, Pixels_Hit, data2d, hit_e);
+
+
+
+  for (int i = 0; i < RTD.size(); i++) 
+  {
+    std::cout << RTD[i][0] << "\t" << RTD[i][1] << "\t" << RTD[i][2] << std::endl;
+  }
+
+
+  std::cout << RTD.size() << std::endl;
 
 
 
