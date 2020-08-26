@@ -136,7 +136,7 @@ int main()
   ttree_->Branch("reset", &reset_);
 
   // prints the pixel info
-  for (int i=0; i<Pixel.size() ; i++)
+  for (unsigned int i=0; i<Pixel.size() ; i++)
   {
       std::cout << "NEW" << std::endl;
       //std::cout << Pixel[i].ID    << "\t" ;
@@ -144,7 +144,7 @@ int main()
       // vector of resets as double instead of int for workaround
       std::vector< double > reset_double;
 
-      for ( int j=0; j<Pixel[i].RESET.size(); j++)
+      for (unsigned int j=0; j<Pixel[i].RESET.size(); j++)
       {
       std::cout << Pixel[i].ID    << "\t"
                   << Pixel[i].X_Pix << "\t"
@@ -194,6 +194,12 @@ int main()
   // clone G4 and MARLEY trees
   auto write_g4_event_tree = read_g4_event_tree->CloneTree();
   auto write_marley_event_tree = read_marley_event_tree->CloneTree();
+
+  if (write_g4_event_tree == 0 or write_marley_event_tree)
+  {
+      // maybe throw an exception here
+      std::cout << "Could not copy trees to output file!" << std::endl;
+  }
 
   // write_g4_event_tree->Print();
   // write_marley_event_tree->Print();
