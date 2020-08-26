@@ -1,344 +1,149 @@
 #include <iostream>
+#include <string>
 #include <vector>
-#include <fstream>
-#include <algorithm>
 #include <math.h>
-#include "Qpix/ElectronHandler.h"
-#include "Qpix/Random.h"
+
+
+
+
+// #include "Qpix/Random.h"
+#include "Qpix/Structures.h"
+// #include "Qpix/ReadG4root.h"
+#include "Qpix/PixelResponse.h"
+
 
 namespace Qpix
 {
 
-    
-    std::vector<std::vector<int>> Make_Readout_plane(int Readout_Dim, int Pix_Size, int Reset)
+
+
+    void Pixel_Functions::ID_Decoder(int const& ID, int& Xcurr, int& Ycurr)
     {
-        int N_Pix = Readout_Dim/Pix_Size;
-        // check if the pixel is a whole number
-        if( N_Pix*Pix_Size == Readout_Dim )
-        {
-            //std::cout << "Making a " << N_Pix << " by " << N_Pix << " readout" << std::endl;
-            //std::cout << "with a " << Pix_Size << " mm pixel pitch " << std::endl;
-        }
-        else
-        {
-            std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
-            std::cout << "you have failed" << std::endl;
-            std::cout << "readout and pixel dimensions do not match" << std::endl;
-            std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
-            std::exit(EXIT_FAILURE);
-        }
-
-        std::vector<std::vector<int>> readout(N_Pix, std::vector<int>(N_Pix));
-        for (int i = 0; i < N_Pix; i++)
-            for (int j = 0; j < N_Pix; j++)
-                readout[i][j] = RandomUniform()*Reset;
-        return readout;
-    }
-
-    std::vector<std::vector<int>> Make_True_Readout_plane(int Readout_Dim, int Pix_Size, int Reset)
-    {
-        int N_Pix = Readout_Dim/Pix_Size;
-        // check if the pixel is a whole number
-        if( N_Pix*Pix_Size == Readout_Dim )
-        {
-            //std::cout << "Making a " << N_Pix << " by " << N_Pix << " readout" << std::endl;
-            //std::cout << "with a " << Pix_Size << " mm pixel pitch " << std::endl;
-        }
-        else
-        {
-            std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
-            std::cout << "you have failed" << std::endl;
-            std::cout << "readout and pixel dimensions do not match" << std::endl;
-            std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
-            std::exit(EXIT_FAILURE);
-        }
-
-        std::vector<std::vector<int>> readout(N_Pix, std::vector<int>(N_Pix));
-        for (int i = 0; i < N_Pix; i++)
-            for (int j = 0; j < N_Pix; j++)
-                readout[i][j] = 0;
-        return readout;
+        double PixID = ID/10000.0, fractpart, intpart;
+        fractpart = modf (PixID , &intpart);
+        Xcurr = (int) round(intpart);
+        Ycurr = (int) round(fractpart*10000); 
+        return;
     }
 
 
-    std::vector<std::vector<int>> Find_Unique_Pixels(int Pix_Size, int Event_Length, std::vector<HIT> Electron_Event_Vector)
+
+    void Pixel_Functions::Pixelize_Event(std::vector<Qpix::ELECTRON>& hit_e, std::vector<Pixel_Info>& Pix_info)
     {
-        std::vector<std::vector<int>> Pixels_Hit;
-        std::vector<int> tmp;
-        for (int i=0; i<Event_Length; i++)
-        {
-            int Pix_Xloc, Pix_Yloc;
-            Pix_Xloc = (int) ceil(Electron_Event_Vector[i].x_pos/Pix_Size);
-            Pix_Yloc = (int) ceil(Electron_Event_Vector[i].y_pos/Pix_Size);
-            tmp.push_back((int)(Pix_Xloc*10000+Pix_Yloc));
-        }
+        int Event_Length = hit_e.size();
         
-        std::sort( tmp.begin(), tmp.end() );
-        tmp.erase(std::unique(tmp.begin(), tmp.end()), tmp.end());
+        std::vector<int> NewID_Index;
+
+        int newID = 0;
+
+        for (int i=0; i<Event_Length ; i++)
+        {
+            if ( newID != hit_e[i].Pix_ID )
+            {
+            NewID_Index.push_back( i );
+            newID = hit_e[i].Pix_ID;
+            }
         
-        for (int i=0; i<tmp.size(); i++)
-        {
-            double PixID = tmp[i]/10000.0, fractpart, intpart;
-            fractpart = modf (PixID , &intpart);
-            std::vector<int> tmp = {(int)(intpart), (int)(fractpart*10000)};
-            Pixels_Hit.push_back( tmp );
         }
-        return Pixels_Hit;
-    }
-        
+        NewID_Index.push_back( hit_e.size() );
 
 
-    std::vector<std::vector<double>> Make_Reset_Response(int Reset, int Pix_Size, double E_vel, int Event_Length, 
-                                                        int Pixels_Hit_Len, int Noise_Vector_Size, int Start_Time, int End_Time,
-                                                        std::vector<double>& Gaussian_Noise, std::vector<std::vector<int>>& Pixels_Hit,
-                                                        std::vector<std::vector<int>>& data2d, std::vector<Qpix::HIT>& Electron_Event_Vector)
-    {
-        std::vector<std::vector<double>> RTD;
-        int Noise_index = 0;
-        int GlobalTime = Start_Time;
-
-        for (int i = 0; i < Event_Length; i++)
+        int N_Index = NewID_Index.size() - 1;
+        for (int i=0; i<N_Index ; i++)
         {
-            int Pix_Xloc, Pix_Yloc;
-            Pix_Xloc = (int) ceil(Electron_Event_Vector[i].x_pos/Pix_Size);
-            Pix_Yloc = (int) ceil(Electron_Event_Vector[i].y_pos/Pix_Size);
-            double Pix_time = Electron_Event_Vector[i].z_pos/E_vel;
+            std::vector<Qpix::ELECTRON> sub_vec = slice(hit_e, NewID_Index[i], NewID_Index[i+1] -1 );
+            std::sort( sub_vec.begin(), sub_vec.end(), &Pixel_Time_Sorter );
+            std::vector<int> tmp_time;
 
-            while (GlobalTime < Pix_time)
-            {
-                for (int curr = 0; curr < Pixels_Hit_Len; curr++) 
-                { 
-                    int X_curr = Pixels_Hit[curr][0];
-                    int Y_curr = Pixels_Hit[curr][1];
-                    data2d[X_curr][Y_curr]+=Gaussian_Noise[Noise_index];
-                    Noise_index += 1;
-                    if (Noise_index >= Noise_Vector_Size){Noise_index = 0;}
-                    if (data2d[X_curr][Y_curr] >= Reset)
-                    {
-                    data2d[X_curr][Y_curr] = 0;
-                    std::vector<double> tmp = {(double)X_curr, (double)Y_curr, (double)GlobalTime};
-                    RTD.push_back(tmp);
-                    //std::cout << "before" << std::endl;
-                    //std::cout << (double)X_curr << " " << (double)Y_curr << " " << (double)GlobalTime << std::endl;
-                    }
-                } 
-                GlobalTime+=1;
-            }
+            for (int j=0; j<sub_vec.size() ; j++) { tmp_time.push_back( sub_vec[j].time ); }
 
-            data2d[Pix_Xloc][Pix_Yloc]+=1;
-            if (data2d[Pix_Xloc][Pix_Yloc] >= Reset)
-            {
-                data2d[Pix_Xloc][Pix_Yloc] = 0;
-                std::vector<double> tmp = {(double)Pix_Xloc, (double)Pix_Yloc, Pix_time};
-                RTD.push_back(tmp);
-                //std::cout << "during" << std::endl;
-                //std::cout << (double)Pix_Xloc << " " << (double)Pix_Yloc << " " << Pix_time << std::endl;
-            }
-
+            int Pix_Xloc, Pix_Yloc ;
+            ID_Decoder(sub_vec[0].Pix_ID, Pix_Xloc, Pix_Yloc);
+            Pix_info.push_back(Pixel_Info());
+            Pix_info[i].ID    = sub_vec[0].Pix_ID;
+            Pix_info[i].X_Pix = Pix_Xloc;
+            Pix_info[i].Y_Pix = Pix_Yloc;
+            Pix_info[i].time  = tmp_time;
         }
-
-        while (GlobalTime < End_Time)
-        {
-            for (int curr = 0; curr < Pixels_Hit_Len; curr++) 
-            { 
-                int X_curr = Pixels_Hit[curr][0];
-                int Y_curr = Pixels_Hit[curr][1];
-                data2d[X_curr][Y_curr]+=Gaussian_Noise[Noise_index];
-                Noise_index += 1;
-                if (Noise_index >= Noise_Vector_Size){Noise_index = 0;}
-                if (data2d[X_curr][Y_curr] >= Reset)
-                {
-                    data2d[X_curr][Y_curr] = 0;
-                    std::vector<double> tmp = {(double)X_curr, (double)Y_curr, (double)GlobalTime};
-                    RTD.push_back(tmp);
-                    //std::cout << "after" << std::endl;
-                    //std::cout << (double)X_curr << " " << (double)Y_curr << " " << (double)GlobalTime << std::endl;
-                }
-            } 
-            GlobalTime+=1;
-        }
-        return RTD;
-
-    }
-
-
-
-    std::vector<std::vector<double>> Make_Truth_Reset_Response(int Reset, int Pix_Size, double E_vel, int Event_Length, 
-                                                        std::vector<std::vector<int>>& data2d, std::vector<Qpix::HIT>& Electron_Event_Vector)
-    {
-        std::vector<std::vector<double>> RTD;
-
-        for (int i = 0; i < Event_Length; i++)
-        {
-            int Pix_Xloc, Pix_Yloc;
-            Pix_Xloc = (int) ceil(Electron_Event_Vector[i].x_pos/Pix_Size);
-            Pix_Yloc = (int) ceil(Electron_Event_Vector[i].y_pos/Pix_Size);
-            double Pix_time = Electron_Event_Vector[i].z_pos/E_vel;
-
-            data2d[Pix_Xloc][Pix_Yloc]+=1;
-            if (data2d[Pix_Xloc][Pix_Yloc] >= Reset)
-            {
-                data2d[Pix_Xloc][Pix_Yloc] = 0;
-                std::vector<double> tmp = {(double)Pix_Xloc, (double)Pix_Yloc, Pix_time};
-                RTD.push_back(tmp);
-            }
-
-        }
-        return RTD;
+        return;
     }
 
 
 
 
-    void Write_Reset_Data(std::string Output_File, int eventnum, std::vector<std::vector<double>>& RTD)
+    void Pixel_Functions::Reset(Qpix::Liquid_Argon_Paramaters * LAr_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info)
     {
-        int RTD_len = RTD.size();
-        std::ofstream data_out;
-        data_out.open (Output_File , std::ios::ate);
+    // The number of steps to cover the full buffer
+    int End_Time = LAr_params->Buffer_time / LAr_params->Sample_time;
 
-        for (int i = 0; i < RTD_len; i++)
+    // geting the size of the vectors for looping
+    int Pixels_Hit_Len = Pix_info.size();
+    int Noise_Vector_Size = Gaussian_Noise.size();
+    int Noise_index = 0;
+
+    // loop over each pixel that was hit
+    for (int i = 0; i < Pixels_Hit_Len; i++)
+    {
+        // seting up some parameters
+        int charge = 0;
+        int pix_size = Pix_info[i].time.size();
+        int pix_dex = 0;
+        int current_time = 0;
+        int pix_time = Pix_info[i].time[pix_dex];
+        std::vector<int>  RESET;
+
+        // for each pixel loop through the buffer time
+        while (current_time <= End_Time)
         {
-            //if (RTD[i][3]<0.1){std::cout<<"DT too small"<<std::endl;}
-            data_out << eventnum << ' ' << RTD[i][0] << ' ' << RTD[i][1] << ' ' << RTD[i][2] << std::endl;
-        }
-        data_out.close();
-        data_out.clear();
-    }
+        // setting the "time"
+        current_time += LAr_params->Sample_time;
 
+        // adding noise from the noise vector
+        charge += Gaussian_Noise[Noise_index];
+        Noise_index += 1;
+        if (Noise_index >= Noise_Vector_Size){Noise_index = 0;}
 
-    /* void Write_Reset_Data(std::string Output_File, int eventnum, int Pixels_Hit_Len, std::vector<std::vector<int>>& Pixels_Hit, std::vector<std::vector<double>>& RTD)
-    {
-        int RTD_len = RTD.size();
-        std::ofstream data_out;
-        data_out.open (Output_File , std::ios::ate);
-
-        for (int curr = 0; curr < Pixels_Hit_Len; curr++) 
-        { 
-            int X_curr = Pixels_Hit[curr][0];
-            int Y_curr = Pixels_Hit[curr][1];
-
-            double Delta_T = 0;
-            double resetold=0;
-            for (int i = 0; i < RTD_len; i++)
-            {
-                if ( (RTD[i][0] == X_curr) && (RTD[i][1] == Y_curr) )
-                {
-                    double reset = RTD[i][2];
-                    Delta_T = reset - resetold;
-                    if (RTD[i][3]<0.1){std::cout<<"DT too small"<<std::endl;}
-                    data_out << eventnum << ' ' << X_curr << ' ' << Y_curr << ' ' << RTD[i][2] << ' ' << RTD[i][3] << std::endl;
-                    resetold = RTD[i][2];
-
-                }
-            }
-        }
-        data_out.close();
-        data_out.clear();
-    } */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    std::vector<std::vector<double>> Make_Dead_Time(int Readout_Dim, int Pix_Size, int Reset)
-    {
-        int N_Pix = Readout_Dim/Pix_Size;        
-
-        std::vector<std::vector<double>> readout(N_Pix, std::vector<double>(N_Pix));
-        for (int i = 0; i < N_Pix; i++)
-            for (int j = 0; j < N_Pix; j++)
-                readout[i][j] = 0.0;
-        return readout;
-    }
-
-
-
-
-
-    std::vector<std::vector<double>> Make_Reset_Response_DeadTime(int Reset, int Pix_Size, double E_vel, int Event_Length, 
-                                                        int Pixels_Hit_Len, int Noise_Vector_Size, int Start_Time, int End_Time,
-                                                        std::vector<double>& Gaussian_Noise, std::vector<std::vector<int>>& Pixels_Hit,
-                                                        std::vector<std::vector<int>>& data2d, std::vector<Qpix::HIT>& Electron_Event_Vector,std::vector<std::vector<double>>& Dead_Time)
-    {
-        std::vector<std::vector<double>> RTD;
-        int Noise_index = 0;
-        int GlobalTime = Start_Time;
-
-        for (int i = 0; i < Event_Length; i++)
+        // main loop to add electrons to the counter
+        if ( current_time > pix_time && pix_dex < pix_size)
         {
-            int Pix_Xloc, Pix_Yloc;
-            Pix_Xloc = (int) ceil(Electron_Event_Vector[i].x_pos/Pix_Size);
-            Pix_Yloc = (int) ceil(Electron_Event_Vector[i].y_pos/Pix_Size);
-            double Pix_time = Electron_Event_Vector[i].z_pos/E_vel;
-
-            while (GlobalTime < Pix_time)
+            // this adds the electrons that are in the step
+            while( current_time > pix_time )
             {
-                for (int curr = 0; curr < Pixels_Hit_Len; curr++) 
-                { 
-                    int X_curr = Pixels_Hit[curr][0];
-                    int Y_curr = Pixels_Hit[curr][1];
-                    data2d[X_curr][Y_curr]+=Gaussian_Noise[Noise_index];
-                    Noise_index += 1;
-                    if (Noise_index >= Noise_Vector_Size){Noise_index = 0;}
-                    if ( (data2d[X_curr][Y_curr] >= Reset) && (GlobalTime >= Dead_Time[X_curr][Y_curr]+0.1) )
-                    {
-                        double DT = GlobalTime - Dead_Time[X_curr][Y_curr];
-                        Dead_Time[X_curr][Y_curr] = GlobalTime;
-                        data2d[X_curr][Y_curr] = 0;
-                        std::vector<double> tmp = {(double)X_curr, (double)Y_curr, (double)GlobalTime, DT};
-                        RTD.push_back(tmp);
-                    }
-                } 
-                GlobalTime+=1;
-            }
-
-            data2d[Pix_Xloc][Pix_Yloc]+=1;
-            if ( (data2d[Pix_Xloc][Pix_Yloc] >= Reset) && (Pix_time >= (Dead_Time[Pix_Xloc][Pix_Yloc]+0.1)) )
-            {
-                //std::cout << Pix_time - Dead_Time[Pix_Xloc][Pix_Yloc] << std::endl;
-                double DT = Pix_time - Dead_Time[Pix_Xloc][Pix_Yloc];
-                Dead_Time[Pix_Xloc][Pix_Yloc] = Pix_time;
-                data2d[Pix_Xloc][Pix_Yloc] = 0;
-                std::vector<double> tmp = {(double)Pix_Xloc, (double)Pix_Yloc, Pix_time, DT};
-                RTD.push_back(tmp);
+            charge += 1;
+            pix_dex += 1;
+            if (pix_dex >= pix_size){break; }
+            pix_time = Pix_info[i].time[pix_dex];
             }
 
         }
 
-        while (GlobalTime < End_Time)
+        // this is the reset 
+        if ( charge >= LAr_params->Reset )
         {
-            for (int curr = 0; curr < Pixels_Hit_Len; curr++) 
-            { 
-                int X_curr = Pixels_Hit[curr][0];
-                int Y_curr = Pixels_Hit[curr][1];
-                data2d[X_curr][Y_curr]+=Gaussian_Noise[Noise_index];
-                Noise_index += 1;
-                if (Noise_index >= Noise_Vector_Size){Noise_index = 0;}
-                if ( (data2d[X_curr][Y_curr] >= Reset) && (GlobalTime >= Dead_Time[X_curr][Y_curr]+0.1) )
-                {
-                    double DT = GlobalTime - Dead_Time[X_curr][Y_curr];
-                    Dead_Time[X_curr][Y_curr] = GlobalTime;
-                    data2d[X_curr][Y_curr] = 0;
-                    std::vector<double> tmp = {(double)X_curr, (double)Y_curr, (double)GlobalTime, DT};
-                    RTD.push_back(tmp);
-                }
-            } 
-            GlobalTime+=1;
-        }
-        return RTD;
+            RESET.push_back( current_time );
+            charge = 0;
 
+            // this will keep the charge in the loop above
+            // just offsets the reset by the dead time
+            current_time += LAr_params->Dead_time;
+
+            // condition for charge loss
+            // just the main loop without the charge
+            if (LAr_params->charge_loss)
+            {
+            while( current_time > pix_time )
+            {
+                pix_dex += 1;
+                if (pix_dex < pix_size){ pix_time = Pix_info[i].time[pix_dex]; }
+            }
+            }
+        }
+        }
+        // add it to the pixel info
+        Pix_info[i].RESET = RESET;
     }
+
+    return ;
+    }// Reset
 
 }

@@ -1,15 +1,21 @@
-#include "Qpix/XorShift256.h"
 #include <math.h>
 #include <vector>
 
-
+#include "Qpix/Xoshiro_Full.h"
 
 namespace Qpix
 {
+
+    XoshiroCpp::Xoshiro256Plus rng(XoshiroCpp::DefaultSeed);
     double RandomUniform() 
     {
-        double XorShift  = next();
-        return XorShift; 
+        double out = XoshiroCpp::DoubleFromBits(rng());
+        return out; 
+    }
+
+    void Random_Set_Seed(std::uint64_t Seed)
+    {
+        rng = XoshiroCpp::Xoshiro256Plus(Seed);
     }
 
 
@@ -99,9 +105,12 @@ namespace Qpix
     for (int i = 0; i < Noise_Vector_Size; i++)
     {  // should be 200 and 20 per mus making it a gaussian of 20 every 100ns
         int Leakage_Current, Electronics;
-        Electronics = (int)Qpix::RandomNormal(0, sigma);
+        //if ( i % 10 == 0 ){Electronics = (int)Qpix::RandomNormal(0, sigma);}
+        //else{Electronics=0; }
+        Electronics = (int) round(Qpix::RandomNormal(0, sigma));
+
         // 100 atto amps is 625 electrons a second
-        if (RandomUniform()<0.000625){Leakage_Current = 1;}
+        if (RandomUniform() < 625/1e8 ){Leakage_Current = 1;}
         else {Leakage_Current = 0;}
 
         Noise.push_back( Electronics + Leakage_Current );

@@ -1,13 +1,16 @@
 #ifndef RANDOM_H_
 #define RANDOM_H_
 
-#include "XorShift256.h"
+#include "Qpix/Xoshiro_Full.h"
+
 #include <vector>
 
 
 namespace Qpix
 {
+
     double RandomUniform();
+    void Random_Set_Seed(std::uint64_t Seed);
 
     double RandomNormal(double mean, double sigma) ;
 

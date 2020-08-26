@@ -21,16 +21,17 @@ int main()
    Life_Time = 10000; // in mus
 
    //std::string Input_File  = "Muon_100.txt";
-   std::string Input_File  = "Ar39_10k.txt";
-   //std::string Input_File  = "Proton_100.txt";
-   std::string Output_File = "Example01_Output.txt";
+   //std::string Input_File  = "Ar39_10k.txt";
+   std::string Input_File  = "Proton_100.txt";
+   //std::string Output_File = "Example01_Output.txt";
+   std::string Output_File = "Proton_Output_1000.txt";
 
    // Read out plane size in mm
    int Readout_Dim = 1000;
    int Pix_Size = 4;
 
    // Number of electrons for reset
-   int Reset = 6000;
+   int Reset = 1000;
    //int Reset = 1000;
 
 
@@ -58,6 +59,7 @@ int main()
    std::vector<int> Event_Lengths;
    Qpix::DataFileParser2(Input_File, Raw_Data_Vector, Event_Lengths);
 
+   //for (int Event = 0; Event < 100; Event++){
    // Selects a specific event in the geant4 output 
    int Event = 0;
    std::vector<std::vector<double>> Specific_Event;

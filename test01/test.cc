@@ -21,7 +21,7 @@ int main()
 
 
     myfile.open ("RandomNormal.txt");
-    double mean  = 10;
+    double mean  = 0;
     double sigma = 2;
     for(int i=0;i<Nloop;++i)
     {
