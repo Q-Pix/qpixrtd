@@ -54,7 +54,9 @@ int main()
   // {
   //   "/Users/austinmcdonald/projects/Q_PIX_NEW/Q_PIX_RTD/root_read_test/test_muon.root"
   // };
-  std::string file_ = "/Users/austinmcdonald/projects/Q_PIX_NEW/Q_PIX_RTD/root_read_test/test.root";
+
+  std::string file_ = "/n/home02/jh/repos/Q_PIX_RTD/root_read_class/test.root";
+  std::string file_path = "/n/home02/jh/repos/Q_PIX_RTD/root_read_class/out.root";
 
   Qpix::Liquid_Argon_Paramaters * LAr_params = new Qpix::Liquid_Argon_Paramaters();
   set_Liquid_Argon_Paramaters(LAr_params);
@@ -115,7 +117,7 @@ int main()
   TFile * tfile_;
   TTree * ttree_;
 
-  tfile_ = new TFile(file_path.data(), "update", "q_pix_geant");
+  tfile_ = new TFile(file_path.data(), "recreate", "q_pix_geant");
 
   // GEANT4 event tree
   ttree_ = new TTree("RTD_event_tree", "RTD event tree");
@@ -123,28 +125,82 @@ int main()
   ttree_->Branch("run",   &run_,   "run/I");
   ttree_->Branch("event", &event_, "event/I");
 
+  // vectors for storing pixel information
+  std::vector< int > x_;
+  std::vector< int > y_;
+  std::vector< std::vector < double > > reset_;
+  // std::vector< std::vector < int > > reset_;
 
-
-
+  ttree_->Branch("x", &x_);
+  ttree_->Branch("y", &y_);
+  ttree_->Branch("reset", &reset_);
 
   // prints the pixel info
-  // for (int i=0; i<Pixel.size() ; i++)
-  // {
-  //     std::cout << "NEW" << std::endl;
-  //     //std::cout << Pixel[i].ID    << "\t" ;
+  for (int i=0; i<Pixel.size() ; i++)
+  {
+      std::cout << "NEW" << std::endl;
+      //std::cout << Pixel[i].ID    << "\t" ;
 
-  //     for ( int j=0; j<Pixel[i].RESET.size(); j++)
-  //     {
-  //     std::cout << Pixel[i].ID    << "\t" 
-  //                 << Pixel[i].X_Pix << "\t" 
-  //                 << Pixel[i].Y_Pix << "\t" 
-  //                 << Pixel[i].RESET[j] << std::endl;
-  //     }
+      // vector of resets as double instead of int for workaround
+      std::vector< double > reset_double;
 
-  // }
+      for ( int j=0; j<Pixel[i].RESET.size(); j++)
+      {
+      std::cout << Pixel[i].ID    << "\t"
+                  << Pixel[i].X_Pix << "\t"
+                  << Pixel[i].Y_Pix << "\t"
+                  << Pixel[i].RESET[j] << std::endl;
 
+          // cast from int to double
+          reset_double.push_back(static_cast<double>(Pixel[i].RESET[j]));
 
+      }
 
+      // add to tree vectors
+      x_.push_back(Pixel[i].X_Pix);
+      y_.push_back(Pixel[i].Y_Pix);
+      // reset_.push_back(Pixel[i].RESET);
+      reset_.push_back(reset_double);
+
+  }
+
+  // set run and event numbers
+  run_ = 1;
+  event_ = 1;
+
+  // fill tree
+  ttree_->Fill();
+
+  // reset variables
+  run_ = -1;
+  event_ = -1;
+  x_.clear();
+  y_.clear();
+  reset_.clear();
+
+  // get G4 and MARLEY trees from ROOT file
+
+  TFile read_file(file_.data());
+
+  TTree * read_g4_event_tree;
+  TTree * read_marley_event_tree;
+
+  read_file.GetObject("g4_event_tree", read_g4_event_tree);
+  read_file.GetObject("marley_event_tree", read_marley_event_tree);
+
+  // go into output file
+  tfile_->cd();
+
+  // clone G4 and MARLEY trees
+  auto write_g4_event_tree = read_g4_event_tree->CloneTree();
+  auto write_marley_event_tree = read_marley_event_tree->CloneTree();
+
+  // write_g4_event_tree->Print();
+  // write_marley_event_tree->Print();
+
+  // write to output file
+  tfile_->Write();
+  tfile_->Close();
 
   std::cout << "done" << std::endl;
 
