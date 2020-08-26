@@ -31,6 +31,129 @@
 
 
 
+class Root_Writer
+{
+private:
+  // ROOT objects
+  TFile * tfile_;
+  TTree * ttree_;
+
+  // variables that will go into the event trees
+  int run_;
+  int event_;
+
+  std::vector< int > x_;
+  std::vector< int > y_;
+  std::vector< std::vector < double > > reset_;
+
+public:
+
+  void Book(std::string const file_path)
+  {
+    // ROOT output file
+    tfile_ = new TFile(file_path.data(), "recreate", "q_pix_geant");
+
+    // RTD event tree
+    ttree_ = new TTree("RTD_event_tree", "RTD event tree");
+
+    ttree_->Branch("run",   &run_,   "run/I");
+    ttree_->Branch("event", &event_, "event/I");
+
+    ttree_->Branch("x", &x_);
+    ttree_->Branch("y", &y_);
+    ttree_->Branch("reset", &reset_);
+  }
+
+
+  void SetRun(int const value)
+  {
+    run_ = value;
+  }
+
+  void EventReset()
+  {
+    // reset event variables after filling TTree objects per event
+    event_ = -1;
+
+    x_.clear();
+    y_.clear();
+    reset_.clear();
+
+  }
+
+  void SetEvent(int const value)
+  {
+      event_ = value;
+  }
+  
+  void AddEvent(const std::vector<Qpix::Pixel_Info> Pixel)
+  {
+
+    for (unsigned int i=0; i<Pixel.size() ; i++)
+    {
+      // vector of resets as double instead of int for workaround
+      std::vector< double > reset_double;
+
+      for (unsigned int j=0; j<Pixel[i].RESET.size(); j++)
+      {
+        // cast from int to double
+        reset_double.push_back(static_cast<double>(Pixel[i].RESET[j]));
+      }
+
+      // add to tree vectors
+      x_.push_back(Pixel[i].X_Pix);
+      y_.push_back(Pixel[i].Y_Pix);
+      reset_.push_back(reset_double);
+    }
+
+  }
+
+
+  void EventFill()
+  {
+    // fill TTree objects per event
+    ttree_->Fill();
+  }
+
+  void Save()
+  {
+    // write TTree objects to file and close file
+    tfile_->Write();
+    tfile_->Close();
+  }
+
+
+
+  void Backfill( std::string file_ )
+  {
+    // get G4 and MARLEY trees from ROOT file
+
+    TFile read_file(file_.data());
+
+    TTree * read_g4_event_tree;
+    TTree * read_marley_event_tree;
+
+    read_file.GetObject("g4_event_tree", read_g4_event_tree);
+    read_file.GetObject("marley_event_tree", read_marley_event_tree);
+
+    // go into output file
+    tfile_->cd();
+
+    // clone G4 and MARLEY trees
+    auto write_g4_event_tree = read_g4_event_tree->CloneTree();
+    auto write_marley_event_tree = read_marley_event_tree->CloneTree();
+
+    if (write_g4_event_tree == 0 or write_marley_event_tree == 0)
+    {
+      // maybe throw an exception here
+      std::cout << "Could not copy trees to output file!" << std::endl;
+    }
+
+  }
+};
+
+
+
 //----------------------------------------------------------------------
 // main function
 //----------------------------------------------------------------------
@@ -55,8 +178,8 @@ int main()
   //   "/Users/austinmcdonald/projects/Q_PIX_NEW/Q_PIX_RTD/root_read_test/test_muon.root"
   // };
 
-  std::string file_ = "/n/home02/jh/repos/Q_PIX_RTD/root_read_class/test.root";
-  std::string file_path = "/n/home02/jh/repos/Q_PIX_RTD/root_read_class/out.root";
+  std::string file_ = "/Users/austinmcdonald/projects/Q_PIX_NEW/Q_PIX_RTD/root_read_class/test.root";
+  std::string file_path = "/Users/austinmcdonald/projects/Q_PIX_NEW/Q_PIX_RTD/root_read_class/out.root";
 
   Qpix::Liquid_Argon_Paramaters * LAr_params = new Qpix::Liquid_Argon_Paramaters();
   set_Liquid_Argon_Paramaters(LAr_params);
@@ -108,105 +231,129 @@ int main()
   PixFunc.Reset(LAr_params, Gaussian_Noise, Pixel);
 
 
-
   // root file stuff
   int run_ = 1;
   int event_ = 1;
+  Root_Writer writer = Root_Writer();
 
-  // ROOT objects
-  TFile * tfile_;
-  TTree * ttree_;
+  writer.Book( file_path );
+  writer.SetRun( run_ );
+  writer.EventReset();
+  writer.SetEvent( event_ );
+  writer.AddEvent( Pixel );
+  writer.EventFill();
+  writer.EventReset();
+  writer.Backfill( file_ );
+  writer.Save();
 
-  tfile_ = new TFile(file_path.data(), "recreate", "q_pix_geant");
 
-  // GEANT4 event tree
-  ttree_ = new TTree("RTD_event_tree", "RTD event tree");
 
-  ttree_->Branch("run",   &run_,   "run/I");
-  ttree_->Branch("event", &event_, "event/I");
 
-  // vectors for storing pixel information
-  std::vector< int > x_;
-  std::vector< int > y_;
-  std::vector< std::vector < double > > reset_;
-  // std::vector< std::vector < int > > reset_;
 
-  ttree_->Branch("x", &x_);
-  ttree_->Branch("y", &y_);
-  ttree_->Branch("reset", &reset_);
+ 
 
-  // prints the pixel info
-  for (unsigned int i=0; i<Pixel.size() ; i++)
-  {
-      std::cout << "NEW" << std::endl;
-      //std::cout << Pixel[i].ID    << "\t" ;
+  // // ROOT objects
+  // TFile * tfile_;
+  // TTree * ttree_;
 
-      // vector of resets as double instead of int for workaround
-      std::vector< double > reset_double;
+  // tfile_ = new TFile(file_path.data(), "recreate", "q_pix_geant");
 
-      for (unsigned int j=0; j<Pixel[i].RESET.size(); j++)
-      {
-      std::cout << Pixel[i].ID    << "\t"
-                  << Pixel[i].X_Pix << "\t"
-                  << Pixel[i].Y_Pix << "\t"
-                  << Pixel[i].RESET[j] << std::endl;
+  // // GEANT4 event tree
+  // ttree_ = new TTree("RTD_event_tree", "RTD event tree");
 
-          // cast from int to double
-          reset_double.push_back(static_cast<double>(Pixel[i].RESET[j]));
+  // ttree_->Branch("run",   &run_,   "run/I");
+  // ttree_->Branch("event", &event_, "event/I");
 
-      }
+  // // vectors for storing pixel information
+  // std::vector< int > x_;
+  // std::vector< int > y_;
+  // std::vector< std::vector < double > > reset_;
 
-      // add to tree vectors
-      x_.push_back(Pixel[i].X_Pix);
-      y_.push_back(Pixel[i].Y_Pix);
-      // reset_.push_back(Pixel[i].RESET);
-      reset_.push_back(reset_double);
+  // ttree_->Branch("x", &x_);
+  // ttree_->Branch("y", &y_);
+  // ttree_->Branch("reset", &reset_);
 
-  }
+  // // prints the pixel info
+  // for (unsigned int i=0; i<Pixel.size() ; i++)
+  // {
+  //     // std::cout << "NEW" << std::endl;
+  //     //std::cout << Pixel[i].ID    << "\t" ;
 
-  // set run and event numbers
-  run_ = 1;
-  event_ = 1;
+  //     // vector of resets as double instead of int for workaround
+  //     std::vector< double > reset_double;
 
-  // fill tree
-  ttree_->Fill();
+  //     for (unsigned int j=0; j<Pixel[i].RESET.size(); j++)
+  //     {
+  //     // std::cout << Pixel[i].ID    << "\t"
+  //     //             << Pixel[i].X_Pix << "\t"
+  //     //             << Pixel[i].Y_Pix << "\t"
+  //     //             << Pixel[i].RESET[j] << std::endl;
 
-  // reset variables
-  run_ = -1;
-  event_ = -1;
-  x_.clear();
-  y_.clear();
-  reset_.clear();
+  //         // cast from int to double
+  //         reset_double.push_back(static_cast<double>(Pixel[i].RESET[j]));
 
-  // get G4 and MARLEY trees from ROOT file
+  //     }
 
-  TFile read_file(file_.data());
+  //     // add to tree vectors
+  //     x_.push_back(Pixel[i].X_Pix);
+  //     y_.push_back(Pixel[i].Y_Pix);
+  //     // reset_.push_back(Pixel[i].RESET);
+  //     reset_.push_back(reset_double);
 
-  TTree * read_g4_event_tree;
-  TTree * read_marley_event_tree;
+  // }
 
-  read_file.GetObject("g4_event_tree", read_g4_event_tree);
-  read_file.GetObject("marley_event_tree", read_marley_event_tree);
+  // // set run and event numbers
+  // run_ = 1;
+  // event_ = 1;
 
-  // go into output file
-  tfile_->cd();
+  // // fill tree
+  // ttree_->Fill();
 
-  // clone G4 and MARLEY trees
-  auto write_g4_event_tree = read_g4_event_tree->CloneTree();
-  auto write_marley_event_tree = read_marley_event_tree->CloneTree();
+  // // reset variables
+  // run_ = -1;
+  // event_ = -1;
+  // x_.clear();
+  // y_.clear();
+  // reset_.clear();
 
-  if (write_g4_event_tree == 0 or write_marley_event_tree)
-  {
-      // maybe throw an exception here
-      std::cout << "Could not copy trees to output file!" << std::endl;
-  }
+  // // get G4 and MARLEY trees from ROOT file
 
-  // write_g4_event_tree->Print();
-  // write_marley_event_tree->Print();
+  // TFile read_file(file_.data());
 
-  // write to output file
-  tfile_->Write();
-  tfile_->Close();
+  // TTree * read_g4_event_tree;
+  // TTree * read_marley_event_tree;
+
+  // read_file.GetObject("g4_event_tree", read_g4_event_tree);
+  // read_file.GetObject("marley_event_tree", read_marley_event_tree);
+
+  // // go into output file
+  // tfile_->cd();
+
+  // // clone G4 and MARLEY trees
+  // auto write_g4_event_tree = read_g4_event_tree->CloneTree();
+  // auto write_marley_event_tree = read_marley_event_tree->CloneTree();
+
+  // if (write_g4_event_tree == 0 or write_marley_event_tree)
+  // {
+  //     // maybe throw an exception here
+  //     std::cout << "Could not copy trees to output file!" << std::endl;
+  // }
+
+  // // write_g4_event_tree->Print();
+  // // write_marley_event_tree->Print();
+
+  // // write to output file
+  // tfile_->Write();
+  // tfile_->Close();
+
+
+
+
+
+
+
+
+
 
   std::cout << "done" << std::endl;
 
