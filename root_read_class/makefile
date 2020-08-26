@@ -7,6 +7,7 @@ CFLAGS = -Wall -Wextra -Wno-long-long
 CFLAGS += `root-config --cflags`
 CFLAGS += -O3 -fno-common -c
 CFLAGS += -I$(INCDIR)
+CFLAGS += -std=c++17
 
 LDFLAGS = -L$(LIBDIR) -lQpix
 LDFLAGS += `root-config --glibs`
