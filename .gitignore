@@ -1,5 +1,5 @@
 .DS_Store
-.vscode
+.vscode/*
 
 # ignore files in folder foo
 Build/*
