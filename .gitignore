@@ -1,15 +1,16 @@
 .DS_Store
-.vscode/*
 
 # ignore files in folder foo
 Build/*
 Library/*
+.vscode/*
+EXAMPLE/*.root
+EXAMPLE/EXAMPLE
 
-PROCESS/*
+
 dev/*
-dev-pix/*
-dev-loop/*
 daveMuon/*
 
 # but keep the folder
 !Library/.keep
+!Build/.keep
