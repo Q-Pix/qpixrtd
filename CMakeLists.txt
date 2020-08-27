@@ -8,7 +8,7 @@ project(Qpix)
 # Create a library
 ############################################################
 
-file(GLOB SOURCES "source/*.cc")
+file(GLOB SOURCES "source/*.cpp")
 
 ##Generate the static library from the library sources
 add_library(Qpix STATIC ${SOURCES})

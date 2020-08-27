@@ -71,8 +71,8 @@ namespace Qpix
         public:
 
         // void Open_File( std::vector< std::string > file_list_ );
-        void Open_File( std::string file_ );
-        void Get_Event(int EVENT, Qpix::Liquid_Argon_Paramaters * LAr_params, std::vector<Qpix::ELECTRON>& hit_e);
+        void Open_File( std::string file_ , int& number_entries);
+        void Get_Event(int EVENT, Qpix::Qpix_Paramaters * Qpix_params, std::vector<Qpix::ELECTRON>& hit_e);
         
     };//READ_G4_ROOT
 

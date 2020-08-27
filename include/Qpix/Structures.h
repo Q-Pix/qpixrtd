@@ -6,7 +6,6 @@
 #include <vector>
 
 
-
 namespace Qpix
 {
 
@@ -42,7 +41,7 @@ namespace Qpix
     bool Pixel_Time_Sorter(Qpix::ELECTRON const& lhs, Qpix::ELECTRON const& rhs);
 
 
-    struct Liquid_Argon_Paramaters 
+    struct Qpix_Paramaters 
     {
         double Wvalue;
         double E_vel;
@@ -58,8 +57,8 @@ namespace Qpix
         bool charge_loss;
     };
 
-    void set_Liquid_Argon_Paramaters(Liquid_Argon_Paramaters * LAr_params);
-    void print_Liquid_Argon_Paramaters(Liquid_Argon_Paramaters * LAr_params);
+    void set_Qpix_Paramaters(Qpix_Paramaters * Qpix_params);
+    void print_Qpix_Paramaters(Qpix_Paramaters * Qpix_params);
 
 
 
