@@ -12,9 +12,7 @@
 #include "TFile.h"
 #include "TROOT.h"
 
-// #include "Qpix/Random.h"
 #include "Qpix/Structures.h"
-// #include "Qpix/PixelResponse.h"
 
 namespace Qpix
 {

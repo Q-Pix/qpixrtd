@@ -24,8 +24,6 @@ namespace Qpix
         std::vector<int>  RESET;
     };
 
-    // template<typename T>
-    // std::vector<T> slice(std::vector<T> const &v, int m, int n);
     template<typename T>
     std::vector<T> slice(std::vector<T> const &v, int m, int n)
     {
@@ -39,7 +37,6 @@ namespace Qpix
     bool Electron_Pix_Sort(ELECTRON one, ELECTRON two);
 
     bool Pixel_Time_Sorter(Qpix::ELECTRON const& lhs, Qpix::ELECTRON const& rhs);
-
 
     struct Qpix_Paramaters 
     {
@@ -58,6 +55,7 @@ namespace Qpix
     };
 
     void set_Qpix_Paramaters(Qpix_Paramaters * Qpix_params);
+
     void print_Qpix_Paramaters(Qpix_Paramaters * Qpix_params);
 
 

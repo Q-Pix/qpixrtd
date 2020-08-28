@@ -5,20 +5,23 @@
 
 namespace Qpix
 {
-
+    // Initlizes the random number generator
     XoshiroCpp::Xoshiro256Plus rng(XoshiroCpp::DefaultSeed);
+
+    // draw a ramdom number
     double RandomUniform() 
     {
         double out = XoshiroCpp::DoubleFromBits(rng());
         return out; 
-    }
+    }//RandomUniform
 
+    // change the random seed
     void Random_Set_Seed(std::uint64_t Seed)
     {
         rng = XoshiroCpp::Xoshiro256Plus(Seed);
-    }
+    }//Random_Set_Seed
 
-
+    // Box muller to generate a gaussian
     double RandomNormal(double m, double s)	/* normal random variate generator */
     {				        /* mean m, standard deviation s */
         double x1, x2, w, y1;
@@ -45,7 +48,7 @@ namespace Qpix
         }
 
         return( m + y1 * s );
-    }
+    }//RandomNormal
 
 
 
@@ -63,7 +66,7 @@ namespace Qpix
             ser += cof[j] / x;
         }
         return -tmp + log(2.5066282746310005 * ser);
-    }
+    }//lngamma
 
     int RandomPoisson(const double mean) 
     {   // Implementation from CLHEP (RandPoisson) and ROOT.
@@ -96,27 +99,27 @@ namespace Qpix
             return static_cast<int>(em);
         }
         
-    }
+    }//RandomPoisson
 
 
     std::vector<double> Make_Gaussian_Noise(double sigma, int Noise_Vector_Size)
     {
-    std::vector<double> Noise;
-    for (int i = 0; i < Noise_Vector_Size; i++)
-    {  // should be 200 and 20 per mus making it a gaussian of 20 every 100ns
-        int Leakage_Current, Electronics;
-        //if ( i % 10 == 0 ){Electronics = (int)Qpix::RandomNormal(0, sigma);}
-        //else{Electronics=0; }
-        Electronics = (int) round(Qpix::RandomNormal(0, sigma));
+        std::vector<double> Noise;
+        for (int i = 0; i < Noise_Vector_Size; i++)
+        {  // should be 200 and 20 per mus making it a gaussian of 20 every 100ns
+            int Leakage_Current, Electronics;
+            //if ( i % 10 == 0 ){Electronics = (int)Qpix::RandomNormal(0, sigma);}
+            //else{Electronics=0; }
+            Electronics = (int) round(Qpix::RandomNormal(0, sigma));
 
-        // 100 atto amps is 625 electrons a second
-        if (RandomUniform() < 625/1e8 ){Leakage_Current = 1;}
-        else {Leakage_Current = 0;}
+            // 100 atto amps is 625 electrons a second
+            if (RandomUniform() < 625/1e8 ){Leakage_Current = 1;}
+            else {Leakage_Current = 0;}
 
-        Noise.push_back( Electronics + Leakage_Current );
-    }
-    return Noise;
-    }
+            Noise.push_back( Electronics + Leakage_Current );
+        }
+        return Noise;
+    }//Make_Gaussian_Noise
     
 
 }

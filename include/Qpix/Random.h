@@ -10,6 +10,7 @@ namespace Qpix
 {
 
     double RandomUniform();
+    
     void Random_Set_Seed(std::uint64_t Seed);
 
     double RandomNormal(double mean, double sigma) ;

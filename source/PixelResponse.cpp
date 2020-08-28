@@ -20,7 +20,7 @@ namespace Qpix
         Xcurr = (int) round(intpart);
         Ycurr = (int) round(fractpart*10000); 
         return;
-    }
+    }//ID_Decoder
 
 
     // sorts the electrons in to a pixel structure 
@@ -62,84 +62,87 @@ namespace Qpix
             Pix_info[i].time  = tmp_time;
         }
         return;
-    }
+    }//Pixelize_Event
 
 
 
     // function performs the resets 
     void Pixel_Functions::Reset(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info)
     {
-    // The number of steps to cover the full buffer
-    int End_Time = Qpix_params->Buffer_time / Qpix_params->Sample_time;
+        // The number of steps to cover the full buffer
+        int End_Time = Qpix_params->Buffer_time / Qpix_params->Sample_time;
 
-    // geting the size of the vectors for looping
-    int Pixels_Hit_Len = Pix_info.size();
-    int Noise_Vector_Size = Gaussian_Noise.size();
-    int Noise_index = 0;
+        // geting the size of the vectors for looping
+        int Pixels_Hit_Len = Pix_info.size();
+        int Noise_Vector_Size = Gaussian_Noise.size();
+        int Noise_index = 0;
 
-    // loop over each pixel that was hit
-    for (int i = 0; i < Pixels_Hit_Len; i++)
-    {
-        // seting up some parameters
-        int charge = 0;
-        int pix_size = Pix_info[i].time.size();
-        int pix_dex = 0;
-        int current_time = 0;
-        int pix_time = Pix_info[i].time[pix_dex];
-        std::vector<int>  RESET;
-
-        // for each pixel loop through the buffer time
-        while (current_time <= End_Time)
+        // loop over each pixel that was hit
+        for (int i = 0; i < Pixels_Hit_Len; i++)
         {
-            // setting the "time"
-            current_time += Qpix_params->Sample_time;
+            // seting up some parameters
+            int charge = 0;
+            int pix_size = Pix_info[i].time.size();
+            int pix_dex = 0;
+            int current_time = 0;
+            int pix_time = Pix_info[i].time[pix_dex];
+            std::vector<int>  RESET;
 
-            // adding noise from the noise vector
-            charge += Gaussian_Noise[Noise_index];
-            Noise_index += 1;
-            if (Noise_index >= Noise_Vector_Size){Noise_index = 0;}
-
-            // main loop to add electrons to the counter
-            if ( current_time > pix_time && pix_dex < pix_size)
+            // for each pixel loop through the buffer time
+            while (current_time <= End_Time)
             {
-                // this adds the electrons that are in the step
-                while( current_time > pix_time )
+                // setting the "time"
+                current_time += Qpix_params->Sample_time;
+
+                // adding noise from the noise vector
+                charge += Gaussian_Noise[Noise_index];
+                Noise_index += 1;
+                if (Noise_index >= Noise_Vector_Size){Noise_index = 0;}
+
+                // main loop to add electrons to the counter
+                if ( current_time > pix_time && pix_dex < pix_size)
                 {
-                    charge += 1;
-                    pix_dex += 1;
-                    if (pix_dex >= pix_size){break; }
-                    pix_time = Pix_info[i].time[pix_dex];
-                }
-
-            }
-
-            // this is the reset 
-            if ( charge >= Qpix_params->Reset )
-            {
-                RESET.push_back( current_time );
-                charge = 0;
-
-                // this will keep the charge in the loop above
-                // just offsets the reset by the dead time
-                current_time += Qpix_params->Dead_time;
-
-                // condition for charge loss
-                // just the main loop without the charge
-                if (Qpix_params->charge_loss)
-                {
+                    // this adds the electrons that are in the step
                     while( current_time > pix_time )
                     {
+                        charge += 1;
                         pix_dex += 1;
-                        if (pix_dex < pix_size){ pix_time = Pix_info[i].time[pix_dex]; }
+                        if (pix_dex >= pix_size){break; }
+                        pix_time = Pix_info[i].time[pix_dex];
+                    }
+
+                }
+
+                // this is the reset 
+                if ( charge >= Qpix_params->Reset )
+                {
+                    RESET.push_back( current_time );
+                    charge = 0;
+
+                    // this will keep the charge in the loop above
+                    // just offsets the reset by the dead time
+                    current_time += Qpix_params->Dead_time;
+
+                    // condition for charge loss
+                    // just the main loop without the charge
+                    if (Qpix_params->charge_loss)
+                    {
+                        while( current_time > pix_time )
+                        {
+                            pix_dex += 1;
+                            // if (pix_dex < pix_size){ pix_time = Pix_info[i].time[pix_dex]; }
+
+                            if (pix_dex >= pix_size){break; }
+                            pix_time = Pix_info[i].time[pix_dex];
+                        }
                     }
                 }
             }
+            // add it to the pixel info
+            Pix_info[i].RESET = RESET;
         }
-        // add it to the pixel info
-        Pix_info[i].RESET = RESET;
-    }
 
-    return ;
+        return ;
     }// Reset
 
 }

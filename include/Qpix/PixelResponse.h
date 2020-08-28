@@ -15,14 +15,12 @@ namespace Qpix
         public:
 
         void ID_Decoder(int const& ID, int& Xcurr, int& Ycurr);
+
         void Pixelize_Event(std::vector<Qpix::ELECTRON>& hit_e, std::vector<Pixel_Info>& Pix_info);
+
         void Reset(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info);
 
     };
 
-
-
-
 }
-
 #endif

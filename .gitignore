@@ -10,6 +10,7 @@ EXAMPLE/EXAMPLE
 
 dev/*
 daveMuon/*
+CURRENT/*
 
 # but keep the folder
 !Library/.keep

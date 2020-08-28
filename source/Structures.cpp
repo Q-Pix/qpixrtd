@@ -7,17 +7,19 @@
 
 namespace Qpix
 {
+    // sort the elctrons by pixel index
     bool Electron_Pix_Sort(ELECTRON one, ELECTRON two)
     {
         return (one.Pix_ID < two.Pix_ID);
-    }
+    }//Electron_Pix_Sort
 
+    //sort the electrons in a pixel by time
     bool Pixel_Time_Sorter(Qpix::ELECTRON const& lhs, Qpix::ELECTRON const& rhs) 
     {
         return lhs.time < rhs.time;
-    }
+    }//Pixel_Time_Sorter
 
-
+    // setup the default Qpix paramaters
     void set_Qpix_Paramaters(Qpix_Paramaters * Qpix_params)
     {
         Qpix_params->Wvalue = 23.6; // in eV
@@ -36,8 +38,9 @@ namespace Qpix
         Qpix_params->Buffer_time = 1e8;
         Qpix_params->Dead_time = 0;
         Qpix_params->charge_loss = false;
-    }
+    }//set_Qpix_Paramaters
 
+    // A nice printing function 
     void print_Qpix_Paramaters(Qpix_Paramaters * Qpix_params)
     {
         std::cout << "*******************************************************" << std::endl;
@@ -53,11 +56,14 @@ namespace Qpix
                     << "Reset threshold            = " << Qpix_params->Reset<< " [electrons] \n"
                     << "Sample time                = " << Qpix_params->Sample_time<< " [ns] \n"
                     << "Buffer window              = " << Qpix_params->Buffer_time<< " [ns] \n"
-                    << "Dead time                  = " << Qpix_params->Dead_time<< " [ns] \n"
-                    << "Charge loss                = " << Qpix_params->charge_loss<< " [yes/no] \n"
+                    << "Dead time                  = " << Qpix_params->Dead_time<< " [ns] "
                     << std::endl;
+        if (Qpix_params->charge_loss)
+        {std::cout << "Charge loss                = " << "YES" << " [yes/no] " << std::endl;}
+        else{std::cout << "Charge loss                = " << "NO" << " [yes/no] " << std::endl;}
+        
         std::cout << "*******************************************************" << std::endl;
-    }
+    }//print_Qpix_Paramaters
 
 
 

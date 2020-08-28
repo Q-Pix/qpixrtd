@@ -9,13 +9,12 @@
 #include "TFile.h"
 #include "TROOT.h"
 
-// #include "Qpix/PixelResponse.h"
 #include "Qpix/Structures.h"
 #include "Qpix/WriteRoot.h"
 
 namespace Qpix
 {
-
+    // Setup the tree to be written 
     void Root_Writer::Book(std::string const file_path)
     {
         // ROOT output file
@@ -28,24 +27,24 @@ namespace Qpix
         ttree_->Branch("x", &x_);
         ttree_->Branch("y", &y_);
         ttree_->Branch("reset", &reset_);
-    }
+    }//Book
 
-
+    // Reset event variables after filling TTree objects per event
     void Root_Writer::EventReset()
-    {
-        // reset event variables after filling TTree objects per event
+    {   
         event_ = -1;
-
         x_.clear();
         y_.clear();
         reset_.clear();
-    }
+    }// EventReset
 
+    // Sets the event number
     void Root_Writer::SetEvent(int const value)
     {
         event_ = value;
-    }
+    }//SetEvent
     
+    // Adds event that needs to be filled
     void Root_Writer::AddEvent(const std::vector<Qpix::Pixel_Info> Pixel)
     {
 
@@ -66,24 +65,22 @@ namespace Qpix
             reset_.push_back(reset_double);
         }
 
-    }
+    }//AddEvent
 
-
+    // fill TTree objects per event
     void Root_Writer::EventFill()
     {
-        // fill TTree objects per event
         ttree_->Fill();
-    }
+    }//EventFill
 
+    // write TTree objects to file and close file
     void Root_Writer::Save()
     {
-        // write TTree objects to file and close file
         tfile_->Write();
         tfile_->Close();
-    }
+    }//Save
 
-
-
+    // Replacate the MC file into the analysis file for safty
     void Root_Writer::Backfill( std::string file_ )
     {
         // get G4 and MARLEY trees from ROOT file
@@ -107,7 +104,7 @@ namespace Qpix
             // maybe throw an exception here
             std::cout << "Could not copy trees to output file!" << std::endl;
         }
-    }
+    }//Backfill
 
 
 }
