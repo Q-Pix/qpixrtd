@@ -32,4 +32,5 @@ make
 ```
 
 
-![Alt text](RTD_Flow.pdf?raw=true "Title")
+![Alt text](https://raw.githubusercontent.com/Q-Pix/Q_PIX_RTD/blob/master/RTD_Flow.pdf)
+
