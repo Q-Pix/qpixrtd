@@ -31,4 +31,4 @@ make
 ./EXAMPLE
 ```
 
-![alt text](https://github.com/Q-Pix/Q_PIX_RTD/RTD_Flow.pdf)
+![alt text](https://github.com/Q-Pix/Q_PIX_RTD/blob/master/RTD_Flow.pdf)
