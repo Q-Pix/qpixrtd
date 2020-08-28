@@ -31,6 +31,5 @@ make
 ./EXAMPLE
 ```
 
-<p align="center">
-  <img width="460" height="300" src="https://github.com/Q-Pix/Q_PIX_RTD/blob/master/RTD_Flow.pdf">
-</p>
+
+![Alt text](RTD_Flow.pdf?raw=true "Title")
