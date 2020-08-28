@@ -31,6 +31,6 @@ make
 ./EXAMPLE
 ```
 
-
+### Flow diagram of the major components
 ![alt tag](RTD_Flow.png)
 
