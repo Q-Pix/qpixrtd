@@ -32,5 +32,5 @@ make
 ```
 
 
-![Alt text](https://raw.githubusercontent.com/Q-Pix/Q_PIX_RTD/blob/master/RTD_Flow.pdf)
+![Alt text](https://github.com/Q-Pix/Q_PIX_RTD/blob/master/RTD_Flow.pdf)
 
