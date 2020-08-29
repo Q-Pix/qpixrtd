@@ -50,6 +50,9 @@ namespace Qpix
 
         for (unsigned int i=0; i<Pixel.size() ; i++)
         {
+            // skip pixel if there are no resets
+            if (Pixel[i].RESET.size() < 1) continue;
+
             // vector of resets as double instead of int for workaround
             std::vector< double > reset_double;
 
@@ -59,10 +62,13 @@ namespace Qpix
                 reset_double.push_back(static_cast<double>(Pixel[i].RESET[j]));
             }
 
-            // add to tree vectors
-            x_.push_back(Pixel[i].X_Pix);
-            y_.push_back(Pixel[i].Y_Pix);
-            reset_.push_back(reset_double);
+            // add to tree vectors if there are resets
+            if (reset_double.size() > 0)
+            {
+                x_.push_back(Pixel[i].X_Pix);
+                y_.push_back(Pixel[i].Y_Pix);
+                reset_.push_back(reset_double);
+            }
         }
 
     }//AddEvent
