@@ -4,6 +4,7 @@
 // #include "Qpix/Xoshiro_Full.h"
 
 #include <vector>
+#include <cstdint>
 
 
 namespace Qpix

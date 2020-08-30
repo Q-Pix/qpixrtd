@@ -1,4 +1,5 @@
 // C++ includes
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -157,7 +158,7 @@ namespace Qpix
         }
 
         // sorts the electrons in terms of the pixel ID
-        sort(hit_e.begin(), hit_e.end(), Qpix::Electron_Pix_Sort);
+        std::sort(hit_e.begin(), hit_e.end(), Qpix::Electron_Pix_Sort);
 
     }//Get_Event
 
