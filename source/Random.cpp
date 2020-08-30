@@ -1,24 +1,30 @@
 #include <math.h>
 #include <vector>
 
-#include "Qpix/Xoshiro_Full.h"
+// #include "Qpix/Xoshiro_Full.h"
+#include "Qpix/Random_Generator.h"
+
 
 namespace Qpix
 {
     // Initlizes the random number generator
-    XoshiroCpp::Xoshiro256Plus rng(XoshiroCpp::DefaultSeed);
+    // XoshiroCpp::Xoshiro256Plus rng(XoshiroCpp::DefaultSeed);
+
+    Random_Generator RANDOMGEN = Random_Generator();
 
     // draw a ramdom number
     double RandomUniform() 
     {
-        double out = XoshiroCpp::DoubleFromBits(rng());
+        // double out = XoshiroCpp::DoubleFromBits(rng());
+        double out = RANDOMGEN.XorShift256_next();
         return out; 
     }//RandomUniform
 
     // change the random seed
     void Random_Set_Seed(std::uint64_t Seed)
     {
-        rng = XoshiroCpp::Xoshiro256Plus(Seed);
+        RANDOMGEN.set_seed(Seed);
+        // rng = XoshiroCpp::Xoshiro256Plus(Seed);
     }//Random_Set_Seed
 
     // Box muller to generate a gaussian
