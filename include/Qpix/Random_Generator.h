@@ -1,7 +1,7 @@
 #ifndef RANDOM_GENERATOR_H_
 #define RANDOM_GENERATOR_H_
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace Qpix
 {

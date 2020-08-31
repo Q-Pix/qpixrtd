@@ -7,8 +7,9 @@ with the ability be seeded by SplitMix64
 http://prng.di.unimi.it/splitmix64.c
 */
 
-#include <iostream>
 #include "Qpix/Random_Generator.h"
+#include <iostream>
+#include <cstring>
 
 
 namespace Qpix
