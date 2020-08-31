@@ -117,7 +117,7 @@ namespace Qpix
                 if ( charge >= Qpix_params->Reset )
                 {
                     RESET.push_back( current_time );
-                    charge = 0;
+                    charge -= Qpix_params->Reset;
 
                     // this will keep the charge in the loop above
                     // just offsets the reset by the dead time
