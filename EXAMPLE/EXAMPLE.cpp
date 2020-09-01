@@ -4,20 +4,18 @@
 #include <vector>
 #include <ctime>
 
-
 // Qpix includes
-#include "Qpix/ReadG4root.h"
 #include "Qpix/Random.h"
+#include "Qpix/ROOTFileManager.h"
 #include "Qpix/Structures.h"
 #include "Qpix/PixelResponse.h"
-#include "Qpix/WriteRoot.h"
-
 
 //----------------------------------------------------------------------
 // main function
 //----------------------------------------------------------------------
 int main()
 {
+
   clock_t time_req;
   time_req = clock();
   double time;
@@ -28,7 +26,7 @@ int main()
   std::vector<double> Gaussian_Noise = Qpix::Make_Gaussian_Noise(2, (int) 1e7);
 
   // In and out files
-  std::string file_in = "../MARLY_100_Events.root";
+  std::string file_in = "MARLEY_100_Events.root";
   std::string file_out = "out_example.root";
 
   // Qpix paramaters 
@@ -36,15 +34,11 @@ int main()
   set_Qpix_Paramaters(Qpix_params);
   print_Qpix_Paramaters(Qpix_params);
 
-  // opening the root file in
+  // root file manager
   int number_entries = -1;
-  Qpix::READ_G4_ROOT reader = Qpix::READ_G4_ROOT();
-  reader.Open_File(file_in, number_entries);
-
-  // open the output file
-  Qpix::Root_Writer writer = Qpix::Root_Writer();
-  writer.Book( file_out );
-  writer.EventReset();
+  Qpix::ROOTFileManager rfm = Qpix::ROOTFileManager(file_in, file_out);
+  number_entries = rfm.NumberEntries();
+  rfm.EventReset();
 
   // Loop though the events in the file
   for (int evt = 0; evt < number_entries; evt++) 
@@ -55,7 +49,7 @@ int main()
     std::cout << "Getting the event" << std::endl;
     std::vector<Qpix::ELECTRON> hit_e;
     // turn the Geant4 hits into electrons
-    reader.Get_Event( evt, Qpix_params, hit_e);
+    rfm.Get_Event( evt, Qpix_params, hit_e);
     std::cout << "size of hit_e = " << hit_e.size() << std::endl;
 
     std::cout << "Pixelizing the event" << std::endl;
@@ -68,16 +62,13 @@ int main()
     // the reset function
     PixFunc.Reset(Qpix_params, Gaussian_Noise, Pixel);
 
-    writer.SetEvent( evt );
-    writer.AddEvent( Pixel );
-    writer.EventFill();
-    writer.EventReset();
-
+    rfm.AddEvent( Pixel );
+    rfm.EventFill();
+    rfm.EventReset();
   }
 
-  // backfill the output, save and close
-  writer.Backfill( file_in );
-  writer.Save();
+  // save and close
+  rfm.Save();
 
 
 

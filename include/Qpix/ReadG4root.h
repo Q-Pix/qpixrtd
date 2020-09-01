@@ -66,7 +66,7 @@ namespace Qpix
         void set_branch_addresses(TChain * chain);
 
         // set the G4 tree
-        TChain * chain_ = new TChain("g4_event_tree");
+        TChain * chain_ = new TChain("event_tree");
 
         public:
 

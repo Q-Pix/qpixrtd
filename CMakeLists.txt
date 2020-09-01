@@ -19,7 +19,9 @@ target_include_directories(Qpix
     ${PROJECT_SOURCE_DIR}/include
 )
 
-
+## find the Boost package
+FIND_PACKAGE(Boost 1.61 COMPONENTS system filesystem REQUIRED)
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
 
 ## find the ROOT package
 find_package(ROOT REQUIRED)
@@ -31,5 +33,6 @@ include(${ROOT_USE_FILE})
 # link_libraries(${ROOT_LIBRARIES})
 
 target_link_libraries(Qpix ${SOURCES})
+target_link_libraries(Qpix ${Boost_LIBRARIES})
 target_link_libraries(Qpix ${ROOT_LIBRARIES})
 

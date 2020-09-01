@@ -95,7 +95,7 @@ namespace Qpix
         TTree * read_g4_event_tree;
         TTree * read_marley_event_tree;
 
-        read_file.GetObject("g4_event_tree", read_g4_event_tree);
+        read_file.GetObject("event_tree", read_g4_event_tree);
         read_file.GetObject("marley_event_tree", read_marley_event_tree);
 
         // go into output file

@@ -1,6 +1,6 @@
-cd ../Build/
+rm -rf ../Build/*
 
-rm -rf *
+cd ../Build
 
 cmake ..
 
@@ -10,6 +10,10 @@ mv libQpix.a ../Library/.
 
 cd ../EXAMPLE/
 
-rm EXAMPLE
+rm -rf build/*
+
+cd build
+
+cmake ..
 
 make
