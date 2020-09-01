@@ -199,9 +199,9 @@ namespace Qpix {
             if (Nelectron == 0){continue;}
 
             // define the electrons start position
-            double electron_loc_x = start_x +50;
-            double electron_loc_y = start_y +50;
-            double electron_loc_z = start_z +250;
+            double electron_loc_x = start_x;
+            double electron_loc_y = start_y;
+            double electron_loc_z = start_z;
             double electron_loc_t = start_t;
             // Determin the "step" size
             double const step_x = (end_x - start_x) / Nelectron;
