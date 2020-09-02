@@ -52,7 +52,7 @@ namespace Qpix {
         tbranch_readout_dimensions_ = metadata_->Branch("readout_dimensions", &readout_dimensions_);
         tbranch_pixel_size_ = metadata_->Branch("pixel_size", &pixel_size_);
         tbranch_reset_threshold_ = metadata_->Branch("reset_threshold", &reset_threshold_);
-        tbranch_sample_time_ = metadata_->Branch("smaple_time", &sample_time_);
+        tbranch_sample_time_ = metadata_->Branch("sample_time", &sample_time_);
         tbranch_buffer_window_ = metadata_->Branch("buffer_window", &buffer_window_);
         tbranch_dead_time_ = metadata_->Branch("dead_time", &dead_time_);
         tbranch_charge_loss_ = metadata_->Branch("charge_loss", &charge_loss_);
