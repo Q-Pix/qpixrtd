@@ -54,10 +54,12 @@ namespace Qpix {
             std::vector< int > pixel_x_;
             std::vector< int > pixel_y_;
             std::vector< std::vector < double > > pixel_reset_;
+            std::vector< std::vector < double > > pixel_tslr_;
 
             TBranch * tbranch_x_;
             TBranch * tbranch_y_;
             TBranch * tbranch_reset_;
+            TBranch * tbranch_tslr_;
 
             //--------------------------------------------------
             // existing branch variables

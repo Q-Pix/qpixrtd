@@ -26,8 +26,9 @@ int main()
   std::vector<double> Gaussian_Noise = Qpix::Make_Gaussian_Noise(2, (int) 1e7);
 
   // In and out files
-  std::string file_in = "MARLEY_100_Events.root";
-  std::string file_out = "out_example.root";
+  // std::string file_in = "MARLEY_100_Events.root";
+  std::string file_in  = "/Users/austinmcdonald/projects/QPIX/Q_PIX_RTD/EXAMPLE/test_muon.root";
+  std::string file_out = "/Users/austinmcdonald/projects/QPIX/Q_PIX_RTD/EXAMPLE/out_example.root";
 
   // Qpix paramaters 
   Qpix::Qpix_Paramaters * Qpix_params = new Qpix::Qpix_Paramaters();
@@ -41,7 +42,8 @@ int main()
   rfm.EventReset();
 
   // Loop though the events in the file
-  for (int evt = 0; evt < number_entries; evt++) 
+  // for (int evt = 0; evt < number_entries; evt++)
+  for (int evt = 1; evt < 2; evt++) 
   {
     std::cout << "*********************************************" << std::endl;
     std::cout << "Starting on event " << evt << std::endl;
@@ -61,6 +63,21 @@ int main()
     std::cout << "Running the resets" << std::endl;
     // the reset function
     PixFunc.Reset(Qpix_params, Gaussian_Noise, Pixel);
+
+
+    // for (int i = 0; i < Pixel.size(); i++)
+    // {
+    //   std::cout << "SIZE " << i << "\t" << Pixel[i].RESET.size() << std::endl;
+    // }
+
+
+    // std::cout << "SIZE " << Pixel[20].RESET.size() << std::endl;
+
+    for (int i = 0; i < Pixel[3].RESET.size(); i++)
+    {
+      std::cout << Pixel[3].RESET[i] << "\t" << Pixel[3].TSLR[i] << std::endl;
+
+    }
 
     rfm.AddEvent( Pixel );
     rfm.EventFill();

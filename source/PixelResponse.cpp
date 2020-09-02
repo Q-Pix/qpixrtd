@@ -88,6 +88,9 @@ namespace Qpix
             int pix_time = Pix_info[i].time[pix_dex];
             std::vector<int>  RESET;
 
+            int tslr_ = 0;
+            std::vector<int>  TSLR;
+
             // for each pixel loop through the buffer time
             while (current_time <= End_Time)
             {
@@ -116,6 +119,10 @@ namespace Qpix
                 // this is the reset 
                 if ( charge >= Qpix_params->Reset )
                 {
+
+                    TSLR.push_back(current_time - tslr_);
+                    tslr_ = current_time;
+
                     RESET.push_back( current_time );
                     charge -= Qpix_params->Reset;
 
@@ -140,6 +147,7 @@ namespace Qpix
             }
             // add it to the pixel info
             Pix_info[i].RESET = RESET;
+            Pix_info[i].TSLR  = TSLR;
         }
 
         return ;

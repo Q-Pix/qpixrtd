@@ -22,6 +22,7 @@ namespace Qpix
         int ID;
         std::vector<int>  time;
         std::vector<int>  RESET;
+        std::vector<int>  TSLR;
     };
 
     template<typename T>

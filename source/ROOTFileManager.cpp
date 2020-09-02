@@ -40,6 +40,7 @@ namespace Qpix {
         tbranch_x_ = ttree_->Branch("pixel_x", &pixel_x_);
         tbranch_y_ = ttree_->Branch("pixel_y", &pixel_y_);
         tbranch_reset_ = ttree_->Branch("pixel_reset", &pixel_reset_);
+        tbranch_tslr_ = ttree_->Branch("pixel_tslr", &pixel_tslr_);
     }
 
     //--------------------------------------------------------------------------
@@ -136,6 +137,7 @@ namespace Qpix {
         tbranch_x_->Fill();
         tbranch_y_->Fill();
         tbranch_reset_->Fill();
+        tbranch_tslr_->Fill();
     }
 
     //--------------------------------------------------------------------------
@@ -144,6 +146,7 @@ namespace Qpix {
         pixel_x_.clear();
         pixel_y_.clear();
         pixel_reset_.clear();
+        pixel_tslr_.clear();
     }
 
     // //--------------------------------------------------------------------------
@@ -271,11 +274,13 @@ namespace Qpix {
 
             // vector of resets as double instead of int for workaround
             std::vector< double > reset_double;
+            std::vector< double > tslr_double;
 
             for (unsigned int j=0; j<Pixel[i].RESET.size(); j++)
             {
                 // cast from int to double
                 reset_double.push_back(static_cast<double>(Pixel[i].RESET[j]));
+                tslr_double.push_back(static_cast<double>(Pixel[i].TSLR[j]));
             }
 
             // add to tree vectors if there are resets
@@ -284,6 +289,7 @@ namespace Qpix {
                 pixel_x_.push_back(Pixel[i].X_Pix);
                 pixel_y_.push_back(Pixel[i].Y_Pix);
                 pixel_reset_.push_back(reset_double);
+                pixel_tslr_.push_back(tslr_double);
             }
         }
 
