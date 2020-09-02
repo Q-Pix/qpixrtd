@@ -37,6 +37,7 @@ int main()
   // root file manager
   int number_entries = -1;
   Qpix::ROOTFileManager rfm = Qpix::ROOTFileManager(file_in, file_out);
+  rfm.AddMetadata(Qpix_params);  // add parameters to metadata
   number_entries = rfm.NumberEntries();
   rfm.EventReset();
 

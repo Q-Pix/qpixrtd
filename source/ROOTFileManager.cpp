@@ -41,6 +41,21 @@ namespace Qpix {
         tbranch_y_ = ttree_->Branch("pixel_y", &pixel_y_);
         tbranch_reset_ = ttree_->Branch("pixel_reset", &pixel_reset_);
         tbranch_tslr_ = ttree_->Branch("pixel_tslr", &pixel_tslr_);
+
+        metadata_ = (TTree*) tfile_->Get("metadata");
+
+        tbranch_w_value_ = metadata_->Branch("w_value", &w_value_);
+        tbranch_drift_velocity_ = metadata_->Branch("drift_velocity", &drift_velocity_);
+        tbranch_longitudinal_diffusion_ = metadata_->Branch("longitudinal_diffusion", &longitudinal_diffusion_);
+        tbranch_transverse_diffusion_ = metadata_->Branch("transverse_diffusion", &transverse_diffusion_);
+        tbranch_electron_lifetime_ = metadata_->Branch("electron_lifetime", &electron_lifetime_);
+        tbranch_readout_dimensions_ = metadata_->Branch("readout_dimensions", &readout_dimensions_);
+        tbranch_pixel_size_ = metadata_->Branch("pixel_size", &pixel_size_);
+        tbranch_reset_threshold_ = metadata_->Branch("reset_threshold", &reset_threshold_);
+        tbranch_sample_time_ = metadata_->Branch("smaple_time", &sample_time_);
+        tbranch_buffer_window_ = metadata_->Branch("buffer_window", &buffer_window_);
+        tbranch_dead_time_ = metadata_->Branch("dead_time", &dead_time_);
+        tbranch_charge_loss_ = metadata_->Branch("charge_loss", &charge_loss_);
     }
 
     //--------------------------------------------------------------------------
@@ -149,26 +164,44 @@ namespace Qpix {
         pixel_tslr_.clear();
     }
 
-    // //--------------------------------------------------------------------------
-    // void ROOTFileManager::WriteTree()
-    // {
-    //     // save only the new version of the tree
-    //     ttree_->Write("", TObject::kOverwrite);
-    // }
-
-    // //--------------------------------------------------------------------------
-    // void ROOTFileManager::CloseFile()
-    // {
-    //     tfile_->Close();
-    // }
-
     //--------------------------------------------------------------------------
     void ROOTFileManager::Save()
     {
         // save only the new version of the tree
         ttree_->Write("", TObject::kOverwrite);
+        metadata_->Write("", TObject::kOverwrite);
         // close file
         tfile_->Close();
+    }
+
+    //--------------------------------------------------------------------------
+    void ROOTFileManager::AddMetadata(Qpix::Qpix_Paramaters * const Qpix_params)
+    {
+        w_value_ = Qpix_params->Wvalue;
+        drift_velocity_ = Qpix_params->E_vel;
+        longitudinal_diffusion_ = Qpix_params->DiffusionL;
+        transverse_diffusion_ = Qpix_params->DiffusionT;
+        electron_lifetime_ = Qpix_params->Life_Time;
+        readout_dimensions_ = Qpix_params->Readout_Dim;
+        pixel_size_ = Qpix_params->Pix_Size;
+        reset_threshold_ = Qpix_params->Reset;
+        sample_time_ = Qpix_params->Sample_time;
+        buffer_window_ = Qpix_params->Buffer_time;
+        dead_time_ = Qpix_params->Dead_time;
+        charge_loss_ = static_cast<int>(Qpix_params->charge_loss);
+
+        tbranch_w_value_->Fill();
+        tbranch_drift_velocity_->Fill();
+        tbranch_longitudinal_diffusion_->Fill();
+        tbranch_transverse_diffusion_->Fill();
+        tbranch_electron_lifetime_->Fill();
+        tbranch_readout_dimensions_->Fill();
+        tbranch_pixel_size_->Fill();
+        tbranch_reset_threshold_->Fill();
+        tbranch_sample_time_->Fill();
+        tbranch_buffer_window_->Fill();
+        tbranch_dead_time_->Fill();
+        tbranch_charge_loss_->Fill();
     }
 
     //--------------------------------------------------------------------------

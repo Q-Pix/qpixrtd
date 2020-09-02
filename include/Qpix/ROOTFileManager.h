@@ -35,9 +35,9 @@ namespace Qpix {
             unsigned int NumberEntries();
             void EventFill();
             void EventReset();
-            // void WriteTree();
-            // void CloseFile();
             void Save();
+
+            void AddMetadata(Qpix::Qpix_Paramaters * const);
 
             void Get_Event(int, Qpix::Qpix_Paramaters *, std::vector< Qpix::ELECTRON > &);
             void AddEvent(std::vector<Qpix::Pixel_Info> const);
@@ -101,6 +101,38 @@ namespace Qpix {
             std::vector< double > * hit_length_;
             std::vector< double > * hit_energy_deposit_;
             std::vector< int >    * hit_process_key_;
+
+            //--------------------------------------------------
+            // metadata
+            //--------------------------------------------------
+
+            TTree * metadata_;
+
+            double w_value_;
+            double drift_velocity_;
+            double longitudinal_diffusion_;
+            double transverse_diffusion_;
+            double electron_lifetime_;
+            double readout_dimensions_;
+            double pixel_size_;
+            int    reset_threshold_;
+            int    sample_time_;
+            int    buffer_window_;
+            int    dead_time_;
+            int    charge_loss_;
+
+            TBranch * tbranch_w_value_;
+            TBranch * tbranch_drift_velocity_;
+            TBranch * tbranch_longitudinal_diffusion_;
+            TBranch * tbranch_transverse_diffusion_;
+            TBranch * tbranch_electron_lifetime_;
+            TBranch * tbranch_readout_dimensions_;
+            TBranch * tbranch_pixel_size_;
+            TBranch * tbranch_reset_threshold_;
+            TBranch * tbranch_sample_time_;
+            TBranch * tbranch_buffer_window_;
+            TBranch * tbranch_dead_time_;
+            TBranch * tbranch_charge_loss_;
 
             //--------------------------------------------------
             // initialize
