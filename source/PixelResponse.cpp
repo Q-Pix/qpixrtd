@@ -87,9 +87,11 @@ namespace Qpix
             int current_time = 0;
             int pix_time = Pix_info[i].time[pix_dex];
             std::vector<int>  RESET;
-
             int tslr_ = 0;
             std::vector<int>  TSLR;
+
+            // skip if it wont reset
+            if (pix_size < (Qpix_params->Reset)*0.5){continue;}
 
             // for each pixel loop through the buffer time
             while (current_time <= End_Time)

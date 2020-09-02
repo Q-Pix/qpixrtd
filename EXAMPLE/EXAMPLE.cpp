@@ -26,9 +26,8 @@ int main()
   std::vector<double> Gaussian_Noise = Qpix::Make_Gaussian_Noise(2, (int) 1e7);
 
   // In and out files
-  // std::string file_in = "MARLEY_100_Events.root";
-  std::string file_in  = "/Users/austinmcdonald/projects/QPIX/Q_PIX_RTD/EXAMPLE/test_muon.root";
-  std::string file_out = "/Users/austinmcdonald/projects/QPIX/Q_PIX_RTD/EXAMPLE/out_example.root";
+  std::string file_in = "MARLEY_100_Events.root";
+  std::string file_out = "out_example.root";
 
   // Qpix paramaters 
   Qpix::Qpix_Paramaters * Qpix_params = new Qpix::Qpix_Paramaters();
