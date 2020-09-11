@@ -14,6 +14,9 @@
 // ROOT includes
 #include "TObject.h"
 
+// math includes
+#include <math.h>
+
 namespace bfs = boost::filesystem;
 
 namespace Qpix {
@@ -174,6 +177,23 @@ namespace Qpix {
         tfile_->Close();
     }
 
+    double ROOTFileManager::Modified_Box(double dEdx) 
+    {
+    // Moddeling the recombination based on dEdx
+    // the function was taken form 
+    // https://www.phy.bnl.gov/~chao/uboone/docdb/files/LArProperty.pdf slide 10
+    // and 
+    // https://arxiv.org/pdf/1306.1712.pdf
+    double B_by_E = 0.212 / 0.5;
+    double A      = 0.930;
+    double Recombination;
+
+    Recombination = log(A + B_by_E * dEdx) / (B_by_E * dEdx);
+    if (Recombination<0){Recombination=0;}
+
+    return Recombination;
+    }
+
     //--------------------------------------------------------------------------
     void ROOTFileManager::AddMetadata(Qpix::Qpix_Paramaters * const Qpix_params)
     {
@@ -229,8 +249,14 @@ namespace Qpix {
             // energy deposit
             double const energy_deposit = hit_energy_deposit_->at(h_idx);  // MeV
 
+            // hit length
+            double const length_of_hit = hit_length_->at(h_idx);  // cm
+
+            double const dEdx = energy_deposit/length_of_hit;
+            double const Recombonation = Modified_Box(dEdx);
+
             // calcualte the number of electrons in the hit
-            int Nelectron = round(energy_deposit*1e6/Qpix_params->Wvalue);
+            int Nelectron = round(Recombonation * (energy_deposit*1e6/Qpix_params->Wvalue) );
             // if not enough move on
             if (Nelectron == 0){continue;}
 
