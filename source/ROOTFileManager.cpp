@@ -265,8 +265,6 @@ namespace Qpix {
             double electron_loc_y = start_y;
             double electron_loc_z = start_z;
             double electron_loc_t = start_t;
-            // if long lived isotope skip it 
-            if (electron_loc_t > (Qpix_params->Buffer_time)*100){continue;}
             
             // Determin the "step" size
             double const step_x = (end_x - start_x) / Nelectron;
