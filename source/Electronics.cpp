@@ -12,11 +12,11 @@ namespace Qpix
         int Hot_size = 0;
         for (int pixx = 0; pixx < Pixel.size(); pixx++)
         {
-        if (Pixel[pixx].time.size() > Hot_size)
-        {
-            Hot_size = Pixel[pixx].time.size();
-            Hot_index = pixx;
-        }
+            if (Pixel[pixx].time.size() > Hot_size)
+            {
+                Hot_size = Pixel[pixx].time.size();
+                Hot_index = pixx;
+            }
         }
 
         int charge = 0;
@@ -92,6 +92,61 @@ namespace Qpix
 
     }// Get_Hot_Current
 
+
+
+    void Snip::Snipped_RTD( std::vector<Qpix::Pixel_Info> Pixel,  std::string File_Name)
+    {
+
+        int Hot_index = 0;
+        int Hot_size = 0;
+        for (int pixx = 0; pixx < Pixel.size(); pixx++)
+        {
+        if (Pixel[pixx].time.size() > Hot_size)
+        {
+            Hot_size = Pixel[pixx].time.size();
+            Hot_index = pixx;
+        }
+        }
+        std::cout << "Hot_index = " << Hot_index << std::endl;
+        std::cout << "Hot Pixel info = " << Pixel[Hot_index].X_Pix << " , "<< Pixel[Hot_index].Y_Pix << std::endl;
+
+        std::cout << "X Pix   " << "Y Pix" << std::endl;
+
+        std::ofstream Reset_File;
+        Reset_File.open(File_Name);
+
+        int X_dex = Pixel[Hot_index].X_Pix - 5;
+        int Y_dex = Pixel[Hot_index].Y_Pix - 5;
+
+        for (int row = 0; row < 11; row++)
+        {
+        for (int col = 0; col < 11; col++)
+        {
+            for (int pixx = 0; pixx < Pixel.size(); pixx++)
+            {
+            if ( Y_dex == Pixel[pixx].Y_Pix && X_dex == Pixel[pixx].X_Pix )
+            {
+                std::cout << "Hot Pixel info = " << Pixel[pixx].X_Pix << " , "<< Pixel[pixx].Y_Pix << std::endl;
+                std::cout << "Size  = " << Pixel[pixx].RESET.size() << std::endl;
+                for (int T = 0; T < Pixel[pixx].RESET.size(); T++)
+                {
+                Reset_File << X_dex << "," << Y_dex << "," << Pixel[pixx].RESET[T] << "\n";
+                }
+
+            }
+            }
+            X_dex += 1;
+
+        }
+        Y_dex += 1;
+        X_dex = Pixel[Hot_index].X_Pix - 5;
+
+        }
+
+        Reset_File.close();
+        Reset_File.clear();
+
+    }//Snipped_RTD
 
 
 }

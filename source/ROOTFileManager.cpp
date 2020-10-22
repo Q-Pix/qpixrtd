@@ -291,7 +291,7 @@ namespace Qpix {
                 electron_z = Qpix::RandomNormal(electron_loc_z,sigma_L);
 
                 // check event is contained after diffused ( one pixel from the edge)
-                if (!(0.4 <= electron_x && electron_x <= 99.6) || !(0.4 <= electron_y && electron_y <= 99.6) || !(0.1 <= electron_z && electron_z <= 499.6)){continue;}
+                // if (!(0.4 <= electron_x && electron_x <= 99.6) || !(0.4 <= electron_y && electron_y <= 99.6) || !(0.1 <= electron_z && electron_z <= 499.6)){continue;}
 
                 // add the electron to the vector.
                 hit_e.push_back(Qpix::ELECTRON());

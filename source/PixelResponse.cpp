@@ -3,7 +3,7 @@
 #include <vector>
 #include <math.h>
 
-// #include "Qpix/Random.h"
+#include "Qpix/Random.h"
 #include "Qpix/Structures.h"
 #include "Qpix/PixelResponse.h"
 
@@ -86,6 +86,108 @@ namespace Qpix
             int pix_dex = 0;
             int current_time = 0;
             int pix_time = Pix_info[i].time[pix_dex];
+            std::vector<int>  RESET;
+            int tslr_ = 0;
+            std::vector<int>  TSLR;
+
+            // skip if it wont reset
+            if (pix_size < (Qpix_params->Reset)*0.5){continue;}
+
+            // for each pixel loop through the buffer time
+            while (current_time <= End_Time)
+            {
+                // setting the "time"
+                current_time += Qpix_params->Sample_time;
+
+                // adding noise from the noise vector
+                charge += Gaussian_Noise[Noise_index];
+                Noise_index += 1;
+                if (Noise_index >= Noise_Vector_Size){Noise_index = 0;}
+
+                // main loop to add electrons to the counter
+                if ( current_time > pix_time && pix_dex < pix_size)
+                {
+                    // this adds the electrons that are in the step
+                    while( current_time > pix_time )
+                    {
+                        charge += 1;
+                        pix_dex += 1;
+                        if (pix_dex >= pix_size){break; }
+                        pix_time = Pix_info[i].time[pix_dex];
+                    }
+
+                }
+
+                // this is the reset 
+                if ( charge >= Qpix_params->Reset )
+                {
+
+                    TSLR.push_back(current_time - tslr_);
+                    tslr_ = current_time;
+
+                    RESET.push_back( current_time );
+                    charge -= Qpix_params->Reset;
+
+                    // this will keep the charge in the loop above
+                    // just offsets the reset by the dead time
+                    current_time += Qpix_params->Dead_time;
+
+                    // condition for charge loss
+                    // just the main loop without the charge
+                    if (Qpix_params->charge_loss)
+                    {
+                        while( current_time > pix_time )
+                        {
+                            pix_dex += 1;
+                            // if (pix_dex < pix_size){ pix_time = Pix_info[i].time[pix_dex]; }
+
+                            if (pix_dex >= pix_size){break; }
+                            pix_time = Pix_info[i].time[pix_dex];
+                        }
+                    }
+                }
+            }
+            // add it to the pixel info
+            Pix_info[i].RESET = RESET;
+            Pix_info[i].TSLR  = TSLR;
+        }
+
+        return ;
+    }// Reset
+
+
+
+    // function performs the resets 
+    void Pixel_Functions::Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info)
+    {
+        // time window before and after event
+        int Window = 1000000;
+
+        // The number of steps to cover the full buffer
+        int End_Time = Qpix_params->Buffer_time / Qpix_params->Sample_time;
+
+        // geting the size of the vectors for looping
+        int Pixels_Hit_Len = Pix_info.size();
+        int Noise_Vector_Size = Gaussian_Noise.size();
+        int Noise_index = 0;
+
+        // loop over each pixel that was hit
+        for (int i = 0; i < Pixels_Hit_Len; i++)
+        {
+            // seting up some parameters
+            int charge = 0;
+            int pix_size = Pix_info[i].time.size();
+            int pix_dex = 0;
+            // int current_time = 0;
+            int pix_time = Pix_info[i].time[pix_dex];
+
+            int current_time = pix_time - Window;
+            if (current_time < 0){current_time = 0;}
+
+            End_Time = Pix_info[i].time[pix_size-1] + Window;
+            charge = RandomUniform() * Qpix_params->Reset;
+
+
             std::vector<int>  RESET;
             int tslr_ = 0;
             std::vector<int>  TSLR;

@@ -50,7 +50,7 @@ namespace Qpix
         double Pix_Size;
         int Reset;
         int Sample_time;
-        int Buffer_time;
+        long long Buffer_time;
         int Dead_time;
         bool charge_loss;
     };
