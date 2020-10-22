@@ -10,8 +10,10 @@
 #include "Qpix/Structures.h"
 #include "Qpix/PixelResponse.h"
 
+#include "Qpix/Electronics.h"
 
-class Current
+
+class Snipper
 {
 private:
   double const ElectronCharge_ = 1.60217662e-19;
@@ -19,7 +21,7 @@ private:
 
 public:
 
-  void Find_Hot_Pixel( std::vector<Qpix::Pixel_Info> Pixel, std::vector<double> Gaussian_Noise, std::string Current_F, std::string Reset_F)
+  void temp(Qpix::Qpix_Paramaters * Qpix_params, std::vector<Qpix::Pixel_Info> Pixel, std::vector<double> Gaussian_Noise, std::string Current_F, std::string Reset_F)
   {
 
     int Hot_index = 0;
@@ -32,79 +34,96 @@ public:
         Hot_index = pixx;
       }
     }
+    std::cout << "Hot_index = " << Hot_index << std::endl;
+    std::cout << "Hot Pixel info = " << Pixel[Hot_index].X_Pix << " , "<< Pixel[Hot_index].Y_Pix << std::endl;
 
-    int charge = 0;
-    int pix_size = Pixel[Hot_index].time.size();
-    int pix_dex = 0;
-    int current_time = 0;
-    int Noise_index = 0;
-    int Noise_Vector_Size = Gaussian_Noise.size();
+    std::cout << "X Pix   " << "Y Pix" << std::endl;
 
-    // int OFFSET = Pixel[Hot_index].time[0] - 100;
-    int OFFSET = 0;
-
-    int pix_time = Pixel[Hot_index].time[pix_dex] - OFFSET;
-
-    // int End_Time = Pixel[Hot_index].time[pix_size -1] - OFFSET;
-    int End_Time = 20000;
-
-    std::ofstream Current_File;
-    Current_File.open(Current_F);
-
-    // for each pixel loop through the buffer time
-    while (current_time <= End_Time)
+    for (int pixx = 0; pixx < Pixel.size(); pixx++)
     {
-      // setting the "time"
-      // current_time += Qpix_params->Sample_time;
-      current_time += 10;
-
-      // adding noise from the noise vector
-      charge += Gaussian_Noise[Noise_index];
-      Noise_index += 1;
-      if (Noise_index >= Noise_Vector_Size){Noise_index = 0;}
-
-      // main loop to add electrons to the counter
-      if ( current_time > pix_time && pix_dex < pix_size)
-      {
-        // this adds the electrons that are in the step
-        while( current_time > pix_time )
-        {
-          charge += 1;
-          pix_dex += 1;
-          if (pix_dex >= pix_size){break; }
-          pix_time = Pixel[Hot_index].time[pix_dex] - OFFSET;
-        }
-
-      }
-
-      // Current_File  << (charge*ElectronCharge_/10e-9)*1e9 << "," << current_time << ",";
-      // Current_File  << current_time << "," << (charge*ElectronCharge_/10e-9)*1e9 << "\n";
-      Current_File  << current_time << "," << (charge) << "\n";
+      std::cout <<  Pixel[pixx].X_Pix << "  "<< Pixel[pixx].Y_Pix << std::endl;
 
     }
-    Current_File.close();
-    Current_File.clear();
 
 
-    int ct=0;
-    std::ofstream Reset_File;
-    Reset_File.open(Reset_F);
-    Reset_File << ct << "," << 0 << "\n";
-    for (int pixx = 0; pixx < Pixel[Hot_index].RESET.size(); pixx++)
-    {
-      ct+=1;
-      // Reset_File << ct << "," << Pixel[Hot_index].RESET[pixx] << ",";
-      Reset_File << ct << "," << Pixel[Hot_index].RESET[pixx] << "\n";
-    }
-    Reset_File << ct << "," << End_Time ;
-    Reset_File.close();
-    Reset_File.clear();
+    // Pix_info[i].X_Pix = Pix_Xloc;
+    // Pix_info[i].Y_Pix = Pix_Yloc;
+    // Pix_info[i].time  = tmp_time;
+    
 
-    for (int i = 0; i < 20; i++ ) 
-    {
-      std::cout << Pixel[Hot_index].time[i] << std::endl;
 
-    }
+
+
+  //   int charge = 0;
+  //   int Icharge= 0;
+  //   int pix_size = Pixel[Hot_index].time.size();
+  //   int pix_dex = 0;
+  //   int current_time = 0;
+  //   int Noise_index = 0;
+  //   int Noise_Vector_Size = Gaussian_Noise.size();
+
+
+  //   int pix_time = Pixel[Hot_index].time[pix_dex];
+
+  //   int End_Time = Qpix_params->Buffer_time / Qpix_params->Sample_time;
+  //   bool End_Reached = false;
+
+  //   std::ofstream Current_File;
+  //   Current_File.open(Current_F);
+
+  //   // for each pixel loop through the buffer time
+  //   while (current_time <= End_Time)
+  //   {
+  //     // setting the "time"
+  //     current_time += Qpix_params->Sample_time;
+
+  //     // adding noise from the noise vector
+  //     Icharge = Gaussian_Noise[Noise_index];
+
+  //     Noise_index += 1;
+  //     if (Noise_index >= Noise_Vector_Size){Noise_index = 0;}
+
+  //     // main loop to add electrons to the counter
+  //     if ( current_time > pix_time && pix_dex < pix_size)
+  //     {
+  //       // this adds the electrons that are in the step
+  //       while( current_time > pix_time )
+  //       {
+  //         Icharge += 1;
+  //         pix_dex += 1;
+  //         if (pix_dex >= pix_size){break; }
+  //         pix_time = Pixel[Hot_index].time[pix_dex];
+  //       }
+  //       charge += Icharge;
+
+  //     }
+  //     if (pix_dex >= pix_size && !End_Reached)
+  //     {
+  //       End_Reached = true;
+  //       End_Time = pix_time +10000;
+  //     }
+
+  //     // write the instanuoous and cummlitive currents
+  //     Current_File  << current_time << "," << ((Icharge*ElectronCharge_/10e-9)*1e9) << "," << ((charge*ElectronCharge_/10e-9)*1e9) << "\n";
+
+  //   }
+  //   Current_File.close();
+  //   Current_File.clear();
+
+
+  //   int ct=0;
+  //   std::ofstream Reset_File;
+  //   Reset_File.open(Reset_F);
+  //   Reset_File << ct << "," << 0 << "\n";
+  //   for (int pixx = 0; pixx < Pixel[Hot_index].RESET.size(); pixx++)
+  //   {
+  //     ct+=1;
+  //     Reset_File << ct << "," << Pixel[Hot_index].RESET[pixx] << "\n";
+  //   }
+
+  //   Reset_File << ct << "," << End_Time ;
+  //   Reset_File.close();
+  //   Reset_File.clear();
 
   }
 
@@ -129,12 +148,19 @@ int main()
   std::vector<double> Gaussian_Noise = Qpix::Make_Gaussian_Noise(2, (int) 1e7);
 
   // In and out files
-  std::string file_in = "../mitch.root";
+  // std::string file_in = "../mitch_10cm.root";
+  // std::string file_in = "../mitch_100cm.root";
+  // std::string file_in = "../mitch_proton_10cm.root";
+  // std::string file_in = "/Users/austinmcdonald/projects/QPIX/Nu_e-78.root";
+  // std::string file_in = "../../../Ar39-999.root";
+  // std::string file_in = "../../../marley.root";
+  std::string file_in = "../../../muon.root";
   std::string file_out = "../out_example.root";
 
   // Qpix paramaters 
   Qpix::Qpix_Paramaters * Qpix_params = new Qpix::Qpix_Paramaters();
   set_Qpix_Paramaters(Qpix_params);
+  // Qpix_params->Buffer_time = 1e10;
   print_Qpix_Paramaters(Qpix_params);
 
   // root file manager
@@ -145,7 +171,7 @@ int main()
 
   // Loop though the events in the file
  
-  int evt = 1;
+  int evt = 0;
   std::cout << "*********************************************" << std::endl;
   std::cout << "Starting on event " << evt << std::endl;
 
@@ -167,8 +193,12 @@ int main()
 
   std::string current_f = "current_electron_3MeV.csv";
   std::string reset_f   = "reset_electron_3MeV.csv";
-  Current curr = Current();
-  curr.Find_Hot_Pixel( Pixel, Gaussian_Noise, current_f, reset_f);
+  // Qpix::Current_Profile Current = Qpix::Current_Profile();
+  // Current.Get_Hot_Current( Qpix_params, Pixel, Gaussian_Noise, current_f, reset_f);
+
+
+  // Snipper snip = Snipper();
+  // snip.temp( Qpix_params, Pixel, Gaussian_Noise, current_f, reset_f);
 
 
   rfm.AddEvent( Pixel );

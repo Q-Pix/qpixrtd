@@ -278,7 +278,7 @@ namespace Qpix {
             // Loop through the electrons 
             for (int i = 0; i < Nelectron; i++) 
             {
-                // calculate frift time for diffusion 
+                // calculate drift time for diffusion 
                 T_drift = electron_loc_z / Qpix_params->E_vel;
                 // electron lifetime
                 if (Qpix::RandomUniform() >= exp(-T_drift/Qpix_params->Life_Time)){continue;}
