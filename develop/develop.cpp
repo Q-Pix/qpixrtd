@@ -15,7 +15,7 @@
 //----------------------------------------------------------------------
 // main function
 //----------------------------------------------------------------------
-int main()
+int main(int argc, char** argv)
 {
 
   clock_t time_req;
@@ -29,9 +29,8 @@ int main()
   // std::vector<double> Gaussian_Noise(1000, 0.0);
 
   // In and out files
-  std::string file_in = "/Users/austinmcdonald/projects/QPIX/Nu_e-78.root";
-  // std::string file_in = "/Users/austinmcdonald/projects/QPIX/Ar39-999.root";
-  std::string file_out = "../out_example.root";
+  std::string file_in = argv[1];
+  std::string file_out = argv[2];
 
   // Qpix paramaters 
   Qpix::Qpix_Paramaters * Qpix_params = new Qpix::Qpix_Paramaters();
