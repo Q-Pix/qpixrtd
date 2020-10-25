@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
-dir=/n/holystore01/LABS/guenette_lab/Lab/data/QPIX/Supernova_Test
+# MUST RUN FROM ./job DIRECTORY
+
 bin=/n/home02/jh/repos/qpixrtd/develop/build/develop
+in_dir=/n/holystore01/LABS/guenette_lab/Lab/data/QPIX/Supernova_Test
 out_dir=/n/holystore01/LABS/guenette_lab/Lab/data/q-pix/supernova_test/rtd
 
 script_dir=./scripts
 log_dir=./log
 
-# for path in `find $dir -maxdepth 1 -mindepth 1 -type d`
-for path in $(find "$dir" -maxdepth 1 -mindepth 1 -type d)
+# for path in `find $in_dir -maxdepth 1 -mindepth 1 -type d`
+for path in $(find "$in_dir" -maxdepth 1 -mindepth 1 -type d)
 do
 
     subdir=$(basename "$path")
