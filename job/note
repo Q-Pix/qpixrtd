@@ -1,4 +1,4 @@
-# change default permissions
+# change default permissions of directory
 
 setfacl -d -m g::rwx /n/holystore01/LABS/guenette_lab/Lab/data/q-pix
 getfacl /n/holystore01/LABS/guenette_lab/Lab/data/q-pix
