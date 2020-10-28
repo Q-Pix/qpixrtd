@@ -2,7 +2,12 @@
 
 # MUST RUN FROM ./job DIRECTORY
 
-bin=/n/home02/jh/repos/qpixrtd/develop/build/develop
+bin=/n/home02/jh/repos/qpixrtd/EXAMPLE/build/EXAMPLE
+
+# NOTE:
+# i don't have write access to /n/holystore01/LABS/guenette_lab/Lab/data/QPIX
+# and its subdirectories
+#   -- jh
 in_dir=/n/holystore01/LABS/guenette_lab/Lab/data/QPIX/Supernova_Test
 out_dir=/n/holystore01/LABS/guenette_lab/Lab/data/q-pix/supernova_test/rtd
 
