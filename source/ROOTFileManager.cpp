@@ -246,6 +246,8 @@ namespace Qpix {
             double const end_z = hit_end_z_->at(h_idx);  // cm
             double const end_t = hit_end_t_->at(h_idx);  // ns
 
+            if (start_t < 0.0){continue;}
+
             // energy deposit
             double const energy_deposit = hit_energy_deposit_->at(h_idx);  // MeV
 
