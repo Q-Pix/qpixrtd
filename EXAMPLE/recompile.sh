@@ -8,10 +8,12 @@ make
 
 mv libQpix.a ../Library/.
 
-cd ../develop/
+cd ../EXAMPLE/
+
+rm -rf build/*
 
 cd build
 
-make clean
+cmake ..
 
 make
