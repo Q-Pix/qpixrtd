@@ -185,7 +185,12 @@ namespace Qpix
             if (current_time < 0){current_time = 0;}
 
             End_Time = Pix_info[i].time[pix_size-1] + Window;
-            charge = RandomUniform() * Qpix_params->Reset;
+
+            // 100 atto amps is 625 electrons a second
+            // approximate the leakage charge given "curretn_time"
+            charge = 625/1e9 * current_time;
+            // Make sure it dose not start with a bunch of resets
+            while ( charge >= Qpix_params->Reset ){ charge -= Qpix_params->Reset; }
 
 
             std::vector<int>  RESET;
