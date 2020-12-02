@@ -24,18 +24,25 @@ namespace Qpix
     {
         Qpix_params->Wvalue = 23.6; // in eV
         //E_vel = 0.1648; //cm/mus
-        Qpix_params->E_vel = 1.648e-4; // cm/ns
-        Qpix_params->DiffusionL = 6.8223 * 1e-9;  //cm**2/ns
-        Qpix_params->DiffusionT = 13.1586 * 1e-9; //cm**2/ns
-        Qpix_params->Life_Time = 100000000; // in ns
+        // Qpix_params->E_vel = 1.648e-4; // cm/ns
+        Qpix_params->E_vel = 164800.0; // cm/s
+
+        // Qpix_params->DiffusionL = 6.8223 * 1e-9;  //cm**2/ns
+        // Qpix_params->DiffusionT = 13.1586 * 1e-9; //cm**2/ns
+        Qpix_params->DiffusionL = 6.8223  ;  //cm**2/s
+        Qpix_params->DiffusionT = 13.1586 ; //cm**2/s
+        // Qpix_params->Life_Time = 100000000; // in ns
+        Qpix_params->Life_Time = 0.1; // in s
         // Read out plane size in cm
         Qpix_params->Readout_Dim = 100;
         Qpix_params->Pix_Size = 0.4;
         // Number of electrons for reset
         Qpix_params->Reset = 6250;
         // time in ns
-        Qpix_params->Sample_time = 10;
-        Qpix_params->Buffer_time = 1e8;
+        // Qpix_params->Sample_time = 10;
+        // Qpix_params->Buffer_time = 1e8;
+        Qpix_params->Sample_time = 10e-9;
+        Qpix_params->Buffer_time = 1;
         Qpix_params->Dead_time = 0;
         Qpix_params->charge_loss = false;
     }//set_Qpix_Paramaters
@@ -47,16 +54,16 @@ namespace Qpix
         std::cout << "Liquid Argon Paramaters" << std::endl;
         std::cout << "*******************************************************" << std::endl;
         std::cout   << "W value                    = " << Qpix_params->Wvalue << " [eV] \n"
-                    << "Dirft velocity             = " << Qpix_params->E_vel<< " [cm/ns] \n"
-                    << "Longitidunal diffusion     = " << Qpix_params->DiffusionL<< " [cm^2/ns] \n"
-                    << "Transverse diffusion       = " << Qpix_params->DiffusionT<< " [cm^2/ns] \n"
-                    << "Electron life time         = " << Qpix_params->Life_Time<< " [ns] \n"
+                    << "Dirft velocity             = " << Qpix_params->E_vel<< " [cm/s] \n"
+                    << "Longitidunal diffusion     = " << Qpix_params->DiffusionL<< " [cm^2/s] \n"
+                    << "Transverse diffusion       = " << Qpix_params->DiffusionT<< " [cm^2/s] \n"
+                    << "Electron life time         = " << Qpix_params->Life_Time<< " [s] \n"
                     << "Readout dimensions         = " << Qpix_params->Readout_Dim<< " [cm] \n"
                     << "Pixel size                 = " << Qpix_params->Pix_Size<< " [cm] \n"
                     << "Reset threshold            = " << Qpix_params->Reset<< " [electrons] \n"
-                    << "Sample time                = " << Qpix_params->Sample_time<< " [ns] \n"
-                    << "Buffer window              = " << Qpix_params->Buffer_time<< " [ns] \n"
-                    << "Dead time                  = " << Qpix_params->Dead_time<< " [ns] "
+                    << "Sample time                = " << Qpix_params->Sample_time<< " [s] \n"
+                    << "Buffer window              = " << Qpix_params->Buffer_time<< " [s] \n"
+                    << "Dead time                  = " << Qpix_params->Dead_time<< " [s] "
                     << std::endl;
         if (Qpix_params->charge_loss)
         {std::cout << "Charge loss                = " << "YES" << " [yes/no] " << std::endl;}

@@ -23,53 +23,53 @@ namespace Qpix
         int Icharge= 0;
         int pix_size = Pixel[Hot_index].time.size();
         int pix_dex = 0;
-        int current_time = 0;
+        double current_time = 0;
         int Noise_index = 0;
         int Noise_Vector_Size = Gaussian_Noise.size();
 
 
-        int pix_time = Pixel[Hot_index].time[pix_dex];
+        double pix_time = Pixel[Hot_index].time[pix_dex];
 
-        int End_Time = Qpix_params->Buffer_time / Qpix_params->Sample_time;
+        // int End_Time = Qpix_params->Buffer_time / Qpix_params->Sample_time;
         bool End_Reached = false;
 
         std::ofstream Current_File;
         Current_File.open(Current_F);
 
         // for each pixel loop through the buffer time
-        while (current_time <= End_Time)
+        while (current_time <= Qpix_params->Buffer_time)
         {
-        // setting the "time"
-        current_time += Qpix_params->Sample_time;
+            // setting the "time"
+            current_time += Qpix_params->Sample_time;
 
-        // adding noise from the noise vector
-        Icharge = Gaussian_Noise[Noise_index];
+            // adding noise from the noise vector
+            Icharge = Gaussian_Noise[Noise_index];
 
-        Noise_index += 1;
-        if (Noise_index >= Noise_Vector_Size){Noise_index = 0;}
+            Noise_index += 1;
+            if (Noise_index >= Noise_Vector_Size){Noise_index = 0;}
 
-        // main loop to add electrons to the counter
-        if ( current_time > pix_time && pix_dex < pix_size)
-        {
-            // this adds the electrons that are in the step
-            while( current_time > pix_time )
+            // main loop to add electrons to the counter
+            if ( current_time > pix_time && pix_dex < pix_size)
             {
-            Icharge += 1;
-            pix_dex += 1;
-            if (pix_dex >= pix_size){break; }
-            pix_time = Pixel[Hot_index].time[pix_dex];
+                // this adds the electrons that are in the step
+                while( current_time > pix_time )
+                {
+                Icharge += 1;
+                pix_dex += 1;
+                if (pix_dex >= pix_size){break; }
+                pix_time = Pixel[Hot_index].time[pix_dex];
+                }
+                charge += Icharge;
+
             }
-            charge += Icharge;
+            if (pix_dex >= pix_size && !End_Reached)
+            {
+                End_Reached = true;
+                //End_Time = pix_time +10000;
+            }
 
-        }
-        if (pix_dex >= pix_size && !End_Reached)
-        {
-            End_Reached = true;
-            End_Time = pix_time +10000;
-        }
-
-        // write the instanuoous and cummlitive currents
-        Current_File  << current_time << "," << ((Icharge*ElectronCharge_/10e-9)*1e9) << "," << ((charge*ElectronCharge_/10e-9)*1e9) << "\n";
+            // write the instanuoous and cummlitive currents
+            Current_File  << current_time << "," << ((Icharge*ElectronCharge_/10e-9)*1e9) << "," << ((charge*ElectronCharge_/10e-9)*1e9) << "\n";
 
         }
         Current_File.close();
@@ -82,11 +82,11 @@ namespace Qpix
         Reset_File << ct << "," << 0 << "\n";
         for (int pixx = 0; pixx < Pixel[Hot_index].RESET.size(); pixx++)
         {
-        ct+=1;
-        Reset_File << ct << "," << Pixel[Hot_index].RESET[pixx] << "\n";
+            ct+=1;
+            Reset_File << ct << "," << Pixel[Hot_index].RESET[pixx] << "\n";
         }
 
-        Reset_File << ct << "," << End_Time ;
+        Reset_File << ct << "," << Qpix_params->Buffer_time ;
         Reset_File.close();
         Reset_File.clear();
 

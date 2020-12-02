@@ -12,7 +12,7 @@ namespace Qpix
     struct ELECTRON 
     {
         int  Pix_ID;
-        int  time;
+        double  time;
     };
 
     struct Pixel_Info 
@@ -20,9 +20,9 @@ namespace Qpix
         int  X_Pix;
         int  Y_Pix;
         int ID;
-        std::vector<int>  time;
-        std::vector<int>  RESET;
-        std::vector<int>  TSLR;
+        std::vector<double>  time;
+        std::vector<double>  RESET;
+        std::vector<double>  TSLR;
     };
 
     template<typename T>
@@ -49,8 +49,8 @@ namespace Qpix
         double Readout_Dim;
         double Pix_Size;
         int Reset;
-        int Sample_time;
-        long long Buffer_time;
+        double Sample_time;
+        double Buffer_time;
         int Dead_time;
         bool charge_loss;
     };

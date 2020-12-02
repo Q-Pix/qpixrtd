@@ -238,13 +238,13 @@ namespace Qpix {
             double const start_x = hit_start_x_->at(h_idx);  // cm
             double const start_y = hit_start_y_->at(h_idx);  // cm
             double const start_z = hit_start_z_->at(h_idx);  // cm
-            double const start_t = hit_start_t_->at(h_idx);  // ns
+            double const start_t = hit_start_t_->at(h_idx);  // s
 
             // from PostStepPoint
             double const end_x = hit_end_x_->at(h_idx);  // cm
             double const end_y = hit_end_y_->at(h_idx);  // cm
             double const end_z = hit_end_z_->at(h_idx);  // cm
-            double const end_t = hit_end_t_->at(h_idx);  // ns
+            double const end_t = hit_end_t_->at(h_idx);  // s
 
             if (start_t < 0.0){continue;}
 
@@ -304,7 +304,24 @@ namespace Qpix {
                 Pix_Yloc = (int) ceil(electron_y / Qpix_params->Pix_Size);
 
                 hit_e[indexer].Pix_ID = (int)(Pix_Xloc*10000+Pix_Yloc);
-                hit_e[indexer].time = (int)ceil( electron_loc_t + ( electron_z / Qpix_params->E_vel ) ) ;
+                // hit_e[indexer].time = (int)ceil( electron_loc_t + ( electron_z / Qpix_params->E_vel ) ) ;
+                hit_e[indexer].time = electron_loc_t + ( electron_z / Qpix_params->E_vel ) ;
+
+                // std::cout 
+                // << "time " << hit_e[indexer].time <<'\t'
+                // << "Pix_ID " <<hit_e[indexer].Pix_ID <<'\t'
+                // << "Drift " <<T_drift <<'\t'
+                // << "Tru Z " <<electron_loc_z <<'\t'
+                // << "Dif Z " <<electron_z <<'\t'
+                // << std::endl;
+
+
+
+                // std::cout << "ELT " << electron_loc_t <<"\t"<<
+                //             "drift " << ( electron_z / Qpix_params->E_vel ) <<"\t"<< 
+                //             "ceil " << ceil( electron_loc_t + ( electron_z / Qpix_params->E_vel ) ) <<"\t"<< 
+                //             "Z val " << electron_z <<"\t"<< 
+                //             "time " << hit_e[indexer].time << std::endl;
                 
                 // Move to the next electron
                 electron_loc_x += step_x;
@@ -318,6 +335,14 @@ namespace Qpix {
 
         // sorts the electrons in terms of the pixel ID
         std::sort(hit_e.begin(), hit_e.end(), Qpix::Electron_Pix_Sort);
+
+        // for (int i = 0; i < hit_e.size(); i++)
+        // {
+        //     std::cout << "Pix_ID " << hit_e[i].Pix_ID <<"\t"<<
+        //     "time " << hit_e[i].time << std::endl;
+        // }
+
+
 
     }//Get_Event
 

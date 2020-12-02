@@ -49,9 +49,12 @@ namespace Qpix
         {
             std::vector<Qpix::ELECTRON> sub_vec = slice(hit_e, NewID_Index[i], NewID_Index[i+1] -1 );
             std::sort( sub_vec.begin(), sub_vec.end(), &Pixel_Time_Sorter );
-            std::vector<int> tmp_time;
+            // std::vector<int> tmp_time;
+            std::vector<double> tmp_time;
 
-            for (int j=0; j<sub_vec.size() ; j++) { tmp_time.push_back( sub_vec[j].time ); }
+            for (int j=0; j<sub_vec.size() ; j++) { tmp_time.push_back( sub_vec[j].time ); 
+            //std::cout<<"sub_vect "<<sub_vec[j].time<<"\t"<< tmp_time[j]<<std::endl;
+            }
 
             int Pix_Xloc, Pix_Yloc ;
             ID_Decoder(sub_vec[0].Pix_ID, Pix_Xloc, Pix_Yloc);
@@ -70,7 +73,7 @@ namespace Qpix
     void Pixel_Functions::Reset(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info)
     {
         // The number of steps to cover the full buffer
-        int End_Time = Qpix_params->Buffer_time / Qpix_params->Sample_time;
+        // int End_Time = Qpix_params->Buffer_time / Qpix_params->Sample_time;
 
         // geting the size of the vectors for looping
         int Pixels_Hit_Len = Pix_info.size();
@@ -84,17 +87,18 @@ namespace Qpix
             int charge = 0;
             int pix_size = Pix_info[i].time.size();
             int pix_dex = 0;
-            int current_time = 0;
-            int pix_time = Pix_info[i].time[pix_dex];
-            std::vector<int>  RESET;
-            int tslr_ = 0;
-            std::vector<int>  TSLR;
+            double current_time = 0;
+            double pix_time = Pix_info[i].time[pix_dex];
+            std::vector<double>  RESET;
+            double tslr_ = 0;
+            std::vector<double>  TSLR;
 
             // skip if it wont reset
             if (pix_size < (Qpix_params->Reset)*0.5){continue;}
 
             // for each pixel loop through the buffer time
-            while (current_time <= End_Time)
+            // while (current_time <= End_Time)
+            while (current_time <= Qpix_params->Buffer_time)
             {
                 // setting the "time"
                 current_time += Qpix_params->Sample_time;
@@ -161,10 +165,10 @@ namespace Qpix
     void Pixel_Functions::Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info)
     {
         // time window before and after event
-        int Window = 1000000;
+        double Window = 1e-6;
 
         // The number of steps to cover the full buffer
-        int End_Time = Qpix_params->Buffer_time / Qpix_params->Sample_time;
+        // int End_Time = Qpix_params->Buffer_time / Qpix_params->Sample_time;
 
         // geting the size of the vectors for looping
         int Pixels_Hit_Len = Pix_info.size();
@@ -179,23 +183,24 @@ namespace Qpix
             int pix_size = Pix_info[i].time.size();
             int pix_dex = 0;
             // int current_time = 0;
-            int pix_time = Pix_info[i].time[pix_dex];
+            double pix_time = Pix_info[i].time[pix_dex];
 
-            int current_time = pix_time - Window;
+            double current_time = pix_time - Window;
             if (current_time < 0){current_time = 0;}
 
-            End_Time = Pix_info[i].time[pix_size-1] + Window;
+            double End_Time = Pix_info[i].time[pix_size-1] + Window;
 
             // 100 atto amps is 625 electrons a second
             // approximate the leakage charge given "curretn_time"
-            charge = 625/1e9 * current_time;
+            // charge = 625/1e9 * current_time;
+            charge = (int)ceil(625 * current_time);
             // Make sure it dose not start with a bunch of resets
             while ( charge >= Qpix_params->Reset ){ charge -= Qpix_params->Reset; }
 
 
-            std::vector<int>  RESET;
-            int tslr_ = 0;
-            std::vector<int>  TSLR;
+            std::vector<double>  RESET;
+            double tslr_ = 0;
+            std::vector<double>  TSLR;
 
             // skip if it wont reset
             if (pix_size < (Qpix_params->Reset)*0.5){continue;}
