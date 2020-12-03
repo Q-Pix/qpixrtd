@@ -238,13 +238,13 @@ namespace Qpix {
             double const start_x = hit_start_x_->at(h_idx);      // cm
             double const start_y = hit_start_y_->at(h_idx);      // cm
             double const start_z = hit_start_z_->at(h_idx);      // cm
-            double const start_t = hit_start_t_->at(h_idx)*1e9;  // ns
+            double const start_t = hit_start_t_->at(h_idx)*1e-9;  // ns
 
             // from PostStepPoint
             double const end_x = hit_end_x_->at(h_idx);      // cm
             double const end_y = hit_end_y_->at(h_idx);      // cm
             double const end_z = hit_end_z_->at(h_idx);      // cm
-            double const end_t = hit_end_t_->at(h_idx)*1e9;  // ns
+            double const end_t = hit_end_t_->at(h_idx)*1e-9;  // ns
 
             if (start_t < 0.0){continue;}
 
