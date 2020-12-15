@@ -138,7 +138,7 @@ namespace Qpix
 
                     // condition for charge loss
                     // just the main loop without the charge
-                    if (Qpix_params->charge_loss)
+                    if (Qpix_params->Charge_loss)
                     {
                         while( current_time > pix_time )
                         {
@@ -246,7 +246,7 @@ namespace Qpix
 
                     // condition for charge loss
                     // just the main loop without the charge
-                    if (Qpix_params->charge_loss)
+                    if (Qpix_params->Charge_loss)
                     {
                         while( current_time > pix_time )
                         {

@@ -208,7 +208,7 @@ namespace Qpix {
         sample_time_ = Qpix_params->Sample_time;
         buffer_window_ = Qpix_params->Buffer_time;
         dead_time_ = Qpix_params->Dead_time;
-        charge_loss_ = static_cast<int>(Qpix_params->charge_loss);
+        charge_loss_ = static_cast<int>(Qpix_params->Charge_loss);
 
         tbranch_w_value_->Fill();
         tbranch_drift_velocity_->Fill();
@@ -254,11 +254,22 @@ namespace Qpix {
             // hit length
             double const length_of_hit = hit_length_->at(h_idx);  // cm
 
+            // Set up the paramaters for the recombiataion 
             double const dEdx = energy_deposit/length_of_hit;
             double const Recombonation = Modified_Box(dEdx);
+            int Nelectron;
 
+            // to account for recombination or not
             // calcualte the number of electrons in the hit
-            int Nelectron = round(Recombonation * (energy_deposit*1e6/Qpix_params->Wvalue) );
+            if (Qpix_params->Recombination)
+            {
+                Nelectron = round(Recombonation * (energy_deposit*1e6/Qpix_params->Wvalue) );
+            }
+            else
+            {
+                Nelectron = round( (energy_deposit*1e6/Qpix_params->Wvalue) );
+            }
+            
             // if not enough move on
             if (Nelectron == 0){continue;}
 

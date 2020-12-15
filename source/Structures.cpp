@@ -44,7 +44,8 @@ namespace Qpix
         Qpix_params->Sample_time = 10e-9;
         Qpix_params->Buffer_time = 1;
         Qpix_params->Dead_time = 0;
-        Qpix_params->charge_loss = false;
+        Qpix_params->Charge_loss = false;
+        Qpix_params->Recombination = true;
     }//set_Qpix_Paramaters
 
     // A nice printing function 
@@ -65,9 +66,12 @@ namespace Qpix
                     << "Buffer window              = " << Qpix_params->Buffer_time<< " [s] \n"
                     << "Dead time                  = " << Qpix_params->Dead_time<< " [s] "
                     << std::endl;
-        if (Qpix_params->charge_loss)
+        if (Qpix_params->Charge_loss)
         {std::cout << "Charge loss                = " << "YES" << " [yes/no] " << std::endl;}
         else{std::cout << "Charge loss                = " << "NO" << " [yes/no] " << std::endl;}
+        if (Qpix_params->Recombination)
+        {std::cout << "Recombination                = " << "YES" << " [yes/no] " << std::endl;}
+        else{std::cout << "Recombination                = " << "NO" << " [yes/no] " << std::endl;}
         
         std::cout << "*******************************************************" << std::endl;
     }//print_Qpix_Paramaters
