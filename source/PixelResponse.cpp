@@ -120,7 +120,6 @@ namespace Qpix
                     while( current_time > pix_time )
                     {
                         trk_id_holder.push_back(Pix_info[i].Trk_ID[pix_dex]);
-
                         charge += 1;
                         pix_dex += 1;
                         if (pix_dex >= pix_size){break; }
@@ -138,7 +137,6 @@ namespace Qpix
                     Get_Frequencys(trk_id_holder, trk_TrkIDs_holder, trk_weight_holder);
                     RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
                     RESET_TRUTH_W.push_back(trk_weight_holder);
-                    trk_id_holder.clear();
 
                     
                     TSLR.push_back(current_time - tslr_);
@@ -146,6 +144,8 @@ namespace Qpix
 
                     RESET.push_back( current_time );
                     charge -= Qpix_params->Reset;
+
+                    if (charge < Qpix_params->Reset) { trk_id_holder.clear(); }
 
                     // this will keep the charge in the loop above
                     // just offsets the reset by the dead time
@@ -256,7 +256,6 @@ namespace Qpix
                     while( current_time > pix_time )
                     {
                         trk_id_holder.push_back(Pix_info[i].Trk_ID[pix_dex]);
-
                         charge += 1;
                         pix_dex += 1;
                         if (pix_dex >= pix_size){break; }
@@ -273,7 +272,6 @@ namespace Qpix
                     Get_Frequencys(trk_id_holder, trk_TrkIDs_holder, trk_weight_holder);
                     RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
                     RESET_TRUTH_W.push_back(trk_weight_holder);
-                    trk_id_holder.clear();
 
 
                     TSLR.push_back(current_time - tslr_);
@@ -281,6 +279,8 @@ namespace Qpix
 
                     RESET.push_back( current_time );
                     charge -= Qpix_params->Reset;
+
+                    if (charge < Qpix_params->Reset) { trk_id_holder.clear(); }
 
                     // this will keep the charge in the loop above
                     // just offsets the reset by the dead time

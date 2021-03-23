@@ -28,7 +28,7 @@ namespace Qpix
         std::map<int, int> M;
     
         // check if current element is present
-        for (int i = 0; vec[i]; i++) 
+        for (int i = 0; i < vec.size(); i++)
         {   // If the current element is not found then insert
             // current element with frequency 1
             if (M.find(vec[i]) == M.end()) { M[vec[i]] = 1; }
