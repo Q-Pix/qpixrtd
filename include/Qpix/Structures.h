@@ -11,18 +11,23 @@ namespace Qpix
 
     struct ELECTRON 
     {
-        int  Pix_ID;
-        double  time;
+        int    Pix_ID;
+        double   time;
+        int    Trk_ID;
     };
 
     struct Pixel_Info 
     {
-        int  X_Pix;
-        int  Y_Pix;
+        int X_Pix;
+        int Y_Pix;
         int ID;
         std::vector<double>  time;
+        std::vector<int> Trk_ID;
+
         std::vector<double>  RESET;
         std::vector<double>  TSLR;
+        std::vector<std::vector<int>> RESET_TRUTH_ID;
+        std::vector<std::vector<int>> RESET_TRUTH_W;
     };
 
     template<typename T>
@@ -59,6 +64,8 @@ namespace Qpix
     void set_Qpix_Paramaters(Qpix_Paramaters * Qpix_params);
 
     void print_Qpix_Paramaters(Qpix_Paramaters * Qpix_params);
+    
+    void Get_Frequencys(std::vector<int> vec, std::vector<int>& freq, std::vector<int>& weig );
 
 
 

@@ -238,13 +238,16 @@ namespace Qpix {
             double const start_x = hit_start_x_->at(h_idx);      // cm
             double const start_y = hit_start_y_->at(h_idx);      // cm
             double const start_z = hit_start_z_->at(h_idx);      // cm
-            double const start_t = hit_start_t_->at(h_idx)*1e-9;  // ns
+            double const start_t = hit_start_t_->at(h_idx)*1e-9; // ns
 
             // from PostStepPoint
             double const end_x = hit_end_x_->at(h_idx);      // cm
             double const end_y = hit_end_y_->at(h_idx);      // cm
             double const end_z = hit_end_z_->at(h_idx);      // cm
-            double const end_t = hit_end_t_->at(h_idx)*1e-9;  // ns
+            double const end_t = hit_end_t_->at(h_idx)*1e-9; // ns
+
+            // follow the track for truth matching
+            int const hit_trk_id = hit_track_id_->at(h_idx); // track id
 
             if (start_t < 0.0){continue;}
 
@@ -264,6 +267,9 @@ namespace Qpix {
             if (Qpix_params->Recombination)
             {
                 Nelectron = round(Recombonation * (energy_deposit*1e6/Qpix_params->Wvalue) );
+                // std::cout 
+                // << "Recombonation " << Recombonation <<'\t'
+                // << std::endl;
             }
             else
             {
@@ -279,7 +285,7 @@ namespace Qpix {
             double electron_loc_z = start_z;
             double electron_loc_t = start_t;
             
-            // Determin the "step" size
+            // Determin the "step" size (pre to post hit)
             double const step_x = (end_x - start_x) / Nelectron;
             double const step_y = (end_y - start_y) / Nelectron;
             double const step_z = (end_z - start_z) / Nelectron;
@@ -303,9 +309,6 @@ namespace Qpix {
                 electron_y = Qpix::RandomNormal(electron_loc_y,sigma_T);
                 electron_z = Qpix::RandomNormal(electron_loc_z,sigma_L);
 
-                // check event is contained after diffused ( one pixel from the edge)
-                // if (!(0.4 <= electron_x && electron_x <= 99.6) || !(0.4 <= electron_y && electron_y <= 99.6) || !(0.1 <= electron_z && electron_z <= 499.6)){continue;}
-
                 // add the electron to the vector.
                 hit_e.push_back(Qpix::ELECTRON());
                 
@@ -316,23 +319,8 @@ namespace Qpix {
 
                 hit_e[indexer].Pix_ID = (int)(Pix_Xloc*10000+Pix_Yloc);
                 // hit_e[indexer].time = (int)ceil( electron_loc_t + ( electron_z / Qpix_params->E_vel ) ) ;
-                hit_e[indexer].time = electron_loc_t + ( electron_z / Qpix_params->E_vel ) ;
-
-                // std::cout 
-                // << "time " << hit_e[indexer].time <<'\t'
-                // << "Pix_ID " <<hit_e[indexer].Pix_ID <<'\t'
-                // << "Drift " <<T_drift <<'\t'
-                // << "Tru Z " <<electron_loc_z <<'\t'
-                // << "Dif Z " <<electron_z <<'\t'
-                // << std::endl;
-
-
-
-                // std::cout << "ELT " << electron_loc_t <<"\t"<<
-                //             "drift " << ( electron_z / Qpix_params->E_vel ) <<"\t"<< 
-                //             "ceil " << ceil( electron_loc_t + ( electron_z / Qpix_params->E_vel ) ) <<"\t"<< 
-                //             "Z val " << electron_z <<"\t"<< 
-                //             "time " << hit_e[indexer].time << std::endl;
+                hit_e[indexer].time = electron_loc_t + ( T_drift ) ;
+                hit_e[indexer].Trk_ID = hit_trk_id;
                 
                 // Move to the next electron
                 electron_loc_x += step_x;

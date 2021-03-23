@@ -10,8 +10,6 @@
 
 namespace Qpix
 {
-
-
     // Decodes the pixel ID into x and y pix
     void Pixel_Functions::ID_Decoder(int const& ID, int& Xcurr, int& Ycurr)
     {
@@ -39,7 +37,6 @@ namespace Qpix
                 NewID_Index.push_back( i );
                 newID = hit_e[i].Pix_ID;
             }
-        
         }
         NewID_Index.push_back( hit_e.size() );
 
@@ -49,20 +46,23 @@ namespace Qpix
         {
             std::vector<Qpix::ELECTRON> sub_vec = slice(hit_e, NewID_Index[i], NewID_Index[i+1] -1 );
             std::sort( sub_vec.begin(), sub_vec.end(), &Pixel_Time_Sorter );
-            // std::vector<int> tmp_time;
-            std::vector<double> tmp_time;
 
-            for (int j=0; j<sub_vec.size() ; j++) { tmp_time.push_back( sub_vec[j].time ); 
-            //std::cout<<"sub_vect "<<sub_vec[j].time<<"\t"<< tmp_time[j]<<std::endl;
+            std::vector<int> tmp_trk_id;
+            std::vector<double> tmp_time;
+            for (int j=0; j<sub_vec.size() ; j++) 
+            { 
+                tmp_time.push_back( sub_vec[j].time ); 
+                tmp_trk_id.push_back( sub_vec[j].Trk_ID ); 
             }
 
             int Pix_Xloc, Pix_Yloc ;
             ID_Decoder(sub_vec[0].Pix_ID, Pix_Xloc, Pix_Yloc);
             Pix_info.push_back(Pixel_Info());
-            Pix_info[i].ID    = sub_vec[0].Pix_ID;
-            Pix_info[i].X_Pix = Pix_Xloc;
-            Pix_info[i].Y_Pix = Pix_Yloc;
-            Pix_info[i].time  = tmp_time;
+            Pix_info[i].ID      = sub_vec[0].Pix_ID;
+            Pix_info[i].X_Pix   = Pix_Xloc;
+            Pix_info[i].Y_Pix   = Pix_Yloc;
+            Pix_info[i].time    = tmp_time;
+            Pix_info[i].Trk_ID  = tmp_trk_id;
         }
         return;
     }//Pixelize_Event
@@ -83,6 +83,11 @@ namespace Qpix
         // loop over each pixel that was hit
         for (int i = 0; i < Pixels_Hit_Len; i++)
         {
+            // for truth matching 
+            std::vector<int> trk_id_holder;
+            std::vector<std::vector<int>> RESET_TRUTH_ID;
+            std::vector<std::vector<int>> RESET_TRUTH_W;
+
             // seting up some parameters
             int charge = 0;
             int pix_size = Pix_info[i].time.size();
@@ -114,6 +119,8 @@ namespace Qpix
                     // this adds the electrons that are in the step
                     while( current_time > pix_time )
                     {
+                        trk_id_holder.push_back(Pix_info[i].Trk_ID[pix_dex]);
+
                         charge += 1;
                         pix_dex += 1;
                         if (pix_dex >= pix_size){break; }
@@ -123,9 +130,17 @@ namespace Qpix
                 }
 
                 // this is the reset 
+                
                 if ( charge >= Qpix_params->Reset )
                 {
+                    std::vector<int> trk_TrkIDs_holder;
+                    std::vector<int> trk_weight_holder;
+                    Get_Frequencys(trk_id_holder, trk_TrkIDs_holder, trk_weight_holder);
+                    RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
+                    RESET_TRUTH_W.push_back(trk_weight_holder);
+                    trk_id_holder.clear();
 
+                    
                     TSLR.push_back(current_time - tslr_);
                     tslr_ = current_time;
 
@@ -154,10 +169,23 @@ namespace Qpix
             // add it to the pixel info
             Pix_info[i].RESET = RESET;
             Pix_info[i].TSLR  = TSLR;
+            Pix_info[i].RESET_TRUTH_ID  = RESET_TRUTH_ID;
+            Pix_info[i].RESET_TRUTH_W   = RESET_TRUTH_W;
         }
 
         return ;
     }// Reset
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -178,6 +206,11 @@ namespace Qpix
         // loop over each pixel that was hit
         for (int i = 0; i < Pixels_Hit_Len; i++)
         {
+            // for truth matching 
+            std::vector<int> trk_id_holder;
+            std::vector<std::vector<int>> RESET_TRUTH_ID;
+            std::vector<std::vector<int>> RESET_TRUTH_W;
+
             // seting up some parameters
             int charge = 0;
             int pix_size = Pix_info[i].time.size();
@@ -222,6 +255,8 @@ namespace Qpix
                     // this adds the electrons that are in the step
                     while( current_time > pix_time )
                     {
+                        trk_id_holder.push_back(Pix_info[i].Trk_ID[pix_dex]);
+
                         charge += 1;
                         pix_dex += 1;
                         if (pix_dex >= pix_size){break; }
@@ -233,6 +268,13 @@ namespace Qpix
                 // this is the reset 
                 if ( charge >= Qpix_params->Reset )
                 {
+                    std::vector<int> trk_TrkIDs_holder;
+                    std::vector<int> trk_weight_holder;
+                    Get_Frequencys(trk_id_holder, trk_TrkIDs_holder, trk_weight_holder);
+                    RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
+                    RESET_TRUTH_W.push_back(trk_weight_holder);
+                    trk_id_holder.clear();
+
 
                     TSLR.push_back(current_time - tslr_);
                     tslr_ = current_time;
@@ -262,6 +304,8 @@ namespace Qpix
             // add it to the pixel info
             Pix_info[i].RESET = RESET;
             Pix_info[i].TSLR  = TSLR;
+            Pix_info[i].RESET_TRUTH_ID  = RESET_TRUTH_ID;
+            Pix_info[i].RESET_TRUTH_W   = RESET_TRUTH_W;
         }
 
         return ;
