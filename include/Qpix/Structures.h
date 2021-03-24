@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 
-
 namespace Qpix
 {
 
@@ -15,6 +14,8 @@ namespace Qpix
         double   time;
         int    Trk_ID;
     };
+
+
 
     struct Pixel_Info 
     {
@@ -30,6 +31,8 @@ namespace Qpix
         std::vector<std::vector<int>> RESET_TRUTH_W;
     };
 
+
+
     template<typename T>
     std::vector<T> slice(std::vector<T> const &v, int m, int n)
     {
@@ -40,9 +43,6 @@ namespace Qpix
         return vec;
     }
 
-    bool Electron_Pix_Sort(ELECTRON one, ELECTRON two);
-
-    bool Pixel_Time_Sorter(Qpix::ELECTRON const& lhs, Qpix::ELECTRON const& rhs);
 
     struct Qpix_Paramaters 
     {
@@ -65,13 +65,11 @@ namespace Qpix
 
     void print_Qpix_Paramaters(Qpix_Paramaters * Qpix_params);
     
-    void Get_Frequencys(std::vector<int> vec, std::vector<int>& freq, std::vector<int>& weig );
+    void Get_Frequencies(std::vector<int> vec, std::vector<int>& freq, std::vector<int>& weig );
+    
+    bool Electron_Pix_Sort(ELECTRON one, ELECTRON two);
 
-
-
+    bool Pixel_Time_Sorter(Qpix::ELECTRON const& lhs, Qpix::ELECTRON const& rhs);
 
 }
-
-
-
 #endif

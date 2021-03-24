@@ -7,7 +7,6 @@
 #include <algorithm>
 #include <math.h>
 
-
 namespace Qpix
 {
     class Pixel_Functions

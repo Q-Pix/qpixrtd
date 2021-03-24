@@ -267,11 +267,7 @@ namespace Qpix {
             if (Qpix_params->Recombination)
             {
                 Nelectron = round(Recombonation * (energy_deposit*1e6/Qpix_params->Wvalue) );
-                // std::cout 
-                // << "Recombonation " << Recombonation <<'\t'
-                // << std::endl;
-            }
-            else
+            }else
             {
                 Nelectron = round( (energy_deposit*1e6/Qpix_params->Wvalue) );
             }
@@ -329,21 +325,12 @@ namespace Qpix {
                 electron_loc_t += step_t;
                 indexer += 1;
             }
-
         }
-
         // sorts the electrons in terms of the pixel ID
         std::sort(hit_e.begin(), hit_e.end(), Qpix::Electron_Pix_Sort);
-
-        // for (int i = 0; i < hit_e.size(); i++)
-        // {
-        //     std::cout << "Pix_ID " << hit_e[i].Pix_ID <<"\t"<<
-        //     "time " << hit_e[i].time << std::endl;
-        // }
-
-
-
     }//Get_Event
+
+
 
     //--------------------------------------------------------------------------
     // Adds event that needs to be filled

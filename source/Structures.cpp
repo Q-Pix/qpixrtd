@@ -15,6 +15,8 @@ namespace Qpix
         return (one.Pix_ID < two.Pix_ID);
     }//Electron_Pix_Sort
 
+
+
     //sort the electrons in a pixel by time
     bool Pixel_Time_Sorter(Qpix::ELECTRON const& lhs, Qpix::ELECTRON const& rhs) 
     {
@@ -22,9 +24,9 @@ namespace Qpix
     }//Pixel_Time_Sorter
 
 
-    void Get_Frequencys(std::vector<int> vec, std::vector<int>& TrkIDs, std::vector<int>& weight )
-    {
-        // Define an map
+
+    void Get_Frequencies(std::vector<int> vec, std::vector<int>& TrkIDs, std::vector<int>& weight )
+    {   // Define an map
         std::map<int, int> M;
     
         // check if current element is present
@@ -35,15 +37,14 @@ namespace Qpix
             // Else update the frequency
             else { M[vec[i]]++; }
         }
-    
         // Traverse the map to print the frequency
         for (auto& it : M) 
         {
             TrkIDs.push_back(it.first );
             weight.push_back(it.second);
         }
+    }//Get_Frequencies
 
-    }
 
 
 
@@ -70,6 +71,8 @@ namespace Qpix
         Qpix_params->Charge_loss = false;
         Qpix_params->Recombination = true;
     }//set_Qpix_Paramaters
+
+
 
     // A nice printing function 
     void print_Qpix_Paramaters(Qpix_Paramaters * Qpix_params)
@@ -98,10 +101,5 @@ namespace Qpix
         
         std::cout << "*******************************************************" << std::endl;
     }//print_Qpix_Paramaters
-
-
-
-
-
-
+    
 }

@@ -21,6 +21,7 @@ namespace Qpix
     }//ID_Decoder
 
 
+
     // sorts the electrons in to a pixel structure 
     void Pixel_Functions::Pixelize_Event(std::vector<Qpix::ELECTRON>& hit_e, std::vector<Pixel_Info>& Pix_info)
     {
@@ -72,9 +73,6 @@ namespace Qpix
     // function performs the resets 
     void Pixel_Functions::Reset(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info)
     {
-        // The number of steps to cover the full buffer
-        // int End_Time = Qpix_params->Buffer_time / Qpix_params->Sample_time;
-
         // geting the size of the vectors for looping
         int Pixels_Hit_Len = Pix_info.size();
         int Noise_Vector_Size = Gaussian_Noise.size();
@@ -115,8 +113,7 @@ namespace Qpix
 
                 // main loop to add electrons to the counter
                 if ( current_time > pix_time && pix_dex < pix_size)
-                {
-                    // this adds the electrons that are in the step
+                {   // this adds the electrons that are in the step
                     while( current_time > pix_time )
                     {
                         trk_id_holder.push_back(Pix_info[i].Trk_ID[pix_dex]);
@@ -125,16 +122,14 @@ namespace Qpix
                         if (pix_dex >= pix_size){break; }
                         pix_time = Pix_info[i].time[pix_dex];
                     }
-
                 }
 
                 // this is the reset 
-                
                 if ( charge >= Qpix_params->Reset )
                 {
                     std::vector<int> trk_TrkIDs_holder;
                     std::vector<int> trk_weight_holder;
-                    Get_Frequencys(trk_id_holder, trk_TrkIDs_holder, trk_weight_holder);
+                    Get_Frequencies(trk_id_holder, trk_TrkIDs_holder, trk_weight_holder);
                     RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
                     RESET_TRUTH_W.push_back(trk_weight_holder);
 
@@ -179,24 +174,11 @@ namespace Qpix
 
 
 
-
-
-
-
-
-
-
-
-
-
     // function performs the resets 
     void Pixel_Functions::Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info)
     {
         // time window before and after event
-        double Window = 1e-6;
-
-        // The number of steps to cover the full buffer
-        // int End_Time = Qpix_params->Buffer_time / Qpix_params->Sample_time;
+        double Window = 1e-6
 
         // geting the size of the vectors for looping
         int Pixels_Hit_Len = Pix_info.size();
@@ -251,8 +233,7 @@ namespace Qpix
 
                 // main loop to add electrons to the counter
                 if ( current_time > pix_time && pix_dex < pix_size)
-                {
-                    // this adds the electrons that are in the step
+                {   // this adds the electrons that are in the step
                     while( current_time > pix_time )
                     {
                         trk_id_holder.push_back(Pix_info[i].Trk_ID[pix_dex]);
@@ -261,7 +242,6 @@ namespace Qpix
                         if (pix_dex >= pix_size){break; }
                         pix_time = Pix_info[i].time[pix_dex];
                     }
-
                 }
 
                 // this is the reset 
@@ -269,7 +249,7 @@ namespace Qpix
                 {
                     std::vector<int> trk_TrkIDs_holder;
                     std::vector<int> trk_weight_holder;
-                    Get_Frequencys(trk_id_holder, trk_TrkIDs_holder, trk_weight_holder);
+                    Get_Frequencies(trk_id_holder, trk_TrkIDs_holder, trk_weight_holder);
                     RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
                     RESET_TRUTH_W.push_back(trk_weight_holder);
 

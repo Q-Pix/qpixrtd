@@ -4,10 +4,11 @@ Simulatin to get the response of qpix in LAr
 
 This package requires ROOT to be setup, and uses C++17 and Boost.
 The software versions this was developed with are
+```bash
 cmake version 3.15.5
 make  version 3.81
 ROOT  Version: 6.18/04
-
+```
 
 ### Building
 

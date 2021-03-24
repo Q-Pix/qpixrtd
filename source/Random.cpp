@@ -8,9 +8,8 @@
 namespace Qpix
 {
     // Initlizes the random number generator
-    // XoshiroCpp::Xoshiro256Plus rng(XoshiroCpp::DefaultSeed);
-
     Random_Generator RANDOMGEN = Random_Generator();
+
 
     // draw a ramdom number
     double RandomUniform() 
@@ -20,12 +19,16 @@ namespace Qpix
         return out; 
     }//RandomUniform
 
+
+
     // change the random seed
     void Random_Set_Seed(std::uint64_t Seed)
     {
         RANDOMGEN.set_seed(Seed);
         // rng = XoshiroCpp::Xoshiro256Plus(Seed);
     }//Random_Set_Seed
+
+
 
     // Box muller to generate a gaussian
     double RandomNormal(double m, double s)	/* normal random variate generator */
@@ -74,6 +77,8 @@ namespace Qpix
         return -tmp + log(2.5066282746310005 * ser);
     }//lngamma
 
+
+
     int RandomPoisson(const double mean) 
     {   // Implementation from CLHEP (RandPoisson) and ROOT.
         if (mean <= 0) return 0;
@@ -108,6 +113,7 @@ namespace Qpix
     }//RandomPoisson
 
 
+
     std::vector<double> Make_Gaussian_Noise(double sigma, int Noise_Vector_Size)
     {
         std::vector<double> Noise;
@@ -126,6 +132,5 @@ namespace Qpix
         }
         return Noise;
     }//Make_Gaussian_Noise
-    
 
 }
