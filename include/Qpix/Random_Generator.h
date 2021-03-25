@@ -31,5 +31,4 @@ namespace Qpix
         void long_jump(void);
     };
 }
-
 #endif

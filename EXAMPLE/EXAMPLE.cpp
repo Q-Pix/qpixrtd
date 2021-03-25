@@ -13,7 +13,7 @@
 //----------------------------------------------------------------------
 // main function
 //----------------------------------------------------------------------
-int main()
+int main(int argc, char** argv)
 {
 
   clock_t time_req;
@@ -26,8 +26,8 @@ int main()
   std::vector<double> Gaussian_Noise = Qpix::Make_Gaussian_Noise(2, (int) 1e7);
 
   // In and out files
-  std::string file_in = "MARLEY_100_Events.root";
-  std::string file_out = "out_example.root";
+  std::string file_in = argv[1];
+  std::string file_out = argv[2];
 
   // Qpix paramaters 
   Qpix::Qpix_Paramaters * Qpix_params = new Qpix::Qpix_Paramaters();

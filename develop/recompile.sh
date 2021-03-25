@@ -1,4 +1,4 @@
-rm -rf ../Build/*
+#rm -rf ../Build/*
 
 cd ../Build
 

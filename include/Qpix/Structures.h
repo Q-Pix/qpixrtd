@@ -5,25 +5,33 @@
 #include <string>
 #include <vector>
 
-
 namespace Qpix
 {
 
     struct ELECTRON 
     {
-        int  Pix_ID;
-        int  time;
+        int    Pix_ID;
+        double   time;
+        int    Trk_ID;
     };
+
+
 
     struct Pixel_Info 
     {
-        int  X_Pix;
-        int  Y_Pix;
+        int X_Pix;
+        int Y_Pix;
         int ID;
-        std::vector<int>  time;
-        std::vector<int>  RESET;
-        std::vector<int>  TSLR;
+        std::vector<double>  time;
+        std::vector<int> Trk_ID;
+
+        std::vector<double>  RESET;
+        std::vector<double>  TSLR;
+        std::vector<std::vector<int>> RESET_TRUTH_ID;
+        std::vector<std::vector<int>> RESET_TRUTH_W;
     };
+
+
 
     template<typename T>
     std::vector<T> slice(std::vector<T> const &v, int m, int n)
@@ -35,9 +43,6 @@ namespace Qpix
         return vec;
     }
 
-    bool Electron_Pix_Sort(ELECTRON one, ELECTRON two);
-
-    bool Pixel_Time_Sorter(Qpix::ELECTRON const& lhs, Qpix::ELECTRON const& rhs);
 
     struct Qpix_Paramaters 
     {
@@ -49,21 +54,22 @@ namespace Qpix
         double Readout_Dim;
         double Pix_Size;
         int Reset;
-        int Sample_time;
-        int Buffer_time;
-        int Dead_time;
-        bool charge_loss;
+        double Sample_time;
+        double Buffer_time;
+        double Dead_time;
+        bool Charge_loss;
+        bool Recombination;
     };
 
     void set_Qpix_Paramaters(Qpix_Paramaters * Qpix_params);
 
     void print_Qpix_Paramaters(Qpix_Paramaters * Qpix_params);
+    
+    void Get_Frequencies(std::vector<int> vec, std::vector<int>& freq, std::vector<int>& weig );
+    
+    bool Electron_Pix_Sort(ELECTRON one, ELECTRON two);
 
-
-
+    bool Pixel_Time_Sorter(Qpix::ELECTRON const& lhs, Qpix::ELECTRON const& rhs);
 
 }
-
-
-
 #endif

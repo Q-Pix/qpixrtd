@@ -208,7 +208,7 @@ namespace Qpix {
         sample_time_ = Qpix_params->Sample_time;
         buffer_window_ = Qpix_params->Buffer_time;
         dead_time_ = Qpix_params->Dead_time;
-        charge_loss_ = static_cast<int>(Qpix_params->charge_loss);
+        charge_loss_ = static_cast<int>(Qpix_params->Charge_loss);
 
         tbranch_w_value_->Fill();
         tbranch_drift_velocity_->Fill();
@@ -235,16 +235,21 @@ namespace Qpix {
         for (int h_idx = 0; h_idx < number_hits_; ++h_idx)
         {
             // from PreStepPoint
-            double const start_x = hit_start_x_->at(h_idx);  // cm
-            double const start_y = hit_start_y_->at(h_idx);  // cm
-            double const start_z = hit_start_z_->at(h_idx);  // cm
-            double const start_t = hit_start_t_->at(h_idx);  // ns
+            double const start_x = hit_start_x_->at(h_idx);      // cm
+            double const start_y = hit_start_y_->at(h_idx);      // cm
+            double const start_z = hit_start_z_->at(h_idx);      // cm
+            double const start_t = hit_start_t_->at(h_idx)*1e-9; // ns
 
             // from PostStepPoint
-            double const end_x = hit_end_x_->at(h_idx);  // cm
-            double const end_y = hit_end_y_->at(h_idx);  // cm
-            double const end_z = hit_end_z_->at(h_idx);  // cm
-            double const end_t = hit_end_t_->at(h_idx);  // ns
+            double const end_x = hit_end_x_->at(h_idx);      // cm
+            double const end_y = hit_end_y_->at(h_idx);      // cm
+            double const end_z = hit_end_z_->at(h_idx);      // cm
+            double const end_t = hit_end_t_->at(h_idx)*1e-9; // ns
+
+            // follow the track for truth matching
+            int const hit_trk_id = hit_track_id_->at(h_idx); // track id
+
+            if (start_t < 0.0){continue;}
 
             // energy deposit
             double const energy_deposit = hit_energy_deposit_->at(h_idx);  // MeV
@@ -252,11 +257,21 @@ namespace Qpix {
             // hit length
             double const length_of_hit = hit_length_->at(h_idx);  // cm
 
+            // Set up the paramaters for the recombiataion 
             double const dEdx = energy_deposit/length_of_hit;
             double const Recombonation = Modified_Box(dEdx);
+            int Nelectron;
 
+            // to account for recombination or not
             // calcualte the number of electrons in the hit
-            int Nelectron = round(Recombonation * (energy_deposit*1e6/Qpix_params->Wvalue) );
+            if (Qpix_params->Recombination)
+            {
+                Nelectron = round(Recombonation * (energy_deposit*1e6/Qpix_params->Wvalue) );
+            }else
+            {
+                Nelectron = round( (energy_deposit*1e6/Qpix_params->Wvalue) );
+            }
+            
             // if not enough move on
             if (Nelectron == 0){continue;}
 
@@ -266,7 +281,7 @@ namespace Qpix {
             double electron_loc_z = start_z;
             double electron_loc_t = start_t;
             
-            // Determin the "step" size
+            // Determin the "step" size (pre to post hit)
             double const step_x = (end_x - start_x) / Nelectron;
             double const step_y = (end_y - start_y) / Nelectron;
             double const step_z = (end_z - start_z) / Nelectron;
@@ -278,7 +293,7 @@ namespace Qpix {
             // Loop through the electrons 
             for (int i = 0; i < Nelectron; i++) 
             {
-                // calculate frift time for diffusion 
+                // calculate drift time for diffusion 
                 T_drift = electron_loc_z / Qpix_params->E_vel;
                 // electron lifetime
                 if (Qpix::RandomUniform() >= exp(-T_drift/Qpix_params->Life_Time)){continue;}
@@ -290,9 +305,6 @@ namespace Qpix {
                 electron_y = Qpix::RandomNormal(electron_loc_y,sigma_T);
                 electron_z = Qpix::RandomNormal(electron_loc_z,sigma_L);
 
-                // check event is contained after diffused ( one pixel from the edge)
-                if (!(0.4 <= electron_x && electron_x <= 99.6) || !(0.4 <= electron_y && electron_y <= 99.6) || !(0.1 <= electron_z && electron_z <= 499.6)){continue;}
-
                 // add the electron to the vector.
                 hit_e.push_back(Qpix::ELECTRON());
                 
@@ -302,7 +314,9 @@ namespace Qpix {
                 Pix_Yloc = (int) ceil(electron_y / Qpix_params->Pix_Size);
 
                 hit_e[indexer].Pix_ID = (int)(Pix_Xloc*10000+Pix_Yloc);
-                hit_e[indexer].time = (int)ceil( electron_loc_t + ( electron_z / Qpix_params->E_vel ) ) ;
+                // hit_e[indexer].time = (int)ceil( electron_loc_t + ( electron_z / Qpix_params->E_vel ) ) ;
+                hit_e[indexer].time = electron_loc_t + ( T_drift ) ;
+                hit_e[indexer].Trk_ID = hit_trk_id;
                 
                 // Move to the next electron
                 electron_loc_x += step_x;
@@ -311,13 +325,12 @@ namespace Qpix {
                 electron_loc_t += step_t;
                 indexer += 1;
             }
-
         }
-
         // sorts the electrons in terms of the pixel ID
         std::sort(hit_e.begin(), hit_e.end(), Qpix::Electron_Pix_Sort);
-
     }//Get_Event
+
+
 
     //--------------------------------------------------------------------------
     // Adds event that needs to be filled
