@@ -178,7 +178,7 @@ namespace Qpix
     void Pixel_Functions::Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info)
     {
         // time window before and after event
-        double Window = 1e-6
+        double Window = 1e-6;
 
         // geting the size of the vectors for looping
         int Pixels_Hit_Len = Pix_info.size();
