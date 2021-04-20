@@ -23,7 +23,7 @@ int main(int argc, char** argv)
   // changing the seed for the random numbergenerator and generating the noise vector 
   constexpr std::uint64_t Seed = 777;
   Qpix::Random_Set_Seed(Seed);
-  std::vector<double> Gaussian_Noise = Qpix::Make_Gaussian_Noise(2, (int) 1e7);
+  std::vector<double> Gaussian_Noise = Qpix::Make_Gaussian_Noise(0, (int) 1e7);
 
   // In and out files
   std::string file_in = argv[1];
@@ -32,6 +32,7 @@ int main(int argc, char** argv)
   // Qpix paramaters 
   Qpix::Qpix_Paramaters * Qpix_params = new Qpix::Qpix_Paramaters();
   set_Qpix_Paramaters(Qpix_params);
+  Qpix_params->Buffer_time = 0.01;
   print_Qpix_Paramaters(Qpix_params);
 
   // root file manager
@@ -61,7 +62,8 @@ int main(int argc, char** argv)
 
     std::cout << "Running the resets" << std::endl;
     // the reset function
-    PixFunc.Reset(Qpix_params, Gaussian_Noise, Pixel);
+    // PixFunc.Reset(Qpix_params, Gaussian_Noise, Pixel);
+    PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, Pixel);
 
     rfm.AddEvent( Pixel );
     rfm.EventFill();
