@@ -238,18 +238,18 @@ namespace Qpix {
             double const start_x = hit_start_x_->at(h_idx);      // cm
             double const start_y = hit_start_y_->at(h_idx);      // cm
             double const start_z = hit_start_z_->at(h_idx);      // cm
-            double const start_t = hit_start_t_->at(h_idx)*1e-9; // ns
+            double const start_t = hit_start_t_->at(h_idx)*1e-9; // sec
 
             // from PostStepPoint
             double const end_x = hit_end_x_->at(h_idx);      // cm
             double const end_y = hit_end_y_->at(h_idx);      // cm
             double const end_z = hit_end_z_->at(h_idx);      // cm
-            double const end_t = hit_end_t_->at(h_idx)*1e-9; // ns
+            double const end_t = hit_end_t_->at(h_idx)*1e-9; // sec
 
             // follow the track for truth matching
             int const hit_trk_id = hit_track_id_->at(h_idx); // track id
 
-            if (start_t < 0.0){continue;}
+            if (start_t < 0.0 || start_t > Qpix_params->Buffer_time){continue;}
 
             // energy deposit
             double const energy_deposit = hit_energy_deposit_->at(h_idx);  // MeV
