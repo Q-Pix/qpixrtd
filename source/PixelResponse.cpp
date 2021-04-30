@@ -3,9 +3,9 @@
 #include <vector>
 #include <math.h>
 
-#include "Qpix/Random.h"
-#include "Qpix/Structures.h"
-#include "Qpix/PixelResponse.h"
+#include "Random.h"
+#include "Structures.h"
+#include "PixelResponse.h"
 
 
 namespace Qpix

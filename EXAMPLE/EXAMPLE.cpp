@@ -5,10 +5,10 @@
 #include <ctime>
 
 // Qpix includes
-#include "Qpix/Random.h"
-#include "Qpix/ROOTFileManager.h"
-#include "Qpix/Structures.h"
-#include "Qpix/PixelResponse.h"
+#include "Random.h"
+#include "ROOTFileManager.h"
+#include "Structures.h"
+#include "PixelResponse.h"
 
 //----------------------------------------------------------------------
 // main function

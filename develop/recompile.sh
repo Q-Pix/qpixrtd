@@ -1,4 +1,4 @@
-#rm -rf ../Build/*
+rm -rf ../Build/*
 
 cd ../Build
 
@@ -6,7 +6,9 @@ cmake ..
 
 make
 
-mv libQpix.a ../Library/.
+cp ./source/libQPixRTD.so ../Library/.
+cp ./source/libQPixRTDDict_rdict.pcm ../Library/.
+cp ./source/libQPixRTDDict.rootmap ../Library/.
 
 cd ../develop/
 

@@ -5,13 +5,13 @@ sleep 1
 
 # setting up the Qpix path
 printf '************************************* \n'
-export QpixDir=$PWD
+export QPixRTDDir=$PWD
 printf 'Defined your Qpix path as \n'
-echo $QpixDir
+echo $QPixRTDDir
 sleep 1
 
 
-cd $QpixDir
+cd $QPixRTDDir
 
 printf '************************************* \n'
 printf 'Make/goto the Build folder and compile \n'
@@ -30,9 +30,11 @@ printf '************************************* \n'
 printf 'Moving the joint library \n'
 
 # Moving the lib
-mv libQpix.a ../Library/.
+cp ./source/libQPixRTD.so ../Library/.
+cp ./source/libQPixRTDDict_rdict.pcm ../Library/.
+cp ./source/libQPixRTDDict.rootmap ../Library/.
 
-cd $QpixDir
+cd $QPixRTDDir
 printf '************************************* \n'
 sleep 1
 

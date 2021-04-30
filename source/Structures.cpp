@@ -5,7 +5,7 @@
 #include <map>
 
 // see this include for the actiual structs...
-#include "Qpix/Structures.h"
+#include "Structures.h"
 
 namespace Qpix
 {

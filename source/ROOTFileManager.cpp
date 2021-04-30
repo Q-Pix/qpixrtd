@@ -6,7 +6,7 @@
 //   * Creation date: 31 August 2020
 // -----------------------------------------------------------------------------
 
-#include "Qpix/ROOTFileManager.h"
+#include "ROOTFileManager.h"
 
 // Boost includes
 #include "boost/filesystem.hpp"
@@ -44,6 +44,8 @@ namespace Qpix {
         tbranch_y_ = ttree_->Branch("pixel_y", &pixel_y_);
         tbranch_reset_ = ttree_->Branch("pixel_reset", &pixel_reset_);
         tbranch_tslr_ = ttree_->Branch("pixel_tslr", &pixel_tslr_);
+        tbranch_reset_truth_track_id_ = ttree_->Branch("pixel_reset_truth_track_id", &pixel_reset_truth_track_id_);
+        tbranch_reset_truth_weight_ = ttree_->Branch("pixel_reset_truth_weight", &pixel_reset_truth_weight_);
 
         metadata_ = (TTree*) tfile_->Get("metadata");
 
@@ -156,6 +158,8 @@ namespace Qpix {
         tbranch_y_->Fill();
         tbranch_reset_->Fill();
         tbranch_tslr_->Fill();
+        tbranch_reset_truth_track_id_->Fill();
+        tbranch_reset_truth_weight_->Fill();
     }
 
     //--------------------------------------------------------------------------
@@ -165,6 +169,8 @@ namespace Qpix {
         pixel_y_.clear();
         pixel_reset_.clear();
         pixel_tslr_.clear();
+        pixel_reset_truth_track_id_.clear();
+        pixel_reset_truth_weight_.clear();
     }
 
     //--------------------------------------------------------------------------
@@ -342,25 +348,12 @@ namespace Qpix {
             // skip pixel if there are no resets
             if (Pixel[i].RESET.size() < 1) continue;
 
-            // vector of resets as double instead of int for workaround
-            std::vector< double > reset_double;
-            std::vector< double > tslr_double;
-
-            for (unsigned int j=0; j<Pixel[i].RESET.size(); j++)
-            {
-                // cast from int to double
-                reset_double.push_back(static_cast<double>(Pixel[i].RESET[j]));
-                tslr_double.push_back(static_cast<double>(Pixel[i].TSLR[j]));
-            }
-
-            // add to tree vectors if there are resets
-            if (reset_double.size() > 0)
-            {
-                pixel_x_.push_back(Pixel[i].X_Pix);
-                pixel_y_.push_back(Pixel[i].Y_Pix);
-                pixel_reset_.push_back(reset_double);
-                pixel_tslr_.push_back(tslr_double);
-            }
+            pixel_x_.push_back(Pixel[i].X_Pix);
+            pixel_y_.push_back(Pixel[i].Y_Pix);
+            pixel_reset_.push_back(Pixel[i].RESET);
+            pixel_tslr_.push_back(Pixel[i].TSLR);
+            pixel_reset_truth_track_id_.push_back(Pixel[i].RESET_TRUTH_ID);
+            pixel_reset_truth_weight_.push_back(Pixel[i].RESET_TRUTH_W);
         }
 
     }//AddEvent

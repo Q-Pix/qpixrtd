@@ -19,8 +19,8 @@ find_package(Boost COMPONENTS system filesystem REQUIRED)
 include_directories(${Boost_INCLUDE_DIR})
 
 ## add Q_PIX_RTD directories
-include_directories($ENV{QpixDir}/include)
-link_directories($ENV{QpixDir}/Library)
+include_directories($ENV{QPixRTDDir}/source)
+link_directories($ENV{QPixRTDDir}/Library)
 
 ## executable
 add_executable(develop develop.cpp)
@@ -28,5 +28,5 @@ add_executable(develop develop.cpp)
 ## link libraries
 target_link_libraries(develop ${Boost_LIBRARIES})
 target_link_libraries(develop ${ROOT_LIBRARIES})
-target_link_libraries(develop ${Qpix_LIBRARIES})
-target_link_libraries(develop Qpix)
+target_link_libraries(develop ${QPixRTD_LIBRARIES})
+target_link_libraries(develop QPixRTD)

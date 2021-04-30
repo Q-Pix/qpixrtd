@@ -2,7 +2,7 @@
 #include <vector>
 
 // #include "Qpix/Xoshiro_Full.h"
-#include "Qpix/Random_Generator.h"
+#include "Random_Generator.h"
 
 
 namespace Qpix

@@ -1,5 +1,5 @@
-#include "Qpix/Structures.h"
-#include "Qpix/Electronics.h"
+#include "Structures.h"
+#include "Electronics.h"
 
 
 namespace Qpix
