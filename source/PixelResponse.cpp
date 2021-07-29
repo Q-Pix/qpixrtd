@@ -208,9 +208,9 @@ namespace Qpix
             // 100 atto amps is 625 electrons a second
             // approximate the leakage charge given "curretn_time"
             // charge = 625/1e9 * current_time;
-            charge = (int)ceil(625 * current_time);
+            // mcharge = (int)ceil(625 * current_time);
             // Make sure it dose not start with a bunch of resets
-            while ( charge >= Qpix_params->Reset ){ charge -= Qpix_params->Reset; }
+            // while ( charge >= Qpix_params->Reset ){ charge -= Qpix_params->Reset; }
 
 
             std::vector<double>  RESET;
