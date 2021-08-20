@@ -73,7 +73,7 @@ void slimmer(std::string input, std::string output)
         // "number_particles",
         // "number_hits",
 
-        // "energy_deposit",
+        "energy_deposit",
 
         // "particle_track_id",
         // "particle_parent_track_id",
