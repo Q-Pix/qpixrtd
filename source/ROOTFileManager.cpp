@@ -294,22 +294,25 @@ namespace Qpix {
             double const step_t = (end_t - start_t) / Nelectron;
 
             double electron_x, electron_y, electron_z;
-            double T_drift, sigma_L, sigma_T;
+            double T_drift_i, T_drift_f, sigma_L, sigma_T;
 
             // Loop through the electrons 
             for (int i = 0; i < Nelectron; i++) 
             {
                 // calculate drift time for diffusion 
-                T_drift = electron_loc_z / Qpix_params->E_vel;
+                T_drift_i = electron_loc_z / Qpix_params->E_vel;
                 // electron lifetime
                 if (Qpix::RandomUniform() >= exp(-T_drift/Qpix_params->Life_Time)){continue;}
                 
                 // diffuse the electrons position
-                sigma_T = sqrt(2*Qpix_params->DiffusionT*T_drift);
-                sigma_L = sqrt(2*Qpix_params->DiffusionL*T_drift);
+                sigma_T = sqrt(2*Qpix_params->DiffusionT*T_drift_i);
+                sigma_L = sqrt(2*Qpix_params->DiffusionL*T_drift_i);
                 electron_x = Qpix::RandomNormal(electron_loc_x,sigma_T);
                 electron_y = Qpix::RandomNormal(electron_loc_y,sigma_T);
                 electron_z = Qpix::RandomNormal(electron_loc_z,sigma_L);
+		
+		// calculate new drift time after diffusion
+		T_drift_f = electron_z / Qpix_params->E_vel;
 
                 // add the electron to the vector.
                 hit_e.push_back(Qpix::ELECTRON());
@@ -321,7 +324,7 @@ namespace Qpix {
 
                 hit_e[indexer].Pix_ID = (int)(Pix_Xloc*10000+Pix_Yloc);
                 // hit_e[indexer].time = (int)ceil( electron_loc_t + ( electron_z / Qpix_params->E_vel ) ) ;
-                hit_e[indexer].time = electron_loc_t + ( T_drift ) ;
+                hit_e[indexer].time = electron_loc_t + ( T_drift_f ) ;
                 hit_e[indexer].Trk_ID = hit_trk_id;
                 
                 // Move to the next electron
