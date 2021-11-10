@@ -1,7 +1,7 @@
 // -----------------------------------------------------------------------------
-//  slimmer.c
+//  signal_slimmer.c
 //
-//  root -l -b -q 'slimmer.c("/path/to/input.root", "/path/to/output.root")'
+//  root -l -b -q 'signal_slimmer.c("/path/to/input.root", "/path/to/output.root")'
 //  https://root-forum.cern.ch/t/delete-multiple-branches-from-atootfile-at-once/41809/5
 //   * Author: Everybody is an author!
 //   * Creation date: 17 August 2021
@@ -20,7 +20,7 @@
 //----------------------------------------------------------------------
 // run, forrest, run!
 //----------------------------------------------------------------------
-void slimmer(std::string input, std::string output)
+void signal_slimmer(std::string input, std::string output)
 {
     std::cout << "input: " << input << std::endl;
     std::cout << "output: " << output << std::endl;
@@ -119,5 +119,5 @@ void slimmer(std::string input, std::string output)
     output_event_tree->Print();
     output_file->Write();
     
-} // slimmer()
+} // signal_slimmer()
 
