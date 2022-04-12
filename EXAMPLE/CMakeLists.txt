@@ -15,7 +15,8 @@ find_package(ROOT REQUIRED)
 include(${ROOT_USE_FILE})
 
 ## find the Boost package
-find_package(Boost COMPONENTS system filesystem REQUIRED)
+set(Boost_NO_BOOST_CMAKE ON)
+find_package(Boost 1.61 COMPONENTS system filesystem REQUIRED)
 include_directories(${Boost_INCLUDE_DIR})
 
 ## add Q_PIX_RTD directories
@@ -30,4 +31,3 @@ target_link_libraries(EXAMPLE ${Boost_LIBRARIES})
 target_link_libraries(EXAMPLE ${ROOT_LIBRARIES})
 target_link_libraries(EXAMPLE ${QPixRTD_LIBRARIES})
 target_link_libraries(EXAMPLE QPixRTD)
-

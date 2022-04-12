@@ -12,7 +12,7 @@
 
 source ./setup.sh
 
-mkdir Build
+[ ! -d "./Build" ] && mkdir Build
 cd Build
 cmake ../
 make

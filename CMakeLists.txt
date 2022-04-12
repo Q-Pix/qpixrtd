@@ -6,7 +6,7 @@ project(QPixRTD)
 
 ## find the Boost package
 set(Boost_NO_BOOST_CMAKE ON)
-FIND_PACKAGE(Boost 1.61 REQUIRED)
+FIND_PACKAGE(Boost 1.61 COMPONENTS system filesystem REQUIRED)
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
 
 ## find the ROOT package
@@ -21,3 +21,4 @@ include(${ROOT_USE_FILE})
 include_directories(${CMAKE_SOURCE_DIR}/source)
 
 add_subdirectory(source)
+
