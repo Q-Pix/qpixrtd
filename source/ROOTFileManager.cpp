@@ -238,7 +238,7 @@ namespace Qpix {
 
         int indexer = 0;
         // loop over all hits in the event
-        for (int h_idx = 0; h_idx < number_hits_; ++h_idx)
+        for (long long h_idx = 0; h_idx < number_hits_; ++h_idx)
         {
             // from PreStepPoint
             double const start_x = hit_start_x_->at(h_idx);      // cm
