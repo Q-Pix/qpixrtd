@@ -1,5 +1,5 @@
 #!/bin/sh
 # setting up the Qpix path
-export QPixRTDDir=$PWD
+export QPixRTDDir=$pwd
 cd $QPixRTDDir
 

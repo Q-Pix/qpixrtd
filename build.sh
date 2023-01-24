@@ -28,4 +28,7 @@ fi
 cp ./source/libQPixRTDDict_rdict.pcm ../Library/.
 cp ./source/libQPixRTDDict.rootmap ../Library/.
 
+# only this works for ubuntu
+# cp ./source/lib* ../Library/.
+
 
