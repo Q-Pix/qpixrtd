@@ -11,6 +11,13 @@
 #include "Structures.h"
 #include "PixelResponse.h"
 
+#include "TROOT.h"
+#include "TFile.h"
+#include "TTree.h"
+#include "TBranch.h"
+#include "TObject.h"
+#include "Rtypes.h"
+
 
 
 //----------------------------------------------------------------------
@@ -37,13 +44,13 @@ int main(int argc, char** argv)
     int option_index = 0;
     static struct option long_options[] =
     {
-      {"noise",           no_argument,        &f_noise,     1},
+      {"nonoise",           no_argument,        &f_noise,     1},
       {"recombination",   no_argument,        &f_reco,      1},
       {"threshold",       required_argument,  NULL,       't'},
       {"input",           required_argument,  NULL,       'i'},
       {"output",          required_argument,  NULL,       'o'},
       {NULL,              0,                  NULL,         0}
-      };
+    };
 
     c = getopt_long(argc, argv, ":i:o:t:", long_options, &option_index);
     if (c == -1)
@@ -72,8 +79,8 @@ int main(int argc, char** argv)
       case 1:
         printf("Non-option arg: %s\n", optarg);
         break;
-      }
     }
+  }
 
   clock_t time_req;
   time_req = clock();
@@ -103,9 +110,13 @@ int main(int argc, char** argv)
 
   // root file manager
   int number_entries = -1;
-  Qpix::ROOTFileManager rfm = Qpix::ROOTFileManager(file_in, file_out);
+  std::cout << "test point 1" << std::endl;
+  Qpix::ROOTFileManager rfm(file_in, file_out);
+  std::cout << "test point 2" << std::endl;
   rfm.AddMetadata(Qpix_params);  // add parameters to metadata
+  std::cout << "test point 3" << std::endl;
   number_entries = rfm.NumberEntries();
+  std::cout << "Number Entries: " << number_entries << std::endl;
   rfm.EventReset();
 
   // Loop though the events in the file

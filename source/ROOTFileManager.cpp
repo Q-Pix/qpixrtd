@@ -17,6 +17,8 @@
 // math includes
 #include <math.h>
 
+#include <iostream>
+
 namespace bfs = boost::filesystem;
 
 namespace Qpix {
@@ -24,7 +26,9 @@ namespace Qpix {
     //--------------------------------------------------------------------------
     ROOTFileManager::ROOTFileManager(std::string const& input_file, std::string const& output_file)
     {
-        this->initialize(input_file, output_file);
+      std::cout << "Test Point -- Before rfm::initialize" << std::endl;  
+      this->initialize(input_file, output_file);
+      std::cout << "Test Point -- After rfm::initialize" << std::endl;
     }
 
     //--------------------------------------------------------------------------
@@ -38,7 +42,13 @@ namespace Qpix {
         tfile_ = new TFile(output_file.data(), "update");
         ttree_ = (TTree*) tfile_->Get("event_tree");
 
-        this->set_branch_addresses(ttree_);
+        std::cout << "Test Point -- Before set_branch_addresses(ttree_)" << std::endl;      
+        if (ttree != 0) {
+          this->set_branch_addresses(ttree_);
+        } else {
+          abort;
+        }
+        std::cout << "Test Point -- After set_branch_addresses(ttree_)" << std::endl;
 
         tbranch_x_ = ttree_->Branch("pixel_x", &pixel_x_);
         tbranch_y_ = ttree_->Branch("pixel_y", &pixel_y_);
@@ -106,7 +116,9 @@ namespace Qpix {
         ttree->SetBranchAddress("run", &run_);
         ttree->SetBranchAddress("event", &event_);
         ttree->SetBranchAddress("number_particles", &number_particles_);
+        std::cout << "Test Point -- Before SetBranchAddress" << std::endl;
         ttree->SetBranchAddress("number_hits", &number_hits_);
+        std::cout << "Test Point -- After SetBranchAddress" << std::endl;
         ttree->SetBranchAddress("energy_deposit", &energy_deposit_);
 
         ttree->SetBranchAddress("particle_track_id", &particle_track_id_);
@@ -236,9 +248,12 @@ namespace Qpix {
     {
         ttree_->GetEntry(EVENT);
 
+        std::cout << "Event: " << EVENT << std::endl;
+        std::cout << "nHits: " << number_hits_ << std::endl;
+
         int indexer = 0;
         // loop over all hits in the event
-        for (long long h_idx = 0; h_idx < number_hits_; ++h_idx)
+        for (Long64_t h_idx = 0; h_idx < number_hits_; ++h_idx)
         {
             // from PreStepPoint
             double const start_x = hit_start_x_->at(h_idx);      // cm
