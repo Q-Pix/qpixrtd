@@ -4,6 +4,10 @@
 #include <math.h>
 #include <set>
 
+// sorting things
+#include <algorithm>
+#include <numeric>
+
 #include "Random.h"
 #include "Structures.h"
 #include "PixelResponse.h"
@@ -303,4 +307,42 @@ namespace Qpix
         return ;
     }// Reset
 
+    // reset fast overload to use pixel map
+    void Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, 
+                    std::vector<int> mPixIds, std::map<int, Pixel_Info>& mPix_info)
+    {
+        // time window before and after event
+        double Window = 1e-6;
+
+        // look at every pixel that was hit
+        for(auto hit_id : mPixIds)
+        {
+            auto hit_pixel = mPix_info[hit_id];
+
+            // skip if won't reset
+            const int& nElectrons = hit_pixel.time.size();
+            if(nElectrons < Qpix_params->Reset*0.5) continue;
+
+            // sort through the electrons using their timing as the indices we care about
+            std::vector<size_t> elec_index (nElectrons);
+            std::iota(elec_index.begin(),elec_index.end(),0);
+            std::stable_sort(elec_index.begin(), elec_index.end(), [&hit_pixel](size_t i1, size_t i2) 
+                            {return hit_pixel.time[i1] <hit_pixel.time[i2];});
+
+            // build up the charge for each reset now
+            double charge = 0;
+            int i=0, j=0;
+            for(auto i : elec_index)
+            {
+                charge += Gaussian_Noise[i++];
+                if(i >= Gaussian_Noise.size()) i = 0;
+
+                ++j;
+            }
+
+            // save the charge that we didn't use
+
+        }
+
+    }
 }
