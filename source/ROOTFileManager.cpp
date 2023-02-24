@@ -389,4 +389,18 @@ namespace Qpix {
 
     }//AddEvent
 
+    void ROOTFileManager::AddEvent(const std::set<int>& hit_ids, std::map<int, Qpix::Pixel_Info>& mPixelMap)
+    {
+        // add all of the pixel vectors we care about
+        for(auto i : hit_ids)
+        {
+            auto pixel_info = mPixelMap[i];
+            pixel_x_.push_back(pixel_info.X_Pix);
+            pixel_y_.push_back(pixel_info.Y_Pix);
+            pixel_reset_.push_back(pixel_info.RESET);
+            pixel_tslr_.push_back(pixel_info.TSLR);
+            pixel_reset_truth_track_id_.push_back(pixel_info.RESET_TRUTH_ID);
+            pixel_reset_truth_weight_.push_back(pixel_info.RESET_TRUTH_W);
+        }
+    }
 }

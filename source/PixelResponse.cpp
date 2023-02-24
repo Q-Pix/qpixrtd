@@ -308,8 +308,8 @@ namespace Qpix
     }// Reset
 
     // reset fast overload to use pixel map
-    void Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, 
-                    std::vector<int> mPixIds, std::map<int, Pixel_Info>& mPix_info)
+    void Pixel_Functions::Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, 
+                            const std::set<int>& mPixIds, std::map<int, Pixel_Info>& mPix_info)
     {
         // time window before and after event
         double Window = 1e-6;
@@ -318,30 +318,92 @@ namespace Qpix
         for(auto hit_id : mPixIds)
         {
             auto hit_pixel = mPix_info[hit_id];
+            mPix_info[hit_id].RESET_TRUTH_ID.clear();
+            mPix_info[hit_id].RESET_TRUTH_W.clear();
+            mPix_info[hit_id].RESET.clear();
+            mPix_info[hit_id].TSLR.clear();
 
             // skip if won't reset
             const int& nElectrons = hit_pixel.time.size();
             if(nElectrons < Qpix_params->Reset*0.5) continue;
 
             // sort through the electrons using their timing as the indices we care about
-            std::vector<size_t> elec_index (nElectrons);
+            std::vector<int> elec_index (nElectrons);
             std::iota(elec_index.begin(),elec_index.end(),0);
             std::stable_sort(elec_index.begin(), elec_index.end(), [&hit_pixel](size_t i1, size_t i2) 
                             {return hit_pixel.time[i1] <hit_pixel.time[i2];});
 
+            // for truth matching 
+            std::vector<std::vector<int>> RESET_TRUTH_ID;
+            std::vector<std::vector<int>> RESET_TRUTH_W;
+            std::vector<double>  RESET;
+            double tslr_ = 0;
+            std::vector<double>  TSLR;
+
             // build up the charge for each reset now
             double charge = 0;
-            int i=0, j=0;
-            for(auto i : elec_index)
+            double curr_time = hit_pixel.time[elec_index.front()];
+            double stop_time = hit_pixel.time[elec_index.back()];
+            int i=0, j=0, lastResetElectron=0;
+            while(curr_time < stop_time)
             {
+                curr_time += Qpix_params->Sample_time;
                 charge += Gaussian_Noise[i++];
-                if(i >= Gaussian_Noise.size()) i = 0;
+                if(i > Gaussian_Noise.size()) i = 0;
 
-                ++j;
+                // check to pop any electrons
+                if(curr_time > hit_pixel.time[elec_index[j]] && j < nElectrons)
+                    while(curr_time > hit_pixel.time[elec_index[j++]] && j < nElectrons)
+                        charge += 1;
+
+                // reset occurs here
+                if(charge >= Qpix_params->Reset)
+                {
+                    std::vector<int> trk_id_holder;
+                    for(int i=lastResetElectron; i<j; ++i)
+                        trk_id_holder.push_back(hit_pixel.Trk_ID[elec_index[i]]);
+
+                    // calculation information
+                    std::vector<int> trk_TrkIDs_holder;
+                    std::vector<int> trk_weight_holder;
+                    Get_Frequencies(trk_id_holder, trk_TrkIDs_holder, trk_weight_holder);
+                    mPix_info[hit_id].RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
+                    mPix_info[hit_id].RESET_TRUTH_W.push_back(trk_weight_holder);
+
+                    // which electron caused this reset
+                    lastResetElectron = j;
+
+                    mPix_info[hit_id].RESET.push_back(curr_time);
+                    mPix_info[hit_id].TSLR.push_back(curr_time - tslr_);
+                    tslr_ = curr_time;
+
+                    charge -= Qpix_params->Reset;
+                    if (charge < Qpix_params->Reset) trk_id_holder.clear();
+
+                    // this will keep the charge in the loop above
+                    // just offsets the reset by the dead time
+                    curr_time += Qpix_params->Dead_time;
+
+                    // condition for charge loss
+                    // just the main loop without the charge
+                    if (Qpix_params->Charge_loss)
+                        while(curr_time > hit_pixel.time[elec_index[j++]] && j < nElectrons)
+                            if (j >= nElectrons){break;}
+
+                }
+
             }
 
             // save the charge that we didn't use
-
+            std::vector<int> hit_ids(elec_index.size()-lastResetElectron);
+            std::vector<double> hit_times(elec_index.size()-lastResetElectron);
+            for(auto i=elec_index.begin()+lastResetElectron; i<elec_index.end(); ++i)
+            {
+                hit_times.push_back(hit_pixel.time.at(*i));
+                hit_ids.push_back(hit_pixel.Trk_ID.at(*i));
+            }
+            mPix_info[hit_id].time = hit_times;
+            mPix_info[hit_id].Trk_ID = hit_ids;
         }
 
     }

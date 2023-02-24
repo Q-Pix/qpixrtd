@@ -62,15 +62,23 @@ int main(int argc, char** argv)
     // Pixelize the electrons 
     // std::cout << "Pixelizing the event" << std::endl;
     Qpix::Pixel_Functions PixFunc = Qpix::Pixel_Functions();
-    std::vector<Qpix::Pixel_Info> Pixel;
-    PixFunc.Pixelize_Event(hit_e, Pixel);
+    std::set<int> hit_pixels = PixFunc.Pixelize_Event(hit_e, mPixelInfo);
+    // std::vector<Qpix::Pixel_Info> Pixel;
+    // PixFunc.Pixelize_Event(hit_e, Pixel);
 
     std::cout << "Running the resets" << std::endl;
     // the reset function
     // PixFunc.Reset(Qpix_params, Gaussian_Noise, Pixel);
-    PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, Pixel);
+    PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, hit_pixels, mPixelInfo);
+    // PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, Pixel);
 
-    rfm.AddEvent(Pixel);
+    for(auto id : hit_pixels){
+      if(mPixelInfo.find(id) == mPixelInfo.end())
+        std::cout << "WARNING index " << id << ", not in hit map\n";
+    }
+
+    rfm.AddEvent(hit_pixels, mPixelInfo);
+    // rfm.AddEvent(Pixel);
     rfm.EventFill();
     rfm.EventReset();
   }
