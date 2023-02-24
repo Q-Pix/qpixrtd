@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <ctime>
+#include <map>
 
 // Qpix includes
 #include "Random.h"
@@ -32,7 +33,7 @@ int main(int argc, char** argv)
   // Qpix paramaters 
   Qpix::Qpix_Paramaters * Qpix_params = new Qpix::Qpix_Paramaters();
   set_Qpix_Paramaters(Qpix_params);
-  Qpix_params->Buffer_time = 0.01;
+  Qpix_params->Buffer_time = 100e3;
   print_Qpix_Paramaters(Qpix_params);
 
   // root file manager
@@ -42,6 +43,10 @@ int main(int argc, char** argv)
   number_entries = rfm.NumberEntries();
   rfm.EventReset();
 
+  // we can make the pixel map once since we know everything about the detector
+  // from the meta data
+  std::map<int, Qpix::Pixel_Info> mPixelInfo = rfm.MakePixelInfoMap();
+
   // Loop though the events in the file
   for (int evt = 0; evt < number_entries; evt++)
   {
@@ -49,23 +54,23 @@ int main(int argc, char** argv)
     std::cout << "Starting on event " << evt << std::endl;
 
     std::cout << "Getting the event" << std::endl;
-    std::vector<Qpix::ELECTRON> hit_e;
     // turn the Geant4 hits into electrons
-    rfm.Get_Event( evt, Qpix_params, hit_e);
+    std::vector<Qpix::ELECTRON> hit_e;
+    rfm.Get_Event(evt, Qpix_params, hit_e);
     std::cout << "size of hit_e = " << hit_e.size() << std::endl;
 
-    std::cout << "Pixelizing the event" << std::endl;
+    // Pixelize the electrons 
+    // std::cout << "Pixelizing the event" << std::endl;
     Qpix::Pixel_Functions PixFunc = Qpix::Pixel_Functions();
     std::vector<Qpix::Pixel_Info> Pixel;
-    // Pixelize the electrons 
-    PixFunc.Pixelize_Event( hit_e, Pixel );
+    PixFunc.Pixelize_Event(hit_e, Pixel);
 
     std::cout << "Running the resets" << std::endl;
     // the reset function
     // PixFunc.Reset(Qpix_params, Gaussian_Noise, Pixel);
     PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, Pixel);
 
-    rfm.AddEvent( Pixel );
+    rfm.AddEvent(Pixel);
     rfm.EventFill();
     rfm.EventReset();
   }
