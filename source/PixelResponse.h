@@ -23,5 +23,7 @@ namespace Qpix
 
     };
 
+    int ID_Encoder(const int&, const int&);
+
 }
 #endif

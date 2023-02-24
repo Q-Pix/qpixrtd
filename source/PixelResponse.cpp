@@ -20,6 +20,9 @@ namespace Qpix
         return;
     }//ID_Decoder
 
+    // decoders should really have encoders..
+    int ID_Encoder(const int& px, const int& py) {return (int)(px*10000+py);}
+
 
 
     // sorts the electrons in to a pixel structure 

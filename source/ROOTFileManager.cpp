@@ -6,7 +6,9 @@
 //   * Creation date: 31 August 2020
 // -----------------------------------------------------------------------------
 
+// Qpix includes
 #include "ROOTFileManager.h"
+#include "PixelResponse.h"
 
 // Boost includes
 #include "boost/filesystem.hpp"
@@ -325,7 +327,7 @@ namespace Qpix {
                 Pix_Xloc = (int) ceil(electron_x / Qpix_params->Pix_Size);
                 Pix_Yloc = (int) ceil(electron_y / Qpix_params->Pix_Size);
 
-                hit_e[indexer].Pix_ID = (int)(Pix_Xloc*10000+Pix_Yloc);
+                hit_e[indexer].Pix_ID = Qpix::ID_Encoder(Pix_Xloc, Pix_Yloc);
                 hit_e[indexer].time = electron_loc_t + ( electron_z / Qpix_params->E_vel );
                 hit_e[indexer].Trk_ID = hit_trk_id;
                 
