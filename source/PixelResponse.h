@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
+#include <set>
 #include <fstream>
 #include <algorithm>
 #include <math.h>
@@ -17,13 +19,14 @@ namespace Qpix
 
         void Pixelize_Event(std::vector<Qpix::ELECTRON>& hit_e, std::vector<Pixel_Info>& Pix_info);
 
+        // overload with map to handle all searching
+        std::set<int> Pixelize_Event(std::vector<Qpix::ELECTRON>& hit_e, std::map<int, Pixel_Info>& mPix_info);
+
         void Reset(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info);
         
         void Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info);
 
     };
-
-    int ID_Encoder(const int&, const int&);
 
 }
 #endif

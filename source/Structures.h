@@ -1,6 +1,7 @@
 #ifndef QPIXSTRUCTURES_H_
 #define QPIXSTRUCTURES_H_
 
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -16,9 +17,13 @@ namespace Qpix
     };
 
 
+    // matches with PixelResponse Decoder..
+    int ID_Encoder(const int&, const int&);
 
     struct Pixel_Info 
     {
+        Pixel_Info() = default;
+        Pixel_Info(const int& x, const int& y) : X_Pix(x), Y_Pix(y), ID(Qpix::ID_Encoder(x, y)) {};
         int X_Pix;
         int Y_Pix;
         int ID;

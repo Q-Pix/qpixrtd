@@ -41,6 +41,7 @@ namespace Qpix {
             double Modified_Box(double dEdx);
             void Get_Event(int, Qpix::Qpix_Paramaters *, std::vector< Qpix::ELECTRON > &);
             void AddEvent(std::vector<Qpix::Pixel_Info> const);
+            std::map<int, Qpix::Pixel_Info> MakePixelInfoMap();
 
         private:
 

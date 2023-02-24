@@ -167,6 +167,30 @@ namespace Qpix {
         tbranch_reset_truth_weight_->Fill();
     }
 
+
+    //--------------------------------------------------------------------------
+    std::map<int, Qpix::Pixel_Info> ROOTFileManager::MakePixelInfoMap()
+    {
+        std::map<int, Qpix::Pixel_Info> pixel_map;
+        if(detector_length_z_ < 1)
+        {
+            std::cout << "WARNING did not read metadata correctly for detector volume!\n";
+            return pixel_map;
+        }
+        // we can figure out what the maximum pixel sizes must be from meta data
+        int maxX = ceil(detector_length_x_ / pixel_size_);
+        int maxY = ceil(detector_length_y_ / pixel_size_);
+
+        // build the pixel map
+        for(int i=0; i<maxX; ++i){
+            for(int j=0; j<maxY; ++j){
+                pixel_map[Qpix::ID_Encoder(i, j)] = Qpix::Pixel_Info(i, j);
+            }
+        }
+
+        return pixel_map;
+    }
+
     //--------------------------------------------------------------------------
     void ROOTFileManager::EventReset()
     {   

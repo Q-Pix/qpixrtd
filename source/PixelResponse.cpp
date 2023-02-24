@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <math.h>
+#include <set>
 
 #include "Random.h"
 #include "Structures.h"
@@ -19,10 +20,6 @@ namespace Qpix
         Ycurr = (int) round(fractpart*10000); 
         return;
     }//ID_Decoder
-
-    // decoders should really have encoders..
-    int ID_Encoder(const int& px, const int& py) {return (int)(px*10000+py);}
-
 
 
     // sorts the electrons in to a pixel structure 
@@ -72,6 +69,20 @@ namespace Qpix
     }//Pixelize_Event
 
 
+    // determine which IDs had electrons collide with them, and look at those times
+    std::set<int> Pixel_Functions::Pixelize_Event(std::vector<Qpix::ELECTRON>& hit_e, std::map<int, Pixel_Info>& mPix_info)
+    {
+        std::set<int> pixel_ids;
+
+        // go through all of the hits in the electron cloud
+        for(auto hit : hit_e){
+            pixel_ids.insert(hit.Pix_ID);
+            mPix_info[hit.Pix_ID].time.push_back(hit.time);
+            mPix_info[hit.Pix_ID].Trk_ID.push_back(hit.Trk_ID);
+        }
+
+        return pixel_ids;
+    }
 
     // function performs the resets 
     void Pixel_Functions::Reset(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info)
@@ -173,8 +184,6 @@ namespace Qpix
 
         return ;
     }// Reset
-
-
 
 
     // function performs the resets 
