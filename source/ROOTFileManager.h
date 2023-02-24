@@ -114,6 +114,10 @@ namespace Qpix {
 
             TTree * metadata_;
 
+            double detector_length_x_;
+            double detector_length_y_;
+            double detector_length_z_;
+
             double w_value_;
             double drift_velocity_;
             double longitudinal_diffusion_;

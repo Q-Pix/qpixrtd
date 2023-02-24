@@ -48,6 +48,9 @@ namespace Qpix {
         tbranch_reset_truth_weight_ = ttree_->Branch("pixel_reset_truth_weight", &pixel_reset_truth_weight_);
 
         metadata_ = (TTree*) tfile_->Get("metadata");
+        metadata_->SetBranchAddress("detector_length_x", &detector_length_x_);
+        metadata_->SetBranchAddress("detector_length_y", &detector_length_y_);
+        metadata_->SetBranchAddress("detector_length_z", &detector_length_z_);
 
         tbranch_w_value_ = metadata_->Branch("w_value", &w_value_);
         tbranch_drift_velocity_ = metadata_->Branch("drift_velocity", &drift_velocity_);
@@ -228,6 +231,9 @@ namespace Qpix {
         tbranch_buffer_window_->Fill();
         tbranch_dead_time_->Fill();
         tbranch_charge_loss_->Fill();
+
+        // populate the detector size values
+        metadata_->GetEntry(0);
     }
 
     //--------------------------------------------------------------------------
