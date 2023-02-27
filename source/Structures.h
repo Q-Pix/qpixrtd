@@ -30,6 +30,10 @@ namespace Qpix
         std::vector<double>  time;
         std::vector<int> Trk_ID;
 
+        // keep track of how much charge we've added
+        double charge = 0;
+        int nElectrons = 0;
+
         std::vector<double>  RESET;
         std::vector<double>  TSLR;
         std::vector<std::vector<int>> RESET_TRUTH_ID;

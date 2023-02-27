@@ -30,5 +30,11 @@ namespace Qpix
 
     };
 
+    // helper functions
+
+    // take the number of samples we're skipping and see if there are any
+    // electrons in this window, pass back the time of the added electron, if so
+    bool DriftCurrentElectrons(const int&, double&);
+
 }
 #endif

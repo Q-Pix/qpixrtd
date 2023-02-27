@@ -68,7 +68,7 @@ namespace Qpix
         Qpix_params->Reset = 6250;
         // time in ns
         
-        Qpix_params->Sample_time = 10e-9; // in s 
+        Qpix_params->Sample_time = 1/30e6;// in s 
         Qpix_params->Buffer_time = 1; // in s 
         Qpix_params->Dead_time = 0; // in s 
         Qpix_params->Charge_loss = false;
