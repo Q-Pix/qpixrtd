@@ -169,9 +169,9 @@ namespace Qpix {
 
 
     //--------------------------------------------------------------------------
-    std::map<int, Qpix::Pixel_Info> ROOTFileManager::MakePixelInfoMap()
+    std::unordered_map<int, Qpix::Pixel_Info> ROOTFileManager::MakePixelInfoMap()
     {
-        std::map<int, Qpix::Pixel_Info> pixel_map;
+        std::unordered_map<int, Qpix::Pixel_Info> pixel_map;
         if(detector_length_z_ < 1)
         {
             std::cout << "WARNING did not read metadata correctly for detector volume!\n";
@@ -182,8 +182,8 @@ namespace Qpix {
         int maxY = ceil(detector_length_y_ / pixel_size_);
 
         // build the pixel map
-        for(int i=0; i<maxX; ++i){
-            for(int j=0; j<maxY; ++j){
+        for(int i=1; i<maxX; ++i){
+            for(int j=1; j<maxY; ++j){
                 pixel_map[Qpix::ID_Encoder(i, j)] = Qpix::Pixel_Info(i, j);
             }
         }
@@ -264,7 +264,8 @@ namespace Qpix {
 
     //--------------------------------------------------------------------------
     // gets the event from the file and tunrs it into electrons
-    void ROOTFileManager::Get_Event(int EVENT, Qpix::Qpix_Paramaters * Qpix_params, std::vector<Qpix::ELECTRON>& hit_e)
+    void ROOTFileManager::Get_Event(int EVENT, Qpix::Qpix_Paramaters * Qpix_params, std::vector<Qpix::ELECTRON>& hit_e,
+                                    bool sort_elec)
     {
         ttree_->GetEntry(EVENT);
 
@@ -364,7 +365,8 @@ namespace Qpix {
             }
         }
         // sorts the electrons in terms of the pixel ID
-        std::sort(hit_e.begin(), hit_e.end(), Qpix::Electron_Pix_Sort);
+        if(sort_elec)
+            std::sort(hit_e.begin(), hit_e.end(), Qpix::Electron_Pix_Sort);
     }//Get_Event
 
 
@@ -389,12 +391,12 @@ namespace Qpix {
 
     }//AddEvent
 
-    void ROOTFileManager::AddEvent(const std::set<int>& hit_ids, std::map<int, Qpix::Pixel_Info>& mPixelMap)
+    void ROOTFileManager::AddEvent(const std::set<int>& hit_ids, std::unordered_map<int, Qpix::Pixel_Info>& mPixelMap)
     {
         // add all of the pixel vectors we care about
         for(auto i : hit_ids)
         {
-            auto pixel_info = mPixelMap[i];
+            Pixel_Info pixel_info = mPixelMap[i];
             pixel_x_.push_back(pixel_info.X_Pix);
             pixel_y_.push_back(pixel_info.Y_Pix);
             pixel_reset_.push_back(pixel_info.RESET);

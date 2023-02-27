@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <set>
 #include <fstream>
 #include <algorithm>
@@ -19,14 +19,14 @@ namespace Qpix
 
         void Pixelize_Event(std::vector<Qpix::ELECTRON>& hit_e, std::vector<Pixel_Info>& Pix_info);
 
-        // overload with map to handle all searching
-        std::set<int> Pixelize_Event(std::vector<Qpix::ELECTRON>& hit_e, std::map<int, Pixel_Info>& mPix_info);
+        // overload with unordered_map to handle all searching
+        std::set<int> Pixelize_Event(std::vector<Qpix::ELECTRON>& hit_e, std::unordered_map<int, Pixel_Info>& mPix_info);
 
         void Reset(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info);
         
         void Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info);
 
-        void Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, const std::set<int>& mPixIds, std::map<int, Pixel_Info>& mPix_info);
+        void Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, const std::set<int>& mPixIds, std::unordered_map<int, Pixel_Info>& mPix_info);
 
     };
 

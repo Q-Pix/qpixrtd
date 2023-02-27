@@ -16,11 +16,6 @@
 //----------------------------------------------------------------------
 int main(int argc, char** argv)
 {
-
-  clock_t time_req;
-  time_req = clock();
-  double time;
-
   // changing the seed for the random numbergenerator and generating the noise vector 
   constexpr std::uint64_t Seed = 777;
   Qpix::Random_Set_Seed(Seed);
@@ -45,49 +40,47 @@ int main(int argc, char** argv)
 
   // we can make the pixel map once since we know everything about the detector
   // from the meta data
-  std::map<int, Qpix::Pixel_Info> mPixelInfo = rfm.MakePixelInfoMap();
+  std::unordered_map<int, Qpix::Pixel_Info> mPixelInfo = rfm.MakePixelInfoMap();
+
+  clock_t time_req;
+  time_req = clock();
+  double time;
 
   // Loop though the events in the file
   for (int evt = 0; evt < number_entries; evt++)
   {
-    std::cout << "*********************************************" << std::endl;
-    std::cout << "Starting on event " << evt << std::endl;
+    // std::cout << "*********************************************" << std::endl;
+    // std::cout << "Starting on event " << evt << std::endl;
 
-    std::cout << "Getting the event" << std::endl;
+    if(evt%100 == 0)
+      std::cout << "Getting the event" << std::endl;
     // turn the Geant4 hits into electrons
     std::vector<Qpix::ELECTRON> hit_e;
-    rfm.Get_Event(evt, Qpix_params, hit_e);
-    std::cout << "size of hit_e = " << hit_e.size() << std::endl;
+    rfm.Get_Event(evt, Qpix_params, hit_e, false);
+    // std::cout << "size of hit_e = " << hit_e.size() << std::endl;
 
     // Pixelize the electrons 
     // std::cout << "Pixelizing the event" << std::endl;
     Qpix::Pixel_Functions PixFunc = Qpix::Pixel_Functions();
-    std::set<int> hit_pixels = PixFunc.Pixelize_Event(hit_e, mPixelInfo);
     // std::vector<Qpix::Pixel_Info> Pixel;
     // PixFunc.Pixelize_Event(hit_e, Pixel);
 
-    std::cout << "Running the resets" << std::endl;
+    std::set<int> hit_pixels = PixFunc.Pixelize_Event(hit_e, mPixelInfo);
+
+    // std::cout << "Running the resets" << std::endl;
     // the reset function
-    // PixFunc.Reset(Qpix_params, Gaussian_Noise, Pixel);
     PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, hit_pixels, mPixelInfo);
     // PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, Pixel);
 
-    for(auto id : hit_pixels){
-      if(mPixelInfo.find(id) == mPixelInfo.end())
-        std::cout << "WARNING index " << id << ", not in hit map\n";
-    }
-
-    rfm.AddEvent(hit_pixels, mPixelInfo);
     // rfm.AddEvent(Pixel);
+    rfm.AddEvent(hit_pixels, mPixelInfo);
+
     rfm.EventFill();
-    rfm.EventReset();
+    // rfm.EventReset();
   }
 
   // save and close
   rfm.Save();
-
-
-
 
   std::cout << "done" << std::endl;
   time_req = clock() - time_req;

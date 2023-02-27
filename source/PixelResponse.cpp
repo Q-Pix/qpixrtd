@@ -74,7 +74,7 @@ namespace Qpix
 
 
     // determine which IDs had electrons collide with them, and look at those times
-    std::set<int> Pixel_Functions::Pixelize_Event(std::vector<Qpix::ELECTRON>& hit_e, std::map<int, Pixel_Info>& mPix_info)
+    std::set<int> Pixel_Functions::Pixelize_Event(std::vector<Qpix::ELECTRON>& hit_e, std::unordered_map<int, Pixel_Info>& mPix_info)
     {
         std::set<int> pixel_ids;
 
@@ -228,7 +228,6 @@ namespace Qpix
             // Make sure it dose not start with a bunch of resets
             // while ( charge >= Qpix_params->Reset ){ charge -= Qpix_params->Reset; }
 
-
             std::vector<double>  RESET;
             double tslr_ = 0;
             std::vector<double>  TSLR;
@@ -307,9 +306,9 @@ namespace Qpix
         return ;
     }// Reset
 
-    // reset fast overload to use pixel map
+    // reset fast overload to use pixel unordered_map
     void Pixel_Functions::Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, 
-                            const std::set<int>& mPixIds, std::map<int, Pixel_Info>& mPix_info)
+                                     const std::set<int>& mPixIds, std::unordered_map<int, Pixel_Info>& mPix_info)
     {
         // time window before and after event
         double Window = 1e-6;
@@ -317,34 +316,33 @@ namespace Qpix
         // look at every pixel that was hit
         for(auto hit_id : mPixIds)
         {
-            auto hit_pixel = mPix_info[hit_id];
-            mPix_info[hit_id].RESET_TRUTH_ID.clear();
-            mPix_info[hit_id].RESET_TRUTH_W.clear();
-            mPix_info[hit_id].RESET.clear();
-            mPix_info[hit_id].TSLR.clear();
+            Pixel_Info& hit_pixel = mPix_info[hit_id];
+            hit_pixel.RESET_TRUTH_ID.clear();
+            hit_pixel.RESET_TRUTH_W.clear();
+            hit_pixel.RESET.clear();
+            hit_pixel.TSLR.clear();
 
             // skip if won't reset
-            const int& nElectrons = hit_pixel.time.size();
+            const int nElectrons = hit_pixel.time.size();
             if(nElectrons < Qpix_params->Reset*0.5) continue;
 
             // sort through the electrons using their timing as the indices we care about
             std::vector<int> elec_index (nElectrons);
+            // std::cout << "\npossible reset with nElectrons: " 
+            //           << nElectrons
+            //           << ", at (" << hit_pixel.X_Pix << "," 
+            //           << hit_pixel.Y_Pix << "). " << hit_pixel.ID << " ";
             std::iota(elec_index.begin(),elec_index.end(),0);
             std::stable_sort(elec_index.begin(), elec_index.end(), [&hit_pixel](size_t i1, size_t i2) 
-                            {return hit_pixel.time[i1] <hit_pixel.time[i2];});
-
-            // for truth matching 
-            std::vector<std::vector<int>> RESET_TRUTH_ID;
-            std::vector<std::vector<int>> RESET_TRUTH_W;
-            std::vector<double>  RESET;
-            double tslr_ = 0;
-            std::vector<double>  TSLR;
+                            {return hit_pixel.time[i1] < hit_pixel.time[i2];});
 
             // build up the charge for each reset now
+            double tslr_ = 0;
             double charge = 0;
             double curr_time = hit_pixel.time[elec_index.front()];
-            double stop_time = hit_pixel.time[elec_index.back()];
-            int i=0, j=0, lastResetElectron=0;
+            double stop_time = hit_pixel.time[elec_index.back()] + Window;
+            if(curr_time < Window) curr_time = 0;
+            int i=0, curElectron=0, lastResetElectron=0;
             while(curr_time < stop_time)
             {
                 curr_time += Qpix_params->Sample_time;
@@ -352,29 +350,26 @@ namespace Qpix
                 if(i > Gaussian_Noise.size()) i = 0;
 
                 // check to pop any electrons
-                if(curr_time > hit_pixel.time[elec_index[j]] && j < nElectrons)
-                    while(curr_time > hit_pixel.time[elec_index[j++]] && j < nElectrons)
+                if(curElectron < nElectrons && curr_time > hit_pixel.time[elec_index[curElectron]])
+                    while(curr_time > hit_pixel.time[elec_index[curElectron]] && ++curElectron < nElectrons)
                         charge += 1;
 
                 // reset occurs here
                 if(charge >= Qpix_params->Reset)
                 {
                     std::vector<int> trk_id_holder;
-                    for(int i=lastResetElectron; i<j; ++i)
+                    for(int i=lastResetElectron; i<curElectron; ++i)
                         trk_id_holder.push_back(hit_pixel.Trk_ID[elec_index[i]]);
 
                     // calculation information
                     std::vector<int> trk_TrkIDs_holder;
                     std::vector<int> trk_weight_holder;
                     Get_Frequencies(trk_id_holder, trk_TrkIDs_holder, trk_weight_holder);
-                    mPix_info[hit_id].RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
-                    mPix_info[hit_id].RESET_TRUTH_W.push_back(trk_weight_holder);
+                    hit_pixel.RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
+                    hit_pixel.RESET_TRUTH_W.push_back(trk_weight_holder);
 
-                    // which electron caused this reset
-                    lastResetElectron = j;
-
-                    mPix_info[hit_id].RESET.push_back(curr_time);
-                    mPix_info[hit_id].TSLR.push_back(curr_time - tslr_);
+                    hit_pixel.RESET.push_back(curr_time);
+                    hit_pixel.TSLR.push_back(curr_time - tslr_);
                     tslr_ = curr_time;
 
                     charge -= Qpix_params->Reset;
@@ -387,11 +382,22 @@ namespace Qpix
                     // condition for charge loss
                     // just the main loop without the charge
                     if (Qpix_params->Charge_loss)
-                        while(curr_time > hit_pixel.time[elec_index[j++]] && j < nElectrons)
-                            if (j >= nElectrons){break;}
+                        while(curr_time > hit_pixel.time[elec_index[curElectron++]] && curElectron < nElectrons)
+                            if (curElectron >= nElectrons){break;}
 
+                    // which electron caused this reset
+                    lastResetElectron = curElectron;
+
+                    std::cout << "Reset occurs at pixel ("
+                      << hit_pixel.X_Pix << "," 
+                      << hit_pixel.Y_Pix << "). " << lastResetElectron << std::endl;
                 }
+            }
 
+            // if we didn't have any resets, no need to rebuild electron vectors
+            if(lastResetElectron == 0) {
+                std::cout << "saving " << hit_pixel.time.size() << " electrons\n";
+                return;
             }
 
             // save the charge that we didn't use
@@ -402,8 +408,9 @@ namespace Qpix
                 hit_times.push_back(hit_pixel.time.at(*i));
                 hit_ids.push_back(hit_pixel.Trk_ID.at(*i));
             }
-            mPix_info[hit_id].time = hit_times;
-            mPix_info[hit_id].Trk_ID = hit_ids;
+            hit_pixel.time = hit_times;
+            hit_pixel.Trk_ID = hit_ids;
+            std::cout << "saving " << hit_pixel.time.size() << " electrons.";
         }
 
     }

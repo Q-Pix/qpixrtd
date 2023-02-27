@@ -20,7 +20,7 @@
 #include "TBranch.h"
 
 // C++ includes
-#include <map>
+#include <unordered_map>
 #include <set>
 
 namespace Qpix {
@@ -39,10 +39,10 @@ namespace Qpix {
 
             void AddMetadata(Qpix::Qpix_Paramaters * const);
             double Modified_Box(double dEdx);
-            void Get_Event(int, Qpix::Qpix_Paramaters *, std::vector< Qpix::ELECTRON > &);
+            void Get_Event(int, Qpix::Qpix_Paramaters *, std::vector< Qpix::ELECTRON > &, bool sort_elec=true);
             void AddEvent(std::vector<Qpix::Pixel_Info> const);
-            void AddEvent(const std::set<int>&, std::map<int, Qpix::Pixel_Info>&);
-            std::map<int, Qpix::Pixel_Info> MakePixelInfoMap();
+            void AddEvent(const std::set<int>&, std::unordered_map<int, Qpix::Pixel_Info>&);
+            std::unordered_map<int, Qpix::Pixel_Info> MakePixelInfoMap();
 
         private:
 
