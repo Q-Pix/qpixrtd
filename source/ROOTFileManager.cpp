@@ -367,6 +367,8 @@ namespace Qpix {
         // sorts the electrons in terms of the pixel ID
         if(sort_elec)
             std::sort(hit_e.begin(), hit_e.end(), Qpix::Electron_Pix_Sort);
+        else
+            std::sort(hit_e.begin(), hit_e.end(), Qpix::Pixel_Time_Sorter);
     }//Get_Event
 
 
@@ -397,6 +399,7 @@ namespace Qpix {
         for(auto i : hit_ids)
         {
             Pixel_Info pixel_info = mPixelMap[i];
+            if(pixel_info.RESET.size() < 1) continue;
             pixel_x_.push_back(pixel_info.X_Pix);
             pixel_y_.push_back(pixel_info.Y_Pix);
             pixel_reset_.push_back(pixel_info.RESET);
