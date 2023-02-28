@@ -59,8 +59,8 @@ namespace Qpix {
             std::vector< std::vector < float > > pixel_tslr_;
             // std::vector< std::vector< std::vector < int > > > pixel_reset_truth_track_id_;
             // std::vector< std::vector< std::vector < double > > > pixel_reset_truth_weight_;
-            std::vector< std::vector< std::vector < u_int16_t > > > pixel_reset_truth_track_id_;
-            std::vector< std::vector< std::vector < short > > > pixel_reset_truth_weight_;
+            std::vector< std::vector< std::vector < int > > > pixel_reset_truth_track_id_;
+            std::vector< std::vector< std::vector < int > > > pixel_reset_truth_weight_;
 
             TBranch * tbranch_x_;
             TBranch * tbranch_y_;

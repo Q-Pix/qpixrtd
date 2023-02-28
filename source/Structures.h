@@ -28,19 +28,19 @@ namespace Qpix
         short X_Pix;
         short Y_Pix;
         int ID;
-        std::vector<float>  time = std::vector<float>(100);
-        std::vector<short> Trk_ID = std::vector<short>(100);
+        std::vector<float>  time = std::vector<float>(10);
+        std::vector<short> Trk_ID = std::vector<short>(10);
 
         // keep track of how much charge we've added
         float charge = 0;
-        int nElectrons = 0;
+        short nElectrons = 0;
         std::map<u_int16_t, short> mPids;
         float tslr=0;
 
-        std::vector<float>  RESET = std::vector<float>(20);
-        std::vector<float>  TSLR = std::vector<float>(20);
-        std::vector<std::vector<u_int16_t>> RESET_TRUTH_ID = std::vector<std::vector<u_int16_t>>(5);
-        std::vector<std::vector<short>> RESET_TRUTH_W = std::vector<std::vector<short>>(5);
+        std::vector<float>  RESET = std::vector<float>(10);
+        std::vector<float>  TSLR = std::vector<float>(10);
+        std::vector<std::vector<int>> RESET_TRUTH_ID = std::vector<std::vector<int>>(10);
+        std::vector<std::vector<int>> RESET_TRUTH_W = std::vector<std::vector<int>>(10);
     };
 
 
@@ -77,7 +77,7 @@ namespace Qpix
 
     void print_Qpix_Paramaters(Qpix_Paramaters * Qpix_params);
     
-    void Get_Frequencies(std::vector<int> vec, std::vector<u_int16_t>& freq, std::vector<short>& weig );
+    void Get_Frequencies(std::vector<int> vec, std::vector<int>& freq, std::vector<int>& weig );
     
     bool Electron_Pix_Sort(ELECTRON one, ELECTRON two);
 

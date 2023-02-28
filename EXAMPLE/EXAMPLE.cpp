@@ -22,6 +22,44 @@ void avg(std::vector<clock_t> start_times, std::vector<clock_t> stop_times, std:
   std::cout << msg << avgs/size << std::endl;
 }
 
+void getSize(std::unordered_map<int, Qpix::Pixel_Info>& pixel_umap)
+{
+  int reset_size = 0;
+  int tslr_size = 0;
+  int trkid_size = 0;
+  int resetI_size = 0;
+  int resetW_size = 0;
+  int time_size = 0;
+  float mpid_size = 0;
+  float nCounts = 0;
+  float charge = 0;
+  for(auto int_pix : pixel_umap){
+    auto pixel = int_pix.second;
+    if(pixel.time.size() > 0){
+      time_size += pixel.time.size();
+      trkid_size += pixel.Trk_ID.size();
+      // mpid_size += pixel.mPids.size();
+      charge += pixel.charge;
+      ++nCounts;
+    }
+    if(nCounts == 0) nCounts = 1;
+    // zero
+    // reset_size += pixel.RESET.size();
+    // tslr_size += pixel.TSLR.size();
+    // resetI_size += pixel.RESET_TRUTH_ID.size();
+    // resetW_size += pixel.RESET_TRUTH_W.size();
+  }
+  std::cout << "map size:\ntime: " << time_size  << ", avg: " << time_size / nCounts
+            << "\ntrkid_size: " << trkid_size << ", avg: " << trkid_size / nCounts
+            << "\nmap size: " << mpid_size << ", avg: " << mpid_size / nCounts
+            << "\ncharge: " << charge << ", avg: " << charge / nCounts
+            << "\ncounts: " << nCounts 
+            // << "\nRESET: " << reset_size
+            // << "\ntslr_size: " << tslr_size
+            // << "\nresetI_size: " << resetI_size
+            // << "\nresetW_size: " << resetW_size
+            << std::endl;
+}
 
 //----------------------------------------------------------------------
 // main function
@@ -52,7 +90,10 @@ int main(int argc, char** argv)
 
   // we can make the pixel map once since we know everything about the detector
   // from the meta data
-  std::unordered_map<int, Qpix::Pixel_Info> mPixelInfo = rfm.MakePixelInfoMap();
+  std::unordered_map<int, Qpix::Pixel_Info> mPixelInfo = rfm.MakePixelInfoMap(); // ~870k pixels
+  std::cout << "pixel map size: " << mPixelInfo.size() << std::endl;
+  std::string bla;
+  std::cin >> bla;
 
   clock_t time_req;
   time_req = clock();
@@ -69,12 +110,13 @@ int main(int argc, char** argv)
 
     if(evt%1000 == 0){
       std::cout << "Getting the event: " << evt << std::endl;
-      avg(start_pixelize_times, stop_pixelize_times, "pixel times average: ");
-      avg(start_reset_times, stop_reset_times, "reset times average: ");
-      start_reset_times.clear();
-      stop_reset_times.clear();
-      start_pixelize_times.clear();
-      stop_pixelize_times.clear();
+      // avg(start_pixelize_times, stop_pixelize_times, "pixel times average: ");
+      // avg(start_reset_times, stop_reset_times, "reset times average: ");
+      // start_reset_times.clear();
+      // stop_reset_times.clear();
+      // start_pixelize_times.clear();
+      // stop_pixelize_times.clear();
+      // getSize(mPixelInfo);
     }
     // turn the Geant4 hits into electrons
     std::vector<Qpix::ELECTRON> hit_e;
@@ -85,22 +127,19 @@ int main(int argc, char** argv)
     // Pixelize the electrons 
     // std::cout << "Pixelizing the event" << std::endl;
     Qpix::Pixel_Functions PixFunc = Qpix::Pixel_Functions();
-    std::vector<Qpix::Pixel_Info> Pixel;
+    // std::vector<Qpix::Pixel_Info> Pixel;
 
-    start_pixelize_times.push_back(clock());
+    // start_pixelize_times.push_back(clock());
     // PixFunc.Pixelize_Event(hit_e, Pixel);
     std::set<int> hit_pixels = PixFunc.Pixelize_Event(hit_e, mPixelInfo);
-    stop_pixelize_times.push_back(clock());
-
-    // for(int hid : hit_pixels)
-    //   Pixel.push_back(mPixelInfo[hid]);
+    // stop_pixelize_times.push_back(clock());
 
     // std::cout << "Running the resets" << std::endl;
     // the reset function
-    start_reset_times.push_back(clock());
+    // start_reset_times.push_back(clock());
     // PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, Pixel);
     PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, hit_pixels, mPixelInfo);
-    stop_reset_times.push_back(clock());
+    // stop_reset_times.push_back(clock());
 
     // rfm.AddEvent(Pixel);
     rfm.AddEvent(hit_pixels, mPixelInfo);

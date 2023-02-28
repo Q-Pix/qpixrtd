@@ -408,12 +408,11 @@ namespace Qpix {
             pixel_tslr_.push_back(std::move(pixel_info.TSLR));
             pixel_reset_truth_track_id_.push_back(std::move(pixel_info.RESET_TRUTH_ID));
             pixel_reset_truth_weight_.push_back(std::move(pixel_info.RESET_TRUTH_W));
-            // pixel_info.X_Pix.clear();
-            // pixel_info.Y_Pix.clear();
-            pixel_info.RESET.clear();
-            pixel_info.TSLR.clear();
-            pixel_info.RESET_TRUTH_ID.clear();
-            pixel_info.RESET_TRUTH_ID.clear();
+            // empty these vectors and keep their memory small
+            std::vector<float>(10).swap(pixel_info.RESET);
+            std::vector<float>(10).swap(pixel_info.TSLR);
+            std::vector<std::vector<int>>(10).swap(pixel_info.RESET_TRUTH_ID);
+            std::vector<std::vector<int>>(10).swap(pixel_info.RESET_TRUTH_ID);
         }
     }
 }

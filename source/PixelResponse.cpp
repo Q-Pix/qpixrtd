@@ -102,8 +102,8 @@ namespace Qpix
         {
             // for truth matching 
             std::vector<int> trk_id_holder;
-            std::vector<std::vector<u_int16_t>> RESET_TRUTH_ID;
-            std::vector<std::vector<short>> RESET_TRUTH_W;
+            std::vector<std::vector<int>> RESET_TRUTH_ID;
+            std::vector<std::vector<int>> RESET_TRUTH_W;
 
             // seting up some parameters
             int charge = 0;
@@ -146,8 +146,8 @@ namespace Qpix
                 // this is the reset 
                 if ( charge >= Qpix_params->Reset )
                 {
-                    std::vector<u_int16_t> trk_TrkIDs_holder;
-                    std::vector<short> trk_weight_holder;
+                    std::vector<int> trk_TrkIDs_holder;
+                    std::vector<int> trk_weight_holder;
                     Get_Frequencies(trk_id_holder, trk_TrkIDs_holder, trk_weight_holder);
                     RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
                     RESET_TRUTH_W.push_back(trk_weight_holder);
@@ -207,8 +207,8 @@ namespace Qpix
         {
             // for truth matching 
             std::vector<int> trk_id_holder;
-            std::vector<std::vector<u_int16_t>> RESET_TRUTH_ID;
-            std::vector<std::vector<short>> RESET_TRUTH_W;
+            std::vector<std::vector<int>> RESET_TRUTH_ID;
+            std::vector<std::vector<int>> RESET_TRUTH_W;
 
             // seting up some parameters
             int charge = 0;
@@ -263,8 +263,8 @@ namespace Qpix
                 // this is the reset 
                 if ( charge >= Qpix_params->Reset )
                 {
-                    std::vector<u_int16_t> trk_TrkIDs_holder;
-                    std::vector<short> trk_weight_holder;
+                    std::vector<int> trk_TrkIDs_holder;
+                    std::vector<int> trk_weight_holder;
                     Get_Frequencies(trk_id_holder, trk_TrkIDs_holder, trk_weight_holder);
                     RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
                     RESET_TRUTH_W.push_back(trk_weight_holder);
@@ -331,11 +331,11 @@ namespace Qpix
                 charge += hit_pixel.time.size();
                 hit_pixel.nElectrons += hit_pixel.time.size();
                 hit_pixel.time.clear();
-                // for(auto id : hit_pixel.Trk_ID){
-                //     if(id > UINT16_MAX) std::cout << "WARNING id more than max!\n";
-                //     if(hit_pixel.mPids.find(id) == hit_pixel.mPids.end()) hit_pixel.mPids[id] = 1;
-                //     else ++hit_pixel.mPids[id];
-                // }
+                for(auto id : hit_pixel.Trk_ID){
+                    if(id > UINT16_MAX) std::cout << "WARNING id more than max!\n";
+                    if(hit_pixel.mPids.find(id) == hit_pixel.mPids.end()) hit_pixel.mPids[id] = 1;
+                    else ++hit_pixel.mPids[id];
+                }
                 hit_pixel.Trk_ID.clear();
                 continue;
             } 
@@ -362,23 +362,23 @@ namespace Qpix
                 // after summing drift current, we pop this electron
                 charge += 1;
                 curr_time = electron_time;
-                // int id = hit_pixel.Trk_ID[curElectron];
-                // if(hit_pixel.mPids.find(id) == hit_pixel.mPids.end()) hit_pixel.mPids[id] = 1;
-                // else ++hit_pixel.mPids[id];
+                int id = hit_pixel.Trk_ID[curElectron];
+                if(hit_pixel.mPids.find(id) == hit_pixel.mPids.end()) hit_pixel.mPids[id] = 1;
+                else ++hit_pixel.mPids[id];
 
                 // reset occurs here
                 if(charge >= Qpix_params->Reset)
                 {
                     // calculation information
-                    // std::vector<int> trk_TrkIDs_holder;
-                    // std::vector<int> trk_weight_holder;
-                    // for(auto& c : hit_pixel.mPids){
-                    //     trk_TrkIDs_holder.push_back(c.first);
-                    //     trk_weight_holder.push_back(c.second);
-                    // }
-                    // hit_pixel.mPids.clear();
-                    // hit_pixel.RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
-                    // hit_pixel.RESET_TRUTH_W.push_back(trk_weight_holder);
+                    std::vector<int> trk_TrkIDs_holder;
+                    std::vector<int> trk_weight_holder;
+                    for(auto& c : hit_pixel.mPids){
+                        trk_TrkIDs_holder.push_back(c.first);
+                        trk_weight_holder.push_back(c.second);
+                    }
+                    hit_pixel.mPids = std::map<u_int16_t, short>();
+                    hit_pixel.RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
+                    hit_pixel.RESET_TRUTH_W.push_back(trk_weight_holder);
                     hit_pixel.RESET.push_back(curr_time);
                     hit_pixel.TSLR.push_back(curr_time - hit_pixel.tslr);
                     hit_pixel.tslr = curr_time;
@@ -398,16 +398,10 @@ namespace Qpix
                 }
             }
 
-            // store remaining unused electrons
-            // std::vector<double> hit_times = slice(hit_pixel.time, lastResetElectron, hit_pixel.time.size());
-            // hit_pixel.time = hit_times;
-            hit_pixel.time.clear();
-            hit_pixel.Trk_ID.clear();
-
-            // std::vector<int> hit_ids = slice(hit_pixel.Trk_ID, lastResetElectron, hit_pixel.Trk_ID.size());
-            // hit_pixel.Trk_ID = hit_ids;
+            // empty the vectors and keep them small
+            std::vector<float>(10).swap(hit_pixel.time);
+            std::vector<short>(10).swap(hit_pixel.Trk_ID);
         }
-
     }
 
     // implementation modified from Generate_Uniform to take a paramterized inputTime
