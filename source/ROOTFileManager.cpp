@@ -19,6 +19,8 @@
 // math includes
 #include <math.h>
 
+#include <algorithm>
+
 namespace bfs = boost::filesystem;
 
 namespace Qpix {
@@ -398,14 +400,20 @@ namespace Qpix {
         // add all of the pixel vectors we care about
         for(auto i : hit_ids)
         {
-            Pixel_Info pixel_info = mPixelMap[i];
+            Pixel_Info& pixel_info = mPixelMap[i];
             if(pixel_info.RESET.size() < 1) continue;
             pixel_x_.push_back(pixel_info.X_Pix);
             pixel_y_.push_back(pixel_info.Y_Pix);
-            pixel_reset_.push_back(pixel_info.RESET);
-            pixel_tslr_.push_back(pixel_info.TSLR);
-            pixel_reset_truth_track_id_.push_back(pixel_info.RESET_TRUTH_ID);
-            pixel_reset_truth_weight_.push_back(pixel_info.RESET_TRUTH_W);
+            pixel_reset_.push_back(std::move(pixel_info.RESET));
+            pixel_tslr_.push_back(std::move(pixel_info.TSLR));
+            pixel_reset_truth_track_id_.push_back(std::move(pixel_info.RESET_TRUTH_ID));
+            pixel_reset_truth_weight_.push_back(std::move(pixel_info.RESET_TRUTH_W));
+            // pixel_info.X_Pix.clear();
+            // pixel_info.Y_Pix.clear();
+            pixel_info.RESET.clear();
+            pixel_info.TSLR.clear();
+            pixel_info.RESET_TRUTH_ID.clear();
+            pixel_info.RESET_TRUTH_ID.clear();
         }
     }
 }

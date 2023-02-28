@@ -28,7 +28,7 @@ namespace Qpix
 
 
 
-    void Get_Frequencies(std::vector<int> vec, std::vector<int>& TrkIDs, std::vector<int>& weight )
+    void Get_Frequencies(std::vector<int> vec, std::vector<u_int16_t>& TrkIDs, std::vector<short>& weight )
     {   // Define an map
         std::map<int, int> M;
     

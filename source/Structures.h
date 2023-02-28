@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 
 namespace Qpix
 {
@@ -23,21 +24,23 @@ namespace Qpix
     struct Pixel_Info 
     {
         Pixel_Info() = default;
-        Pixel_Info(const int& x, const int& y) : X_Pix(x), Y_Pix(y), ID(Qpix::ID_Encoder(x, y)) {};
-        int X_Pix;
-        int Y_Pix;
+        Pixel_Info(const short& x, const short& y) : X_Pix(x), Y_Pix(y), ID(Qpix::ID_Encoder(x, y)) {};
+        short X_Pix;
+        short Y_Pix;
         int ID;
-        std::vector<double>  time;
-        std::vector<int> Trk_ID;
+        std::vector<float>  time = std::vector<float>(100);
+        std::vector<short> Trk_ID = std::vector<short>(100);
 
         // keep track of how much charge we've added
-        double charge = 0;
+        float charge = 0;
         int nElectrons = 0;
+        std::map<u_int16_t, short> mPids;
+        float tslr=0;
 
-        std::vector<double>  RESET;
-        std::vector<double>  TSLR;
-        std::vector<std::vector<int>> RESET_TRUTH_ID;
-        std::vector<std::vector<int>> RESET_TRUTH_W;
+        std::vector<float>  RESET = std::vector<float>(20);
+        std::vector<float>  TSLR = std::vector<float>(20);
+        std::vector<std::vector<u_int16_t>> RESET_TRUTH_ID = std::vector<std::vector<u_int16_t>>(5);
+        std::vector<std::vector<short>> RESET_TRUTH_W = std::vector<std::vector<short>>(5);
     };
 
 
@@ -74,7 +77,7 @@ namespace Qpix
 
     void print_Qpix_Paramaters(Qpix_Paramaters * Qpix_params);
     
-    void Get_Frequencies(std::vector<int> vec, std::vector<int>& freq, std::vector<int>& weig );
+    void Get_Frequencies(std::vector<int> vec, std::vector<u_int16_t>& freq, std::vector<short>& weig );
     
     bool Electron_Pix_Sort(ELECTRON one, ELECTRON two);
 
