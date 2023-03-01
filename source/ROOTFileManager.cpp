@@ -38,20 +38,23 @@ namespace Qpix {
     //--------------------------------------------------------------------------
     void ROOTFileManager::initialize(std::string const& input_file, std::string const& output_file)
     {
-        bfs::copy_file(input_file, output_file, bfs::copy_option::overwrite_if_exists);
-        tfile_ = new TFile(output_file.data(), "update");
-        ttree_ = (TTree*) tfile_->Get("event_tree");
+        // don't copy; just TTree.AddFriend provides this behavior without duplicating data..
+        // now we're not dependent on Boost anymore too..
+        // bfs::copy_file(input_file, output_file, bfs::copy_option::overwrite_if_exists);
+        in_tfile_ = new TFile(input_file.data(), "read");
+        out_tfile_ = new TFile(output_file.data(), "recreate");
+        in_ttree_ = (TTree*) in_tfile_->Get("event_tree");
 
-        this->set_branch_addresses(ttree_);
+        this->set_branch_addresses(in_ttree_);
 
-        tbranch_x_ = ttree_->Branch("pixel_x", &pixel_x_);
-        tbranch_y_ = ttree_->Branch("pixel_y", &pixel_y_);
-        tbranch_reset_ = ttree_->Branch("pixel_reset", &pixel_reset_);
-        tbranch_tslr_ = ttree_->Branch("pixel_tslr", &pixel_tslr_);
-        tbranch_reset_truth_track_id_ = ttree_->Branch("pixel_reset_truth_track_id", &pixel_reset_truth_track_id_);
-        tbranch_reset_truth_weight_ = ttree_->Branch("pixel_reset_truth_weight", &pixel_reset_truth_weight_);
+        out_ttree_->Branch("pixel_x", &pixel_x_);
+        out_ttree_->Branch("pixel_y", &pixel_y_);
+        out_ttree_->Branch("pixel_reset", &pixel_reset_);
+        out_ttree_->Branch("pixel_tslr", &pixel_tslr_);
+        out_ttree_->Branch("pixel_reset_truth_track_id", &pixel_reset_truth_track_id_);
+        out_ttree_->Branch("pixel_reset_truth_weight", &pixel_reset_truth_weight_);
 
-        metadata_ = (TTree*) tfile_->Get("metadata");
+        metadata_ = (TTree*) in_tfile_->Get("metadata");
         metadata_->SetBranchAddress("detector_length_x", &detector_length_x_);
         metadata_->SetBranchAddress("detector_length_y", &detector_length_y_);
         metadata_->SetBranchAddress("detector_length_z", &detector_length_z_);
@@ -155,19 +158,14 @@ namespace Qpix {
     //--------------------------------------------------------------------------
     unsigned int ROOTFileManager::NumberEntries()
     {
-        if (ttree_) return ttree_->GetEntries();
+        if (in_ttree_) return in_ttree_->GetEntries();
         return -1;
     }
 
     //--------------------------------------------------------------------------
     void ROOTFileManager::EventFill()
     {
-        tbranch_x_->Fill();
-        tbranch_y_->Fill();
-        tbranch_reset_->Fill();
-        tbranch_tslr_->Fill();
-        tbranch_reset_truth_track_id_->Fill();
-        tbranch_reset_truth_weight_->Fill();
+        out_ttree_->Fill();
     }
 
 
@@ -209,10 +207,10 @@ namespace Qpix {
     void ROOTFileManager::Save()
     {
         // save only the new version of the tree
-        ttree_->Write("", TObject::kOverwrite);
+        out_ttree_->Write("", TObject::kOverwrite);
         metadata_->Write("", TObject::kOverwrite);
         // close file
-        tfile_->Close();
+        out_tfile_->Close();
     }
 
     double ROOTFileManager::Modified_Box(double dEdx) 
@@ -270,102 +268,99 @@ namespace Qpix {
     void ROOTFileManager::Get_Event(int EVENT, Qpix::Qpix_Paramaters * Qpix_params, std::vector<Qpix::ELECTRON>& hit_e,
                                     bool sort_elec)
     {
-        ttree_->GetEntry(EVENT);
+        in_ttree_->GetEntry(EVENT);
 
         int indexer = 0;
-        // loop over all hits in the event
-        for (int h_idx = 0; h_idx < number_hits_; ++h_idx)
+
+        // from PreStepPoint
+        double const start_x = hit_start_x_;      // cm
+        double const start_y = hit_start_y_;      // cm
+        double const start_z = hit_start_z_;      // cm
+        double const start_t = hit_start_t_*1e-9; // sec
+
+        // from PostStepPoint
+        double const end_x = hit_end_x_;      // cm
+        double const end_y = hit_end_y_;      // cm
+        double const end_z = hit_end_z_;      // cm
+        double const end_t = hit_end_t_*1e-9; // sec
+
+        // follow the track for truth matching
+        int const hit_trk_id = hit_track_id_; // track id
+
+        if (start_t < 0.0 || start_t > Qpix_params->Buffer_time){return;}
+
+        // energy deposit
+        double const energy_deposit = hit_energy_deposit_;  // MeV
+
+        // hit length
+        double const length_of_hit = hit_length_;  // cm
+
+        // Set up the paramaters for the recombiataion 
+        double const dEdx = energy_deposit/length_of_hit;
+        double const Recombonation = Modified_Box(dEdx);
+        int Nelectron;
+
+        // to account for recombination or not
+        // calcualte the number of electrons in the hit
+        if (Qpix_params->Recombination)
         {
-            // from PreStepPoint
-            double const start_x = hit_start_x_->at(h_idx);      // cm
-            double const start_y = hit_start_y_->at(h_idx);      // cm
-            double const start_z = hit_start_z_->at(h_idx);      // cm
-            double const start_t = hit_start_t_->at(h_idx)*1e-9; // sec
+            Nelectron = round(Recombonation * (energy_deposit*1e6/Qpix_params->Wvalue) );
+        }else
+        {
+            Nelectron = round( (energy_deposit*1e6/Qpix_params->Wvalue) );
+        }
+        
+        // if not enough move on
+        if (Nelectron == 0){return;}
 
-            // from PostStepPoint
-            double const end_x = hit_end_x_->at(h_idx);      // cm
-            double const end_y = hit_end_y_->at(h_idx);      // cm
-            double const end_z = hit_end_z_->at(h_idx);      // cm
-            double const end_t = hit_end_t_->at(h_idx)*1e-9; // sec
+        // define the electrons start position
+        double electron_loc_x = start_x;
+        double electron_loc_y = start_y;
+        double electron_loc_z = start_z;
+        double electron_loc_t = start_t;
+        
+        // Determin the "step" size (pre to post hit)
+        double const step_x = (end_x - start_x) / Nelectron;
+        double const step_y = (end_y - start_y) / Nelectron;
+        double const step_z = (end_z - start_z) / Nelectron;
+        double const step_t = (end_t - start_t) / Nelectron;
 
-            // follow the track for truth matching
-            int const hit_trk_id = hit_track_id_->at(h_idx); // track id
+        double electron_x, electron_y, electron_z;
+        double T_drift, sigma_L, sigma_T;
 
-            if (start_t < 0.0 || start_t > Qpix_params->Buffer_time){continue;}
-
-            // energy deposit
-            double const energy_deposit = hit_energy_deposit_->at(h_idx);  // MeV
-
-            // hit length
-            double const length_of_hit = hit_length_->at(h_idx);  // cm
-
-            // Set up the paramaters for the recombiataion 
-            double const dEdx = energy_deposit/length_of_hit;
-            double const Recombonation = Modified_Box(dEdx);
-            int Nelectron;
-
-            // to account for recombination or not
-            // calcualte the number of electrons in the hit
-            if (Qpix_params->Recombination)
-            {
-                Nelectron = round(Recombonation * (energy_deposit*1e6/Qpix_params->Wvalue) );
-            }else
-            {
-                Nelectron = round( (energy_deposit*1e6/Qpix_params->Wvalue) );
-            }
+        // Loop through the electrons 
+        for (int i = 0; i < Nelectron; i++) 
+        {
+            // calculate drift time for diffusion 
+            T_drift = electron_loc_z / Qpix_params->E_vel;
+            // electron lifetime
+            if (Qpix::RandomUniform() >= exp(-T_drift/Qpix_params->Life_Time)){continue;}
             
-            // if not enough move on
-            if (Nelectron == 0){continue;}
-
-            // define the electrons start position
-            double electron_loc_x = start_x;
-            double electron_loc_y = start_y;
-            double electron_loc_z = start_z;
-            double electron_loc_t = start_t;
+            // diffuse the electrons position
+            sigma_T = sqrt(2*Qpix_params->DiffusionT*T_drift);
+            sigma_L = sqrt(2*Qpix_params->DiffusionL*T_drift);
+            electron_x = Qpix::RandomNormal(electron_loc_x,sigma_T);
+            electron_y = Qpix::RandomNormal(electron_loc_y,sigma_T);
+            electron_z = Qpix::RandomNormal(electron_loc_z,sigma_L);
+    
+            // add the electron to the vector.
+            hit_e.push_back(Qpix::ELECTRON());
             
-            // Determin the "step" size (pre to post hit)
-            double const step_x = (end_x - start_x) / Nelectron;
-            double const step_y = (end_y - start_y) / Nelectron;
-            double const step_z = (end_z - start_z) / Nelectron;
-            double const step_t = (end_t - start_t) / Nelectron;
+            // convert the electrons x,y to a pixel index
+            int Pix_Xloc, Pix_Yloc;
+            Pix_Xloc = (int) ceil(electron_x / Qpix_params->Pix_Size);
+            Pix_Yloc = (int) ceil(electron_y / Qpix_params->Pix_Size);
 
-            double electron_x, electron_y, electron_z;
-            double T_drift, sigma_L, sigma_T;
-
-            // Loop through the electrons 
-            for (int i = 0; i < Nelectron; i++) 
-            {
-                // calculate drift time for diffusion 
-                T_drift = electron_loc_z / Qpix_params->E_vel;
-                // electron lifetime
-                if (Qpix::RandomUniform() >= exp(-T_drift/Qpix_params->Life_Time)){continue;}
-                
-                // diffuse the electrons position
-                sigma_T = sqrt(2*Qpix_params->DiffusionT*T_drift);
-                sigma_L = sqrt(2*Qpix_params->DiffusionL*T_drift);
-                electron_x = Qpix::RandomNormal(electron_loc_x,sigma_T);
-                electron_y = Qpix::RandomNormal(electron_loc_y,sigma_T);
-                electron_z = Qpix::RandomNormal(electron_loc_z,sigma_L);
-		
-                // add the electron to the vector.
-                hit_e.push_back(Qpix::ELECTRON());
-                
-                // convert the electrons x,y to a pixel index
-                int Pix_Xloc, Pix_Yloc;
-                Pix_Xloc = (int) ceil(electron_x / Qpix_params->Pix_Size);
-                Pix_Yloc = (int) ceil(electron_y / Qpix_params->Pix_Size);
-
-                hit_e[indexer].Pix_ID = Qpix::ID_Encoder(Pix_Xloc, Pix_Yloc);
-                hit_e[indexer].time = electron_loc_t + ( electron_z / Qpix_params->E_vel );
-                hit_e[indexer].Trk_ID = hit_trk_id;
-                
-                // Move to the next electron
-                electron_loc_x += step_x;
-                electron_loc_y += step_y;
-                electron_loc_z += step_z;
-                electron_loc_t += step_t;
-                indexer += 1;
-            }
+            hit_e[indexer].Pix_ID = Qpix::ID_Encoder(Pix_Xloc, Pix_Yloc);
+            hit_e[indexer].time = electron_loc_t + ( electron_z / Qpix_params->E_vel );
+            hit_e[indexer].Trk_ID = hit_trk_id;
+            
+            // Move to the next electron
+            electron_loc_x += step_x;
+            electron_loc_y += step_y;
+            electron_loc_z += step_z;
+            electron_loc_t += step_t;
+            indexer += 1;
         }
         // sorts the electrons in terms of the pixel ID
         if(sort_elec)

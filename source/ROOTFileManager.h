@@ -46,8 +46,10 @@ namespace Qpix {
 
         private:
 
-            TFile * tfile_;
-            TTree * ttree_;
+            TFile * in_tfile_;
+            TFile * out_tfile_;
+            TTree * in_ttree_;
+            TTree * out_ttree_;
 
             //--------------------------------------------------
             // new branch variables
@@ -97,18 +99,19 @@ namespace Qpix {
             std::vector< double > * particle_initial_pz_;
             std::vector< double > * particle_initial_energy_;
 
-            std::vector< int >    * hit_track_id_;
-            std::vector< double > * hit_start_x_;
-            std::vector< double > * hit_start_y_;
-            std::vector< double > * hit_start_z_;
-            std::vector< double > * hit_start_t_;
-            std::vector< double > * hit_end_x_;
-            std::vector< double > * hit_end_y_;
-            std::vector< double > * hit_end_z_;
-            std::vector< double > * hit_end_t_;
-            std::vector< double > * hit_length_;
-            std::vector< double > * hit_energy_deposit_;
-            std::vector< int >    * hit_process_key_;
+            // update to read flattened hits entry at a time
+            int hit_track_id_;
+            double hit_start_x_;
+            double hit_start_y_;
+            double hit_start_z_;
+            double hit_start_t_;
+            double hit_end_x_;
+            double hit_end_y_;
+            double hit_end_z_;
+            double hit_end_t_;
+            double hit_length_;
+            double hit_energy_deposit_;
+            int hit_process_key_;
 
             //--------------------------------------------------
             // metadata
