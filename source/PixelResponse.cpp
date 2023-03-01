@@ -53,7 +53,7 @@ namespace Qpix
             std::sort( sub_vec.begin(), sub_vec.end(), &Pixel_Time_Sorter );
 
             std::vector<short> tmp_trk_id;
-            std::vector<float> tmp_time;
+            std::vector<double> tmp_time;
             for (int j=0; j<sub_vec.size() ; j++) 
             { 
                 tmp_time.push_back( sub_vec[j].time ); 
@@ -111,9 +111,9 @@ namespace Qpix
             int pix_dex = 0;
             double current_time = 0;
             double pix_time = Pix_info[i].time[pix_dex];
-            std::vector<float>  RESET;
+            std::vector<double>  RESET;
             double tslr_ = 0;
-            std::vector<float>  TSLR;
+            std::vector<double>  TSLR;
 
             // skip if it wont reset
             if (pix_size < (Qpix_params->Reset)*0.5){continue;}
@@ -195,7 +195,7 @@ namespace Qpix
     void Pixel_Functions::Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info)
     {
         // time window before and after event
-        float Window = 1e-6;
+        double Window = 1e-6;
 
         // geting the size of the vectors for looping
         int Pixels_Hit_Len = Pix_info.size();
@@ -215,12 +215,12 @@ namespace Qpix
             int pix_size = Pix_info[i].time.size();
             int pix_dex = 0;
             // int current_time = 0;
-            float pix_time = Pix_info[i].time[pix_dex];
+            double pix_time = Pix_info[i].time[pix_dex];
 
-            float current_time = pix_time - Window;
+            double current_time = pix_time - Window;
             if (current_time < 0){current_time = 0;}
 
-            float End_Time = Pix_info[i].time[pix_size-1] + Window;
+            double End_Time = Pix_info[i].time[pix_size-1] + Window;
 
             // 100 atto amps is 625 electrons a second
             // approximate the leakage charge given "curretn_time"
@@ -229,9 +229,9 @@ namespace Qpix
             // Make sure it dose not start with a bunch of resets
             // while ( charge >= Qpix_params->Reset ){ charge -= Qpix_params->Reset; }
 
-            std::vector<float>  RESET;
-            float tslr_ = 0;
-            std::vector<float>  TSLR;
+            std::vector<double>  RESET;
+            double tslr_ = 0;
+            std::vector<double>  TSLR;
 
             // skip if it wont reset
             if (pix_size < (Qpix_params->Reset)*0.5){continue;}
@@ -340,19 +340,19 @@ namespace Qpix
                 continue;
             } 
 
-            float curr_time = hit_pixel.time[0] - Window;
-            float stop_time = hit_pixel.time[nElectrons-1] + Window;
+            double curr_time = hit_pixel.time[0] - Window;
+            double stop_time = hit_pixel.time[nElectrons-1] + Window;
             if(curr_time < 0) curr_time = 0;
-            const float start_time = curr_time;
+            const double start_time = curr_time;
 
             // build up the charge for each reset now
             // iterate directly over the electrons, checking drift each time
             for(int curElectron=0; curElectron<nElectrons; curElectron++)
             {
                 // check for noise towards this timestamp
-                float electron_time = hit_pixel.time[curElectron];
+                double electron_time = hit_pixel.time[curElectron];
                 int nSamples = (electron_time - curr_time) / Qpix_params->Sample_time;
-                float noiseTime;
+                double noiseTime(0);
                 while(DriftCurrentElectrons(nSamples, noiseTime)){
                     curr_time += noiseTime;
                     nSamples = (electron_time - curr_time) / Qpix_params->Sample_time;
@@ -399,17 +399,17 @@ namespace Qpix
             }
 
             // empty the vectors and keep them small
-            std::vector<float>(10).swap(hit_pixel.time);
+            std::vector<double>(10).swap(hit_pixel.time);
             std::vector<short>(10).swap(hit_pixel.Trk_ID);
         }
     }
 
     // implementation modified from Generate_Uniform to take a paramterized inputTime
     // to see if any electron would appear in this window, if so give that time
-    bool DriftCurrentElectrons(const int& samples, float& hitTime)
+    bool DriftCurrentElectrons(const int& samples, double& hitTime)
     {
         hitTime = RandomUniform();
-        if (hitTime < ((float)samples*625)/1e8) {
+        if (hitTime < ((double)samples*625)/1e8) {
             return true;
         }
         else {

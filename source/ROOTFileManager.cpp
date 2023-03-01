@@ -56,6 +56,7 @@ namespace Qpix {
         metadata_->SetBranchAddress("detector_length_y", &detector_length_y_);
         metadata_->SetBranchAddress("detector_length_z", &detector_length_z_);
 
+        // meta branches
         tbranch_w_value_ = metadata_->Branch("w_value", &w_value_);
         tbranch_drift_velocity_ = metadata_->Branch("drift_velocity", &drift_velocity_);
         tbranch_longitudinal_diffusion_ = metadata_->Branch("longitudinal_diffusion", &longitudinal_diffusion_);
@@ -116,23 +117,23 @@ namespace Qpix {
         ttree->SetBranchAddress("number_hits", &number_hits_);
         ttree->SetBranchAddress("energy_deposit", &energy_deposit_);
 
-        ttree->SetBranchAddress("particle_track_id", &particle_track_id_);
-        ttree->SetBranchAddress("particle_parent_track_id", &particle_parent_track_id_);
-        ttree->SetBranchAddress("particle_pdg_code", &particle_pdg_code_);
-        ttree->SetBranchAddress("particle_mass", &particle_mass_);
-        ttree->SetBranchAddress("particle_charge", &particle_charge_);
-        ttree->SetBranchAddress("particle_process_key", &particle_process_key_);
-        ttree->SetBranchAddress("particle_total_occupancy", &particle_total_occupancy_);
+        // ttree->SetBranchAddress("particle_track_id", &particle_track_id_);
+        // ttree->SetBranchAddress("particle_parent_track_id", &particle_parent_track_id_);
+        // ttree->SetBranchAddress("particle_pdg_code", &particle_pdg_code_);
+        // ttree->SetBranchAddress("particle_mass", &particle_mass_);
+        // ttree->SetBranchAddress("particle_charge", &particle_charge_);
+        // ttree->SetBranchAddress("particle_process_key", &particle_process_key_);
+        // ttree->SetBranchAddress("particle_total_occupancy", &particle_total_occupancy_);
 
-        ttree->SetBranchAddress("particle_initial_x", &particle_initial_x_);
-        ttree->SetBranchAddress("particle_initial_y", &particle_initial_y_);
-        ttree->SetBranchAddress("particle_initial_z", &particle_initial_z_);
-        ttree->SetBranchAddress("particle_initial_t", &particle_initial_t_);
+        // ttree->SetBranchAddress("particle_initial_x", &particle_initial_x_);
+        // ttree->SetBranchAddress("particle_initial_y", &particle_initial_y_);
+        // ttree->SetBranchAddress("particle_initial_z", &particle_initial_z_);
+        // ttree->SetBranchAddress("particle_initial_t", &particle_initial_t_);
 
-        ttree->SetBranchAddress("particle_initial_px", &particle_initial_px_);
-        ttree->SetBranchAddress("particle_initial_py", &particle_initial_py_);
-        ttree->SetBranchAddress("particle_initial_pz", &particle_initial_pz_);
-        ttree->SetBranchAddress("particle_initial_energy", &particle_initial_energy_);
+        // ttree->SetBranchAddress("particle_initial_px", &particle_initial_px_);
+        // ttree->SetBranchAddress("particle_initial_py", &particle_initial_py_);
+        // ttree->SetBranchAddress("particle_initial_pz", &particle_initial_pz_);
+        // ttree->SetBranchAddress("particle_initial_energy", &particle_initial_energy_);
 
         ttree->SetBranchAddress("hit_track_id", &hit_track_id_);
 
@@ -409,8 +410,8 @@ namespace Qpix {
             pixel_reset_truth_track_id_.push_back(std::move(pixel_info.RESET_TRUTH_ID));
             pixel_reset_truth_weight_.push_back(std::move(pixel_info.RESET_TRUTH_W));
             // empty these vectors and keep their memory small
-            std::vector<float>(10).swap(pixel_info.RESET);
-            std::vector<float>(10).swap(pixel_info.TSLR);
+            std::vector<double>(5).swap(pixel_info.RESET);
+            std::vector<double>(5).swap(pixel_info.TSLR);
             std::vector<std::vector<int>>(10).swap(pixel_info.RESET_TRUTH_ID);
             std::vector<std::vector<int>>(10).swap(pixel_info.RESET_TRUTH_ID);
         }
