@@ -55,19 +55,26 @@ namespace Qpix {
             // new branch variables
             //--------------------------------------------------
 
+            // containers to flatten branches
             std::vector< int > pixel_x_;
             std::vector< int > pixel_y_;
             std::vector< std::vector < double > > pixel_reset_;
-            std::vector< std::vector < double > > pixel_tslr_;
-            // std::vector< std::vector< std::vector < int > > > pixel_reset_truth_track_id_;
-            // std::vector< std::vector< std::vector < double > > > pixel_reset_truth_weight_;
+            // std::vector< std::vector < double > > pixel_tslr_; // don't need this..
             std::vector< std::vector< std::vector < int > > > pixel_reset_truth_track_id_;
             std::vector< std::vector< std::vector < int > > > pixel_reset_truth_weight_;
+
+            // branch holders, output TTree entries are resets
+            int b_pixel_x_;
+            int b_pixel_y_;
+            double b_pixel_reset_;
+            // double pixel_tslr_;
+            std::vector<int> b_pixel_reset_truth_track_id_;
+            std::vector<int> b_pixel_reset_truth_weight_;
 
             TBranch * tbranch_x_;
             TBranch * tbranch_y_;
             TBranch * tbranch_reset_;
-            TBranch * tbranch_tslr_;
+            // TBranch * tbranch_tslr_;
             TBranch * tbranch_reset_truth_track_id_;
             TBranch * tbranch_reset_truth_weight_;
 
@@ -81,23 +88,24 @@ namespace Qpix {
             int number_hits_;
             double energy_deposit_;
 
-            std::vector< int >    * particle_track_id_;
-            std::vector< int >    * particle_parent_track_id_;
-            std::vector< int >    * particle_pdg_code_;
-            std::vector< double > * particle_mass_;
-            std::vector< double > * particle_charge_;
-            std::vector< int >    * particle_process_key_;
-            std::vector< int >    * particle_total_occupancy_;
+            // reserve for friend tree
+            // std::vector< int >    * particle_track_id_;
+            // std::vector< int >    * particle_parent_track_id_;
+            // std::vector< int >    * particle_pdg_code_;
+            // std::vector< double > * particle_mass_;
+            // std::vector< double > * particle_charge_;
+            // std::vector< int >    * particle_process_key_;
+            // std::vector< int >    * particle_total_occupancy_;
 
-            std::vector< double > * particle_initial_x_;
-            std::vector< double > * particle_initial_y_;
-            std::vector< double > * particle_initial_z_;
-            std::vector< double > * particle_initial_t_;
+            // std::vector< double > * particle_initial_x_;
+            // std::vector< double > * particle_initial_y_;
+            // std::vector< double > * particle_initial_z_;
+            // std::vector< double > * particle_initial_t_;
 
-            std::vector< double > * particle_initial_px_;
-            std::vector< double > * particle_initial_py_;
-            std::vector< double > * particle_initial_pz_;
-            std::vector< double > * particle_initial_energy_;
+            // std::vector< double > * particle_initial_px_;
+            // std::vector< double > * particle_initial_py_;
+            // std::vector< double > * particle_initial_pz_;
+            // std::vector< double > * particle_initial_energy_;
 
             // update to read flattened hits entry at a time
             int hit_track_id_;

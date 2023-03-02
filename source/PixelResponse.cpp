@@ -112,8 +112,8 @@ namespace Qpix
             double current_time = 0;
             double pix_time = Pix_info[i].time[pix_dex];
             std::vector<double>  RESET;
-            double tslr_ = 0;
-            std::vector<double>  TSLR;
+            // double tslr_ = 0;
+            // std::vector<double>  TSLR;
 
             // skip if it wont reset
             if (pix_size < (Qpix_params->Reset)*0.5){continue;}
@@ -153,8 +153,8 @@ namespace Qpix
                     RESET_TRUTH_W.push_back(trk_weight_holder);
 
                     
-                    TSLR.push_back(current_time - tslr_);
-                    tslr_ = current_time;
+                    // TSLR.push_back(current_time - tslr_);
+                    // tslr_ = current_time;
 
                     RESET.push_back( current_time );
                     charge -= Qpix_params->Reset;
@@ -182,7 +182,7 @@ namespace Qpix
             }
             // add it to the pixel info
             Pix_info[i].RESET = RESET;
-            Pix_info[i].TSLR  = TSLR;
+            // Pix_info[i].TSLR  = TSLR;
             Pix_info[i].RESET_TRUTH_ID  = RESET_TRUTH_ID;
             Pix_info[i].RESET_TRUTH_W   = RESET_TRUTH_W;
         }
@@ -230,8 +230,8 @@ namespace Qpix
             // while ( charge >= Qpix_params->Reset ){ charge -= Qpix_params->Reset; }
 
             std::vector<double>  RESET;
-            double tslr_ = 0;
-            std::vector<double>  TSLR;
+            // double tslr_ = 0;
+            // std::vector<double>  TSLR;
 
             // skip if it wont reset
             if (pix_size < (Qpix_params->Reset)*0.5){continue;}
@@ -270,8 +270,8 @@ namespace Qpix
                     RESET_TRUTH_W.push_back(trk_weight_holder);
 
 
-                    TSLR.push_back(current_time - tslr_);
-                    tslr_ = current_time;
+                    // TSLR.push_back(current_time - tslr_);
+                    // tslr_ = current_time;
 
                     RESET.push_back( current_time );
                     charge -= Qpix_params->Reset;
@@ -299,7 +299,7 @@ namespace Qpix
             }
             // add it to the pixel info
             Pix_info[i].RESET = RESET;
-            Pix_info[i].TSLR  = TSLR;
+            // Pix_info[i].TSLR  = TSLR;
             Pix_info[i].RESET_TRUTH_ID  = RESET_TRUTH_ID;
             Pix_info[i].RESET_TRUTH_W   = RESET_TRUTH_W;
         }
@@ -321,7 +321,7 @@ namespace Qpix
             hit_pixel.RESET_TRUTH_ID.clear();
             hit_pixel.RESET_TRUTH_W.clear();
             hit_pixel.RESET.clear();
-            hit_pixel.TSLR.clear();
+            // hit_pixel.TSLR.clear();
             std::vector<int> trk_id_holder;
             float& charge = hit_pixel.charge;
 
@@ -380,7 +380,7 @@ namespace Qpix
                     hit_pixel.RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
                     hit_pixel.RESET_TRUTH_W.push_back(trk_weight_holder);
                     hit_pixel.RESET.push_back(curr_time);
-                    hit_pixel.TSLR.push_back(curr_time - hit_pixel.tslr);
+                    // hit_pixel.TSLR.push_back(curr_time - hit_pixel.tslr);
                     hit_pixel.tslr = curr_time;
 
                     charge -= Qpix_params->Reset;

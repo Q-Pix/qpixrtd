@@ -47,12 +47,12 @@ namespace Qpix {
 
         this->set_branch_addresses(in_ttree_);
 
-        out_ttree_->Branch("pixel_x", &pixel_x_);
-        out_ttree_->Branch("pixel_y", &pixel_y_);
-        out_ttree_->Branch("pixel_reset", &pixel_reset_);
-        out_ttree_->Branch("pixel_tslr", &pixel_tslr_);
-        out_ttree_->Branch("pixel_reset_truth_track_id", &pixel_reset_truth_track_id_);
-        out_ttree_->Branch("pixel_reset_truth_weight", &pixel_reset_truth_weight_);
+        out_ttree_->Branch("pixel_x", &b_pixel_x_);
+        out_ttree_->Branch("pixel_y", &b_pixel_y_);
+        out_ttree_->Branch("pixel_reset", &b_pixel_reset_);
+        // out_ttree_->Branch("pixel_tslr", &pixel_tslr_);
+        out_ttree_->Branch("pixel_reset_truth_track_id", &b_pixel_reset_truth_track_id_);
+        out_ttree_->Branch("pixel_reset_truth_weight", &b_pixel_reset_truth_weight_);
 
         metadata_ = (TTree*) in_tfile_->Get("metadata");
         metadata_->SetBranchAddress("detector_length_x", &detector_length_x_);
@@ -83,23 +83,24 @@ namespace Qpix {
         number_hits_ = -1;
         energy_deposit_ = -1;
 
-        particle_track_id_ = 0;
-        particle_parent_track_id_ = 0;
-        particle_pdg_code_ = 0;
-        particle_mass_ = 0;
-        particle_charge_ = 0;
-        particle_process_key_ = 0;
-        particle_total_occupancy_ = 0;
+        // use friend ttree
+        // particle_track_id_ = 0;
+        // particle_parent_track_id_ = 0;
+        // particle_pdg_code_ = 0;
+        // particle_mass_ = 0;
+        // particle_charge_ = 0;
+        // particle_process_key_ = 0;
+        // particle_total_occupancy_ = 0;
 
-        particle_initial_x_ = 0;
-        particle_initial_y_ = 0;
-        particle_initial_z_ = 0;
-        particle_initial_t_ = 0;
+        // particle_initial_x_ = 0;
+        // particle_initial_y_ = 0;
+        // particle_initial_z_ = 0;
+        // particle_initial_t_ = 0;
 
-        particle_initial_px_ = 0;
-        particle_initial_py_ = 0;
-        particle_initial_pz_ = 0;
-        particle_initial_energy_ = 0;
+        // particle_initial_px_ = 0;
+        // particle_initial_py_ = 0;
+        // particle_initial_pz_ = 0;
+        // particle_initial_energy_ = 0;
 
         hit_track_id_ = 0;
         hit_start_x_ = 0;
@@ -120,6 +121,7 @@ namespace Qpix {
         ttree->SetBranchAddress("number_hits", &number_hits_);
         ttree->SetBranchAddress("energy_deposit", &energy_deposit_);
 
+        // use friend ttree
         // ttree->SetBranchAddress("particle_track_id", &particle_track_id_);
         // ttree->SetBranchAddress("particle_parent_track_id", &particle_parent_track_id_);
         // ttree->SetBranchAddress("particle_pdg_code", &particle_pdg_code_);
@@ -165,7 +167,20 @@ namespace Qpix {
     //--------------------------------------------------------------------------
     void ROOTFileManager::EventFill()
     {
-        out_ttree_->Fill();
+        // fill if we got any resets
+        if(pixel_x_.size() > 0){
+            // for every pixel that has a reset
+            for(int i=0; i<pixel_x_.size(); ++i){
+                b_pixel_x_ = pixel_x_[i];
+                b_pixel_y_ = pixel_y_[i];
+                for(int j=0; j<pixel_reset_[i].size(); ++j){
+                    b_pixel_reset_ = pixel_reset_[i][j];
+                    b_pixel_reset_truth_track_id_ = pixel_reset_truth_track_id_[i][j];
+                    b_pixel_reset_truth_weight_ = pixel_reset_truth_weight_[i][j];
+                    out_ttree_->Fill();
+                }
+            }
+        }
     }
 
 
@@ -195,12 +210,15 @@ namespace Qpix {
     //--------------------------------------------------------------------------
     void ROOTFileManager::EventReset()
     {   
-        pixel_x_.clear();
-        pixel_y_.clear();
-        pixel_reset_.clear();
-        pixel_tslr_.clear();
-        pixel_reset_truth_track_id_.clear();
-        pixel_reset_truth_weight_.clear();
+        // only bother clearing if we have anything to clear
+        if(pixel_x_.size() > 0){
+            pixel_x_.clear();
+            pixel_y_.clear();
+            pixel_reset_.clear();
+            // pixel_tslr_.clear();
+            pixel_reset_truth_track_id_.clear();
+            pixel_reset_truth_weight_.clear();
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -384,7 +402,6 @@ namespace Qpix {
             pixel_x_.push_back(Pixel[i].X_Pix);
             pixel_y_.push_back(Pixel[i].Y_Pix);
             pixel_reset_.push_back(Pixel[i].RESET);
-            pixel_tslr_.push_back(Pixel[i].TSLR);
             pixel_reset_truth_track_id_.push_back(Pixel[i].RESET_TRUTH_ID);
             pixel_reset_truth_weight_.push_back(Pixel[i].RESET_TRUTH_W);
         }
@@ -401,12 +418,11 @@ namespace Qpix {
             pixel_x_.push_back(pixel_info.X_Pix);
             pixel_y_.push_back(pixel_info.Y_Pix);
             pixel_reset_.push_back(std::move(pixel_info.RESET));
-            pixel_tslr_.push_back(std::move(pixel_info.TSLR));
+            // pixel_tslr_.push_back(std::move(pixel_info.TSLR));
             pixel_reset_truth_track_id_.push_back(std::move(pixel_info.RESET_TRUTH_ID));
             pixel_reset_truth_weight_.push_back(std::move(pixel_info.RESET_TRUTH_W));
             // empty these vectors and keep their memory small
             std::vector<double>(5).swap(pixel_info.RESET);
-            std::vector<double>(5).swap(pixel_info.TSLR);
             std::vector<std::vector<int>>(10).swap(pixel_info.RESET_TRUTH_ID);
             std::vector<std::vector<int>>(10).swap(pixel_info.RESET_TRUTH_ID);
         }

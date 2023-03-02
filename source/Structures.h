@@ -38,7 +38,7 @@ namespace Qpix
         double tslr=0;
 
         std::vector<double>  RESET = std::vector<double>(5);
-        std::vector<double>  TSLR = std::vector<double>(5);
+        // std::vector<double>  TSLR = std::vector<double>(5);
         std::vector<std::vector<int>> RESET_TRUTH_ID = std::vector<std::vector<int>>(5);
         std::vector<std::vector<int>> RESET_TRUTH_W = std::vector<std::vector<int>>(5);
     };
