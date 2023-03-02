@@ -69,7 +69,7 @@ int main(int argc, char** argv)
   // changing the seed for the random numbergenerator and generating the noise vector 
   constexpr std::uint64_t Seed = 41;
   Qpix::Random_Set_Seed(Seed);
-  std::vector<double> Gaussian_Noise = Qpix::Make_Gaussian_Noise(0, (int) 1e7);
+  // std::vector<double> Gaussian_Noise = Qpix::Make_Gaussian_Noise(0, (int) 1e7);
 
   // In and out files
   std::string file_in = argv[1];
@@ -91,9 +91,6 @@ int main(int argc, char** argv)
   // we can make the pixel map once since we know everything about the detector
   // from the meta data
   std::unordered_map<int, Qpix::Pixel_Info> mPixelInfo = rfm.MakePixelInfoMap(); // ~870k pixels
-  std::cout << "pixel map size: " << mPixelInfo.size() << std::endl;
-  std::string bla;
-  std::cin >> bla;
 
   clock_t time_req;
   time_req = clock();
@@ -101,14 +98,15 @@ int main(int argc, char** argv)
 
   std::vector<clock_t> start_pixelize_times, start_reset_times;
   std::vector<clock_t> stop_pixelize_times, stop_reset_times;
-
+  
   // Loop though the events in the file
+  std::cout << "reading entries: " << number_entries << std::endl;
   for (int evt = 0; evt < number_entries; evt++)
   {
     // std::cout << "*********************************************" << std::endl;
     // std::cout << "Starting on event " << evt << std::endl;
 
-    if(evt%1000 == 0){
+    if(evt%10000 == 0){
       std::cout << "Getting the event: " << evt << std::endl;
       // avg(start_pixelize_times, stop_pixelize_times, "pixel times average: ");
       // avg(start_reset_times, stop_reset_times, "reset times average: ");
@@ -138,7 +136,7 @@ int main(int argc, char** argv)
     // the reset function
     // start_reset_times.push_back(clock());
     // PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, Pixel);
-    PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, hit_pixels, mPixelInfo);
+    PixFunc.Reset_Fast(Qpix_params, hit_pixels, mPixelInfo);
     // stop_reset_times.push_back(clock());
 
     // rfm.AddEvent(Pixel);
