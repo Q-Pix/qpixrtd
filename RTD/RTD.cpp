@@ -26,6 +26,8 @@
 
 static int f_noise;
 static int f_reco;
+static int evt_start = -1;
+static int evt_end = -1;
 static int threshold = 0;
 static std::string file_in;
 static std::string file_out;
@@ -44,15 +46,17 @@ int main(int argc, char** argv)
     int option_index = 0;
     static struct option long_options[] =
     {
-      {"nonoise",           no_argument,        &f_noise,     1},
-      {"recombination",   no_argument,        &f_reco,      1},
-      {"threshold",       required_argument,  NULL,       't'},
-      {"input",           required_argument,  NULL,       'i'},
-      {"output",          required_argument,  NULL,       'o'},
-      {NULL,              0,                  NULL,         0}
+      {"nonoise",         no_argument,        &f_noise,       1},
+      {"recombination",   no_argument,        &f_reco,        1},
+      {"threshold",       required_argument,  NULL,         't'},
+      {"input",           required_argument,  NULL,         'i'},
+      {"output",          required_argument,  NULL,         'o'},
+      {"initial-event",   required_argument,  NULL,         's'},
+      {"final-event",     required_argument,  NULL,         'e'},
+      {NULL,              0,                  NULL,           0}
     };
 
-    c = getopt_long(argc, argv, ":i:o:t:", long_options, &option_index);
+    c = getopt_long(argc, argv, ":i:o:t:s:e:", long_options, &option_index);
     if (c == -1)
       break;
 
@@ -69,6 +73,12 @@ int main(int argc, char** argv)
       case 't':
         //printf("Option t has arg: %s\n", optarg);
         threshold = atoi(optarg);
+        break;
+      case 's':
+        evt_start = atoi(optarg);
+        break;
+      case 'e':
+        evt_end = atoi(optarg);
         break;
       case '?':
         printf("Unknown option: %c\n", optopt);
@@ -109,18 +119,16 @@ int main(int argc, char** argv)
   print_Qpix_Paramaters(Qpix_params);
 
   // root file manager
-  int number_entries = -1;
-  std::cout << "test point 1" << std::endl;
-  Qpix::ROOTFileManager rfm(file_in, file_out);
-  std::cout << "test point 2" << std::endl;
-  rfm.AddMetadata(Qpix_params);  // add parameters to metadata
-  std::cout << "test point 3" << std::endl;
-  number_entries = rfm.NumberEntries();
-  std::cout << "Number Entries: " << number_entries << std::endl;
-  rfm.EventReset();
+  Qpix::ROOTFileManager *rfm=Qpix::ROOTFileManager::Instance();
+  rfm->Initialize(file_in, file_out, evt_start, evt_end);
+  rfm->AddMetadata(Qpix_params);  // add parameters to metadata
+  std::cout << "Number Entries: " << rfm->GetNEntries() << std::endl;
+  rfm->EventReset();
+
+
 
   // Loop though the events in the file
-  for (int evt = 0; evt < number_entries; evt++)
+  for (int evt = rfm->GetEvt_I(); evt < rfm->GetEvt_F()+1; evt++)
   {
     std::cout << "*********************************************" << std::endl;
     std::cout << "Starting on event " << evt << std::endl;
@@ -128,7 +136,7 @@ int main(int argc, char** argv)
     std::cout << "Getting the event" << std::endl;
     std::vector<Qpix::ELECTRON> hit_e;
     // turn the Geant4 hits into electrons
-    rfm.Get_Event( evt, Qpix_params, hit_e);
+    rfm->Get_Event( evt, Qpix_params, hit_e);
     std::cout << "size of hit_e = " << hit_e.size() << std::endl;
 
     std::cout << "Pixelizing the event" << std::endl;
@@ -142,13 +150,14 @@ int main(int argc, char** argv)
     // PixFunc.Reset(Qpix_params, Gaussian_Noise, Pixel);
     PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, Pixel);
 
-    rfm.AddEvent( Pixel );
-    rfm.EventFill();
-    rfm.EventReset();
+    rfm->AddEvent( Pixel );
+    rfm->EventFill();
+    rfm->EventReset();
   }
 
   // save and close
-  rfm.Save();
+  std::cout << "saving output file...." << std::endl;
+  rfm->Save();
 
 
 

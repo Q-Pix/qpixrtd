@@ -16,39 +16,97 @@
 
 // math includes
 #include <math.h>
-
+#include <stdlib.h>
 #include <iostream>
 
 namespace bfs = boost::filesystem;
 
 namespace Qpix {
 
+    ROOTFileManager * ROOTFileManager::instance_=0;
+
     //--------------------------------------------------------------------------
-    ROOTFileManager::ROOTFileManager(std::string const& input_file, std::string const& output_file)
-    {
-      std::cout << "Test Point -- Before rfm::initialize" << std::endl;  
-      this->initialize(input_file, output_file);
-      std::cout << "Test Point -- After rfm::initialize" << std::endl;
-    }
+    ROOTFileManager::ROOTFileManager()
+      : ttree_(0), tfile_(0), inputfile(0), outputfile(0),
+      inputeventtree(0), inputmetatree(0), outputeventtree(0), outputmetatree(0), run_(0), event_(0),
+      number_particles_(0), number_entries_(0), number_hits_(0), energy_deposit_(0.), evt_initial(0),
+      evt_final(-1), entry(0), firstEventInFile(0)
+    {}
 
     //--------------------------------------------------------------------------
     ROOTFileManager::~ROOTFileManager()
     {}
 
-    //--------------------------------------------------------------------------
-    void ROOTFileManager::initialize(std::string const& input_file, std::string const& output_file)
-    {
-        bfs::copy_file(input_file, output_file, bfs::copy_option::overwrite_if_exists);
-        tfile_ = new TFile(output_file.data(), "update");
-        ttree_ = (TTree*) tfile_->Get("event_tree");
+    //-------------------------------------------------------------------------
 
-        std::cout << "Test Point -- Before set_branch_addresses(ttree_)" << std::endl;      
-        if (ttree != 0) {
-          this->set_branch_addresses(ttree_);
-        } else {
+    ROOTFileManager * ROOTFileManager::Instance()
+    {
+      if (instance_ == 0) instance_ = new ROOTFileManager();
+      return instance_;
+    }
+
+    //--------------------------------------------------------------------------
+    void ROOTFileManager::Initialize(std::string const& input_file, std::string const& output_file, int evt_start, int evt_end)
+    {
+        //bfs::copy_file(input_file, output_file, bfs::copy_option::overwrite_if_exists);
+
+        // Make a copy of the original root file to a output_file path, only including the specified events 
+        inputfile = new TFile(input_file.c_str());
+        inputfile->GetObject("event_tree",inputeventtree);
+        inputfile->GetObject("metadata",inputmetatree);
+        number_entries_ = (Long64_t)inputeventtree->GetEntries();
+        inputeventtree->SetBranchAddress("event",         &event_           );
+
+        outputfile = new TFile(output_file.c_str(), "recreate");
+        outputeventtree = inputeventtree->CloneTree(0);
+        outputmetatree = inputmetatree->CloneTree();
+
+        if (evt_end < evt_start && evt_end != -1)
+        {
+          std::cout << "Event end number must be greater than the start number" << std::endl;
           abort;
         }
-        std::cout << "Test Point -- After set_branch_addresses(ttree_)" << std::endl;
+        if (evt_start != -1) { evt_initial = evt_start; }
+        if (evt_end != -1 ) 
+        {
+          evt_final = evt_end; 
+        } else {
+          evt_final = inputeventtree->GetMaximum("event");
+        } 
+
+
+
+        for (Long64_t i=0; i<number_entries_; i++){
+          inputeventtree->GetEntry(i);
+          if (event_>=evt_initial && event_<=evt_final) outputeventtree->Fill();
+        }
+
+        outputeventtree->Print();
+        outputmetatree->Print();
+        outputeventtree->AutoSave();
+        outputmetatree->AutoSave();
+        delete inputfile;
+        delete outputfile;
+
+
+        tfile_ = new TFile(output_file.c_str(),"update");
+        if (tfile_ != 0) {
+          tfile_->GetObject("event_tree", ttree_);
+        } else {
+          std::cout << "tfile is a null pointer" << std::endl;
+        }
+
+        if (ttree_ != 0) {
+          this->set_branch_addresses(ttree_);
+          ttree_->GetEntry(0);
+          firstEventInFile = event_;
+          
+          ttree_->Print();
+        } else {
+          std::cout << "tree is a null pointer" << std::endl;
+          abort;
+        }
+        
 
         tbranch_x_ = ttree_->Branch("pixel_x", &pixel_x_);
         tbranch_y_ = ttree_->Branch("pixel_y", &pixel_y_);
@@ -57,8 +115,20 @@ namespace Qpix {
         tbranch_reset_truth_track_id_ = ttree_->Branch("pixel_reset_truth_track_id", &pixel_reset_truth_track_id_);
         tbranch_reset_truth_weight_ = ttree_->Branch("pixel_reset_truth_weight", &pixel_reset_truth_weight_);
 
-        metadata_ = (TTree*) tfile_->Get("metadata");
 
+        if (tfile_ == 0)
+        {
+          std::cout << "tfile_ is a null pointer" << std::endl;
+          abort;
+        }
+        tfile_->GetObject("metadata", metadata_);
+
+
+        if (metadata_ == 0)
+        {
+          std::cout << "metadata_ is a null pointer" << std::endl;
+          abort;
+        }
         tbranch_w_value_ = metadata_->Branch("w_value", &w_value_);
         tbranch_drift_velocity_ = metadata_->Branch("drift_velocity", &drift_velocity_);
         tbranch_longitudinal_diffusion_ = metadata_->Branch("longitudinal_diffusion", &longitudinal_diffusion_);
@@ -71,15 +141,16 @@ namespace Qpix {
         tbranch_buffer_window_ = metadata_->Branch("buffer_window", &buffer_window_);
         tbranch_dead_time_ = metadata_->Branch("dead_time", &dead_time_);
         tbranch_charge_loss_ = metadata_->Branch("charge_loss", &charge_loss_);
+
     }
 
     //--------------------------------------------------------------------------
     void ROOTFileManager::set_branch_addresses(TTree * ttree)
     {
         run_ = -1;
-        event_ = -1;
+        //event_ = -1;
         number_particles_ = -1;
-        number_hits_ = -1;
+        //number_hits_ = -1;
         energy_deposit_ = -1;
 
         particle_track_id_ = 0;
@@ -188,12 +259,20 @@ namespace Qpix {
     //--------------------------------------------------------------------------
     void ROOTFileManager::Save()
     {
+        // check for null pointers
+        if (tfile_ == 0) { std::cout << "ttree_ is a null pointer" << std::endl; }
+        if (ttree_ == 0) { std::cout << "ttree_ is a null pointer" << std::endl; }
+        if (metadata_ == 0) { std::cout << "ttree_ is a null pointer" << std::endl; }
+
         // save only the new version of the tree
         ttree_->Write("", TObject::kOverwrite);
         metadata_->Write("", TObject::kOverwrite);
+
         // close file
         tfile_->Close();
     }
+
+    //-------------------------------------------------------------------------
 
     double ROOTFileManager::Modified_Box(double dEdx) 
     {
@@ -213,8 +292,10 @@ namespace Qpix {
     }
 
     //--------------------------------------------------------------------------
-    void ROOTFileManager::AddMetadata(Qpix::Qpix_Paramaters * const Qpix_params)
+    void ROOTFileManager::AddMetadata(Qpix_Paramaters * const Qpix_params)
     {
+        std::cout << "Beginnning of AddMetadata" << std::endl;
+   
         w_value_ = Qpix_params->Wvalue;
         drift_velocity_ = Qpix_params->E_vel;
         longitudinal_diffusion_ = Qpix_params->DiffusionL;
@@ -240,15 +321,22 @@ namespace Qpix {
         tbranch_buffer_window_->Fill();
         tbranch_dead_time_->Fill();
         tbranch_charge_loss_->Fill();
+
+        std::cout << "End of AddMetadata" << std::endl;
     }
 
     //--------------------------------------------------------------------------
     // gets the event from the file and tunrs it into electrons
-    void ROOTFileManager::Get_Event(int EVENT, Qpix::Qpix_Paramaters * Qpix_params, std::vector<Qpix::ELECTRON>& hit_e)
+    void ROOTFileManager::Get_Event(int EVENT, Qpix_Paramaters * Qpix_params, std::vector<ELECTRON>& hit_e)
     {
-        ttree_->GetEntry(EVENT);
+        if (ttree_ == 0) {std::cout << "ttree_ is a null pointer" << std::endl;}
+        entry = EVENT - firstEventInFile;
+        if (entry > ttree_->GetEntries()) { std::cout << "entry is larger than NEntries in TTree" << std::endl;}
+        ttree_->GetEntry(entry,1);
 
-        std::cout << "Event: " << EVENT << std::endl;
+        std::cout << "entry: " << entry << std::endl;
+        std::cout << "NEntries: " << ttree_->GetEntries() << std::endl;
+        std::cout << "event_: " << event_ << std::endl; 
         std::cout << "nHits: " << number_hits_ << std::endl;
 
         int indexer = 0;
@@ -295,6 +383,7 @@ namespace Qpix {
             
             // if not enough move on
             if (Nelectron == 0){continue;}
+            //std::cout << "h_idx: " << h_idx << "    Nelectron = " << Nelectron << std::endl;
 
             // define the electrons start position
             double electron_loc_x = start_x;
@@ -317,17 +406,17 @@ namespace Qpix {
                 // calculate drift time for diffusion 
                 T_drift = electron_loc_z / Qpix_params->E_vel;
                 // electron lifetime
-                if (Qpix::RandomUniform() >= exp(-T_drift/Qpix_params->Life_Time)){continue;}
+                if (RandomUniform() >= exp(-T_drift/Qpix_params->Life_Time)){continue;}
                 
                 // diffuse the electrons position
                 sigma_T = sqrt(2*Qpix_params->DiffusionT*T_drift);
                 sigma_L = sqrt(2*Qpix_params->DiffusionL*T_drift);
-                electron_x = Qpix::RandomNormal(electron_loc_x,sigma_T);
-                electron_y = Qpix::RandomNormal(electron_loc_y,sigma_T);
-                electron_z = Qpix::RandomNormal(electron_loc_z,sigma_L);
+                electron_x = RandomNormal(electron_loc_x,sigma_T);
+                electron_y = RandomNormal(electron_loc_y,sigma_T);
+                electron_z = RandomNormal(electron_loc_z,sigma_L);
 		
                 // add the electron to the vector.
-                hit_e.push_back(Qpix::ELECTRON());
+                hit_e.push_back(ELECTRON());
                 
                 // convert the electrons x,y to a pixel index
                 int Pix_Xloc, Pix_Yloc;
@@ -347,14 +436,14 @@ namespace Qpix {
             }
         }
         // sorts the electrons in terms of the pixel ID
-        std::sort(hit_e.begin(), hit_e.end(), Qpix::Electron_Pix_Sort);
+        std::sort(hit_e.begin(), hit_e.end(), Electron_Pix_Sort);
     }//Get_Event
 
 
 
     //--------------------------------------------------------------------------
     // Adds event that needs to be filled
-    void ROOTFileManager::AddEvent(const std::vector<Qpix::Pixel_Info> Pixel)
+    void ROOTFileManager::AddEvent(const std::vector<Pixel_Info> Pixel)
     {
 
         for (unsigned int i=0; i<Pixel.size() ; i++)

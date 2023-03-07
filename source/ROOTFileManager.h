@@ -24,6 +24,7 @@
 // C++ includes
 #include <map>
 #include <set>
+#include <vector>
 
 namespace Qpix {
 
@@ -31,23 +32,39 @@ namespace Qpix {
 
     public:
 
-      ROOTFileManager(std::string const&, std::string const&);
       ~ROOTFileManager();
+
+      static ROOTFileManager * Instance();
 
       unsigned int NumberEntries();
       void EventFill();
       void EventReset();
       void Save();
 
-      void AddMetadata(Qpix::Qpix_Paramaters * const);
+      void AddMetadata(Qpix_Paramaters * const);
       double Modified_Box(double dEdx);
-      void Get_Event(int, Qpix::Qpix_Paramaters *, std::vector< Qpix::ELECTRON > &);
-      void AddEvent(std::vector<Qpix::Pixel_Info> const);
+      void Get_Event(int, Qpix_Paramaters *, std::vector< ELECTRON > &);
+      void AddEvent(std::vector<Pixel_Info> const);
+
+
+      Long64_t GetNEntries()              { return number_entries_; }
 
     private:
 
+      ROOTFileManager();
+
+      static ROOTFileManager *instance_;
+
       TFile * tfile_;
       TTree * ttree_;
+      TFile * inputfile;
+      TFile * outputfile;
+      TTree * inputeventtree;
+      TTree * inputmetatree;
+      TTree * outputeventtree;
+      TTree * outputmetatree;
+
+
 
       //--------------------------------------------------
       // new branch variables
@@ -76,8 +93,13 @@ namespace Qpix {
       int run_;
       int event_;
       int number_particles_;
+      Long64_t number_entries_;
       Long64_t number_hits_;
       double energy_deposit_;
+      int evt_initial;
+      int evt_final;
+      int entry;
+      int firstEventInFile;
 
       std::vector< int >    * particle_track_id_;
       std::vector< int >    * particle_parent_track_id_;
@@ -142,18 +164,21 @@ namespace Qpix {
       TBranch * tbranch_dead_time_;
       TBranch * tbranch_charge_loss_;
 
+  public:
       //--------------------------------------------------
       // initialize
       //--------------------------------------------------
-      void initialize(std::string const&, std::string const&);
+      void Initialize(std::string const&, std::string const&, int, int);
 
       //--------------------------------------------------
       // set branch addresses
       //--------------------------------------------------
       void set_branch_addresses(TTree *);
 
+      int GetEvt_I()                 { return evt_initial; }
+      int GetEvt_F()                 { return evt_final;   }
+
   };
->>>>>>> Stashed changes
 
 }
 #endif
