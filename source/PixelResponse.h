@@ -26,7 +26,7 @@ namespace Qpix
         
         void Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info);
 
-        void Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, const std::set<int>& mPixIds, std::unordered_map<int, Pixel_Info>& mPix_info);
+        void Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, const std::set<int>& mPixIds, std::unordered_map<int, Pixel_Info>& mPix_info);
 
     };
 

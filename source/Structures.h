@@ -28,8 +28,8 @@ namespace Qpix
         short X_Pix;
         short Y_Pix;
         int ID;
-        std::vector<double>  time = std::vector<double>(5);
-        std::vector<short> Trk_ID = std::vector<short>(5);
+        std::vector<double>  time = std::vector<double>(10);
+        std::vector<short> Trk_ID = std::vector<short>(10);
 
         // keep track of how much charge we've added
         float charge = 0;
@@ -37,10 +37,9 @@ namespace Qpix
         std::map<u_int16_t, short> mPids;
         double tslr=0;
 
-        std::vector<double>  RESET = std::vector<double>(5);
-        // std::vector<double>  TSLR = std::vector<double>(5);
-        std::vector<std::vector<int>> RESET_TRUTH_ID = std::vector<std::vector<int>>(5);
-        std::vector<std::vector<int>> RESET_TRUTH_W = std::vector<std::vector<int>>(5);
+        std::vector<double>  RESET = std::vector<double>(2);
+        std::vector<std::vector<int>> RESET_TRUTH_ID = std::vector<std::vector<int>>(2);
+        std::vector<std::vector<int>> RESET_TRUTH_W = std::vector<std::vector<int>>(2);
     };
 
 

@@ -42,11 +42,11 @@ namespace Qpix {
         // now we're not dependent on Boost anymore too..
         // bfs::copy_file(input_file, output_file, bfs::copy_option::overwrite_if_exists);
         in_tfile_ = new TFile(input_file.data(), "read");
-        out_tfile_ = new TFile(output_file.data(), "recreate");
         in_ttree_ = (TTree*) in_tfile_->Get("event_tree");
-
         this->set_branch_addresses(in_ttree_);
 
+        out_tfile_ = new TFile(output_file.data(), "recreate");
+        out_ttree_ = new TTree("event_tree", "event_tree");
         out_ttree_->Branch("pixel_x", &b_pixel_x_);
         out_ttree_->Branch("pixel_y", &b_pixel_y_);
         out_ttree_->Branch("pixel_reset", &b_pixel_reset_);
@@ -115,11 +115,12 @@ namespace Qpix {
         hit_energy_deposit_ = 0;
         hit_process_key_ = 0;
 
-        ttree->SetBranchAddress("run", &run_);
-        ttree->SetBranchAddress("event", &event_);
-        ttree->SetBranchAddress("number_particles", &number_particles_);
-        ttree->SetBranchAddress("number_hits", &number_hits_);
-        ttree->SetBranchAddress("energy_deposit", &energy_deposit_);
+        // ttree->SetBranchAddress("run", &run_);
+        // ttree->SetBranchAddress("event", &event_);
+        // ttree->SetBranchAddress("number_particles", &number_particles_);
+        // ttree->SetBranchAddress("number_hits", &number_hits_);
+        // ttree->SetBranchAddress("energy_deposit", &energy_deposit_);
+        ttree->SetBranchAddress("particle_id", &particle_id_);
 
         // use friend ttree
         // ttree->SetBranchAddress("particle_track_id", &particle_track_id_);
@@ -225,7 +226,7 @@ namespace Qpix {
     void ROOTFileManager::Save()
     {
         // save only the new version of the tree
-        out_ttree_->Write("", TObject::kOverwrite);
+        out_ttree_->Write();
         metadata_->Write("", TObject::kOverwrite);
         // close file
         out_tfile_->Close();
@@ -371,7 +372,9 @@ namespace Qpix {
 
             hit_e[indexer].Pix_ID = Qpix::ID_Encoder(Pix_Xloc, Pix_Yloc);
             hit_e[indexer].time = electron_loc_t + ( electron_z / Qpix_params->E_vel );
-            hit_e[indexer].Trk_ID = hit_trk_id;
+            // hit_e[indexer].Trk_ID = hit_trk_id;
+            // change to tracking source of hit-event to radiogenic particle
+            hit_e[indexer].Trk_ID = particle_id_; 
             
             // Move to the next electron
             electron_loc_x += step_x;

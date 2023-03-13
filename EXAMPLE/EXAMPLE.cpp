@@ -106,7 +106,7 @@ int main(int argc, char** argv)
     // std::cout << "*********************************************" << std::endl;
     // std::cout << "Starting on event " << evt << std::endl;
 
-    if(evt%10000 == 0){
+    if(evt%100000 == 0){
       std::cout << "Getting the event: " << evt << std::endl;
       // avg(start_pixelize_times, stop_pixelize_times, "pixel times average: ");
       // avg(start_reset_times, stop_reset_times, "reset times average: ");

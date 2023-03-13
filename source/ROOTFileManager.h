@@ -87,6 +87,7 @@ namespace Qpix {
             int number_particles_;
             int number_hits_;
             double energy_deposit_;
+            int particle_id_;
 
             // reserve for friend tree
             // std::vector< int >    * particle_track_id_;

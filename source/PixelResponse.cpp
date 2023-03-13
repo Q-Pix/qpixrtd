@@ -83,6 +83,7 @@ namespace Qpix
             pixel_ids.insert(hit.Pix_ID);
             auto& hitPixel = mPix_info[hit.Pix_ID];
             hitPixel.time.push_back(hit.time);
+            if(hit.Trk_ID > UINT16_MAX) std::cout << "WARNING trk id more than max!\n";
             hitPixel.Trk_ID.push_back(hit.Trk_ID);
         }
 
@@ -308,7 +309,7 @@ namespace Qpix
     }// Reset
 
     // reset fast overload to use pixel unordered_map
-    void Pixel_Functions::Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, 
+    void Pixel_Functions::Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params,
                                      const std::set<int>& mPixIds, std::unordered_map<int, Pixel_Info>& mPix_info)
     {
         // time window before and after event
@@ -321,18 +322,15 @@ namespace Qpix
             hit_pixel.RESET_TRUTH_ID.clear();
             hit_pixel.RESET_TRUTH_W.clear();
             hit_pixel.RESET.clear();
-            // hit_pixel.TSLR.clear();
-            std::vector<int> trk_id_holder;
             float& charge = hit_pixel.charge;
 
             // skip if won't reset, but dump all electrons into charge and map
             const int nElectrons = hit_pixel.time.size();
-            if(nElectrons+hit_pixel.charge < (Qpix_params->Reset)*0.5){
+            if(nElectrons+charge < (Qpix_params->Reset)*0.8){
                 charge += hit_pixel.time.size();
                 hit_pixel.nElectrons += hit_pixel.time.size();
                 hit_pixel.time.clear();
                 for(auto id : hit_pixel.Trk_ID){
-                    if(id > UINT16_MAX) std::cout << "WARNING id more than max!\n";
                     if(hit_pixel.mPids.find(id) == hit_pixel.mPids.end()) hit_pixel.mPids[id] = 1;
                     else ++hit_pixel.mPids[id];
                 }
@@ -352,12 +350,12 @@ namespace Qpix
                 // check for noise towards this timestamp
                 double electron_time = hit_pixel.time[curElectron];
                 int nSamples = (electron_time - curr_time) / Qpix_params->Sample_time;
-                double noiseTime(0);
-                while(DriftCurrentElectrons(nSamples, noiseTime)){
-                    curr_time += noiseTime;
-                    nSamples = (electron_time - curr_time) / Qpix_params->Sample_time;
-                    charge += 1;
-                }
+                // double noiseTime(0);
+                // while(DriftCurrentElectrons(nSamples, noiseTime)){
+                //     curr_time += noiseTime;
+                //     nSamples = (electron_time - curr_time) / Qpix_params->Sample_time;
+                //     charge += 1;
+                // }
 
                 // after summing drift current, we pop this electron
                 charge += 1;
@@ -380,11 +378,9 @@ namespace Qpix
                     hit_pixel.RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
                     hit_pixel.RESET_TRUTH_W.push_back(trk_weight_holder);
                     hit_pixel.RESET.push_back(curr_time);
-                    // hit_pixel.TSLR.push_back(curr_time - hit_pixel.tslr);
                     hit_pixel.tslr = curr_time;
 
                     charge -= Qpix_params->Reset;
-                    if (charge < Qpix_params->Reset) trk_id_holder.clear();
 
                     // this will keep the charge in the loop above
                     // just offsets the reset by the dead time
@@ -399,8 +395,8 @@ namespace Qpix
             }
 
             // empty the vectors and keep them small
-            std::vector<double>(10).swap(hit_pixel.time);
-            std::vector<short>(10).swap(hit_pixel.Trk_ID);
+            std::vector<double>(5).swap(hit_pixel.time);
+            std::vector<short>(5).swap(hit_pixel.Trk_ID);
         }
     }
 
