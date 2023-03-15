@@ -183,7 +183,6 @@ namespace Qpix
             }
             // add it to the pixel info
             Pix_info[i].RESET = RESET;
-            // Pix_info[i].TSLR  = TSLR;
             Pix_info[i].RESET_TRUTH_ID  = RESET_TRUTH_ID;
             Pix_info[i].RESET_TRUTH_W   = RESET_TRUTH_W;
         }
@@ -395,8 +394,8 @@ namespace Qpix
             }
 
             // empty the vectors and keep them small
-            std::vector<double>(5).swap(hit_pixel.time);
-            std::vector<short>(5).swap(hit_pixel.Trk_ID);
+            std::vector<double>().swap(hit_pixel.time);
+            std::vector<short>().swap(hit_pixel.Trk_ID);
         }
     }
 

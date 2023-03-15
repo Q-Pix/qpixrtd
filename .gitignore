@@ -1,12 +1,14 @@
 .DS_Store
 
 # ignore files in folder foo
+build/*
 Build/*
 Library/*
 .vscode/*
 EXAMPLE/*.root
 EXAMPLE/EXAMPLE
 
+.*root
 
 dev/*
 daveMuon/*

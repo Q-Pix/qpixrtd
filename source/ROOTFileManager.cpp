@@ -198,9 +198,9 @@ namespace Qpix {
         int maxX = ceil(detector_length_x_ / pixel_size_);
         int maxY = ceil(detector_length_y_ / pixel_size_);
 
-        // build the pixel map
-        for(int i=1; i<maxX; ++i){
-            for(int j=1; j<maxY; ++j){
+        // build the pixel map, start at 0 and end at +1 to include boundary
+        for(int i=0; i<maxX+1; ++i){
+            for(int j=0; j<maxY+1; ++j){
                 pixel_map[Qpix::ID_Encoder(i, j)] = Qpix::Pixel_Info(i, j);
             }
         }
@@ -425,9 +425,9 @@ namespace Qpix {
             pixel_reset_truth_track_id_.push_back(std::move(pixel_info.RESET_TRUTH_ID));
             pixel_reset_truth_weight_.push_back(std::move(pixel_info.RESET_TRUTH_W));
             // empty these vectors and keep their memory small
-            std::vector<double>(5).swap(pixel_info.RESET);
-            std::vector<std::vector<int>>(10).swap(pixel_info.RESET_TRUTH_ID);
-            std::vector<std::vector<int>>(10).swap(pixel_info.RESET_TRUTH_ID);
+            std::vector<double>().swap(pixel_info.RESET);
+            std::vector<std::vector<int>>().swap(pixel_info.RESET_TRUTH_ID);
+            std::vector<std::vector<int>>().swap(pixel_info.RESET_TRUTH_W);
         }
     }
 }

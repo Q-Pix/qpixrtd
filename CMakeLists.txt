@@ -21,4 +21,4 @@ include(${ROOT_USE_FILE})
 include_directories(${CMAKE_SOURCE_DIR}/source)
 
 add_subdirectory(source)
-
+add_subdirectory(EXAMPLE)
