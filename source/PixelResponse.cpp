@@ -309,18 +309,15 @@ namespace Qpix
 
     // reset fast overload to use pixel unordered_map
     void Pixel_Functions::Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params,
-                                     const std::set<int>& mPixIds, std::unordered_map<int, Pixel_Info>& mPix_info)
+                                     const std::set<int>& hit_ids, std::unordered_map<int, Pixel_Info>& mPix_info)
     {
         // time window before and after event
         double Window = 1e-6;
 
         // look at every pixel that was hit
-        for(int hit_id : mPixIds)
+        for(int hit_id : hit_ids)
         {
             Pixel_Info& hit_pixel = mPix_info[hit_id];
-            hit_pixel.RESET_TRUTH_ID.clear();
-            hit_pixel.RESET_TRUTH_W.clear();
-            hit_pixel.RESET.clear();
             float& charge = hit_pixel.charge;
 
             // skip if won't reset, but dump all electrons into charge and map

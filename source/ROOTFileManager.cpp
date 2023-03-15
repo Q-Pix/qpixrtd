@@ -414,14 +414,13 @@ namespace Qpix {
     void ROOTFileManager::AddEvent(const std::set<int>& hit_ids, std::unordered_map<int, Qpix::Pixel_Info>& mPixelMap)
     {
         // add all of the pixel vectors we care about
-        for(auto i : hit_ids)
+        for(int hit_id : hit_ids)
         {
-            Pixel_Info& pixel_info = mPixelMap[i];
+            Pixel_Info& pixel_info = mPixelMap[hit_id];
             if(pixel_info.RESET.size() < 1) continue;
             pixel_x_.push_back(pixel_info.X_Pix);
             pixel_y_.push_back(pixel_info.Y_Pix);
             pixel_reset_.push_back(std::move(pixel_info.RESET));
-            // pixel_tslr_.push_back(std::move(pixel_info.TSLR));
             pixel_reset_truth_track_id_.push_back(std::move(pixel_info.RESET_TRUTH_ID));
             pixel_reset_truth_weight_.push_back(std::move(pixel_info.RESET_TRUTH_W));
             // empty these vectors and keep their memory small
