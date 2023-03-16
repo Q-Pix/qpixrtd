@@ -12,6 +12,8 @@
 #include "Structures.h"
 #include "PixelResponse.h"
 
+// ROOT
+#include "TRandom3.h"
 
 namespace Qpix
 {
@@ -313,16 +315,20 @@ namespace Qpix
     {
         // time window before and after event
         double Window = 1e-6;
+        static TRandom3 rand = TRandom3(69420);
+        const int drift_electron_frq = 10e-18/1.602e-19; // 10 atto amps / electron charge
 
         // look at every pixel that was hit
         for(int hit_id : hit_ids)
         {
             Pixel_Info& hit_pixel = mPix_info[hit_id];
             float& charge = hit_pixel.charge;
+            double drift_start = hit_pixel.GetDriftStart();
+            int drift_electrons = rand.Poisson(drift_electron_frq * hit_pixel.GetDriftTime());
 
             // skip if won't reset, but dump all electrons into charge and map
             const int nElectrons = hit_pixel.time.size();
-            if(nElectrons+charge < (Qpix_params->Reset)*0.8){
+            if(nElectrons+charge+drift_electrons < (Qpix_params->Reset)*0.8){
                 charge += hit_pixel.time.size();
                 hit_pixel.nElectrons += hit_pixel.time.size();
                 hit_pixel.time.clear();
@@ -331,32 +337,46 @@ namespace Qpix
                     else ++hit_pixel.mPids[id];
                 }
                 hit_pixel.Trk_ID.clear();
+                // add in the drift electrons
+                if(drift_electrons > 0){
+                    charge += drift_electrons;
+                    if(hit_pixel.mPids.find(0) == hit_pixel.mPids.end()) hit_pixel.mPids[0] = drift_electrons;
+                    else hit_pixel.mPids[0] += drift_electrons;
+                }
                 continue;
             } 
 
+            // keep track of which time we're popping from
             double curr_time = hit_pixel.time[0] - Window;
             double stop_time = hit_pixel.time[nElectrons-1] + Window;
             if(curr_time < 0) curr_time = 0;
-            const double start_time = curr_time;
+
+            // uniformly generate the drift_electrons' hit times, which is an easy, fast approximation of erlang
+            double drift_electron_step = (hit_pixel.time[nElectrons-1] - drift_start) / drift_electrons;
+            int cur_drift_electron = 0;
 
             // build up the charge for each reset now
             // iterate directly over the electrons, checking drift each time
-            for(int curElectron=0; curElectron<nElectrons; curElectron++)
+            for(int curElectron=0; curElectron<nElectrons; )
             {
-                // check for noise towards this timestamp
+                // add in the time ordered electron
+                int id;
                 double electron_time = hit_pixel.time[curElectron];
-                int nSamples = (electron_time - curr_time) / Qpix_params->Sample_time;
-                // double noiseTime(0);
-                // while(DriftCurrentElectrons(nSamples, noiseTime)){
-                //     curr_time += noiseTime;
-                //     nSamples = (electron_time - curr_time) / Qpix_params->Sample_time;
-                //     charge += 1;
-                // }
+                // drift time should only possibly count drift_electrons
+                double drift_time = cur_drift_electron == drift_electrons ? 
+                                    UINT64_MAX :
+                                    drift_start + cur_drift_electron*drift_electron_step;
+                if(drift_time < electron_time){
+                    curr_time = drift_time;
+                    id = 0; // noise is ID 0
+                    ++cur_drift_electron;
+                }else{
+                    id = hit_pixel.Trk_ID[curElectron++];
+                    curr_time = electron_time;
+                }
 
-                // after summing drift current, we pop this electron
+                // add in the electron
                 charge += 1;
-                curr_time = electron_time;
-                int id = hit_pixel.Trk_ID[curElectron];
                 if(hit_pixel.mPids.find(id) == hit_pixel.mPids.end()) hit_pixel.mPids[id] = 1;
                 else ++hit_pixel.mPids[id];
 

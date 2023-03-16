@@ -1,7 +1,6 @@
 #ifndef QPIXSTRUCTURES_H_
 #define QPIXSTRUCTURES_H_
 
-
 #include <iostream>
 #include <string>
 #include <vector>
@@ -37,9 +36,26 @@ namespace Qpix
         std::map<u_int16_t, short> mPids;
         double tslr=0;
 
+        // should only be querried in Reset_Fast, calculating the amount
+        // of time that has occured since the last time electrons have 
+        // been pulled off of the time vector
+        double GetDriftTime() {
+            if(time.size() == 0) 
+                return 0; 
+            else{
+                double prevtime = drift_start;
+                drift_start = time.back();
+                return time.back() - prevtime;
+            } 
+        }
+        double GetDriftStart() const {return drift_start;};
+
         std::vector<double>  RESET = std::vector<double>();
         std::vector<std::vector<int>> RESET_TRUTH_ID = std::vector<std::vector<int>>();
         std::vector<std::vector<int>> RESET_TRUTH_W = std::vector<std::vector<int>>();
+
+        private:
+            double drift_start = 0;
     };
 
 
