@@ -323,12 +323,13 @@ namespace Qpix
         {
             Pixel_Info& hit_pixel = mPix_info[hit_id];
             float& charge = hit_pixel.charge;
-            double drift_start = hit_pixel.GetDriftStart();
-            int drift_electrons = rand.Poisson(drift_electron_frq * hit_pixel.GetDriftTime());
+
+            double drift_start = hit_pixel.GetDriftStart(); // must call before GetDriftTime
+            const int nElectrons = hit_pixel.time.size();
+            const int nDriftElectrons = rand.Poisson(drift_electron_frq * hit_pixel.GetDriftTime());
 
             // skip if won't reset, but dump all electrons into charge and map
-            const int nElectrons = hit_pixel.time.size();
-            if(nElectrons+charge+drift_electrons < (Qpix_params->Reset)*0.8){
+            if(nElectrons+charge+nDriftElectrons < (Qpix_params->Reset)){
                 charge += hit_pixel.time.size();
                 hit_pixel.nElectrons += hit_pixel.time.size();
                 hit_pixel.time.clear();
@@ -338,10 +339,10 @@ namespace Qpix
                 }
                 hit_pixel.Trk_ID.clear();
                 // add in the drift electrons
-                if(drift_electrons > 0){
-                    charge += drift_electrons;
-                    if(hit_pixel.mPids.find(0) == hit_pixel.mPids.end()) hit_pixel.mPids[0] = drift_electrons;
-                    else hit_pixel.mPids[0] += drift_electrons;
+                if(nDriftElectrons > 0){
+                    charge += nDriftElectrons;
+                    if(hit_pixel.mPids.find(0) == hit_pixel.mPids.end()) hit_pixel.mPids[0] = nDriftElectrons;
+                    else hit_pixel.mPids[0] += nDriftElectrons;
                 }
                 continue;
             } 
@@ -351,8 +352,8 @@ namespace Qpix
             double stop_time = hit_pixel.time[nElectrons-1] + Window;
             if(curr_time < 0) curr_time = 0;
 
-            // uniformly generate the drift_electrons' hit times, which is an easy, fast approximation of erlang
-            double drift_electron_step = (hit_pixel.time[nElectrons-1] - drift_start) / drift_electrons;
+            // uniformly generate the nDriftElectrons' hit times, which is an easy, fast approximation of erlang
+            double drift_electron_step = (hit_pixel.time[nElectrons-1] - drift_start) / nDriftElectrons;
             int cur_drift_electron = 0;
 
             // build up the charge for each reset now
@@ -362,8 +363,8 @@ namespace Qpix
                 // add in the time ordered electron
                 int id;
                 double electron_time = hit_pixel.time[curElectron];
-                // drift time should only possibly count drift_electrons
-                double drift_time = cur_drift_electron == drift_electrons ? 
+                // drift time should only possibly count no more than nDriftElectrons
+                double drift_time = cur_drift_electron == nDriftElectrons ? 
                                     UINT64_MAX :
                                     drift_start + cur_drift_electron*drift_electron_step;
                 if(drift_time < electron_time){
@@ -394,7 +395,7 @@ namespace Qpix
                     hit_pixel.RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
                     hit_pixel.RESET_TRUTH_W.push_back(trk_weight_holder);
                     hit_pixel.RESET.push_back(curr_time);
-                    hit_pixel.tslr = curr_time;
+                    hit_pixel.tslr = hit_pixel.RESET.back();
 
                     charge -= Qpix_params->Reset;
 

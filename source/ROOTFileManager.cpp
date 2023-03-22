@@ -225,8 +225,10 @@ namespace Qpix {
     //--------------------------------------------------------------------------
     void ROOTFileManager::Save()
     {
+        out_tfile_->cd();
         // save only the new version of the tree
-        out_ttree_->Write();
+        out_ttree_->Write("", TObject::kOverwrite);
+        metadata_->SetDirectory(out_tfile_);
         metadata_->Write("", TObject::kOverwrite);
         // close file
         out_tfile_->Close();
