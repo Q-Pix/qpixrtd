@@ -170,5 +170,8 @@ namespace Qpix {
 
     };
 
+    // used to copy meta data into the source data tree
+    int RTDFriend(TTree*, TTree*);
+
 }
 #endif

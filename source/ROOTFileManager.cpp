@@ -225,11 +225,18 @@ namespace Qpix {
     //--------------------------------------------------------------------------
     void ROOTFileManager::Save()
     {
-        out_tfile_->cd();
+        // make sure we get the whole metadata tree, regardless
+        metadata_ = (TTree*) in_tfile_->Get("metadata");
+
         // save only the new version of the tree
-        out_ttree_->Write("", TObject::kOverwrite);
+        out_tfile_->cd();
         metadata_->SetDirectory(out_tfile_);
-        metadata_->Write("", TObject::kOverwrite);
+        metadata_->CloneTree()->Write("", TObject::kOverwrite);
+
+        // based on RTDFriend, include metadata branches here
+        RTDFriend(metadata_, out_ttree_);
+
+        out_ttree_->Write("", TObject::kOverwrite);
         // close file
         out_tfile_->Close();
     }
@@ -430,5 +437,101 @@ namespace Qpix {
             std::vector<std::vector<int>>().swap(pixel_info.RESET_TRUTH_ID);
             std::vector<std::vector<int>>().swap(pixel_info.RESET_TRUTH_W);
         }
+    }
+
+    // 
+    int RTDFriend(TTree* metadata, TTree* event_tree) {
+        Int_t pdg = 0;
+        Float_t energy = 0;
+        Int_t event = 0;
+        Int_t isFHC = 0;
+
+        Int_t nEvent = 0;
+        Float_t fsEnergy = 0;
+        Int_t fsFileNo = 0;
+        Int_t nFS = 0;
+        Float_t lepKE = 0;
+
+        Float_t xpos  = 0; // vertex position
+        Float_t ypos  = 0;
+        Float_t zpos  = 0;
+
+        Float_t axis_x = 0; // rotation angle branches
+        Float_t axis_y = 0; 
+        Float_t axis_z = 0; 
+
+        // 14 total meta params for the event, shown in AnalysisManager.cpp add fill
+        TBranch* b_pdg = 0;
+        TBranch* b_energy = 0;
+        TBranch* b_event = 0;
+        TBranch* b_isFHC = 0;
+
+        TBranch* b_nEvent = 0;
+        TBranch* b_fsEnergy = 0;
+        TBranch* b_fsFileNo = 0;
+        TBranch* b_nFS= 0;
+        TBranch* b_lepKE = 0;
+
+        TBranch* b_xpos  = 0; // vertex position
+        TBranch* b_ypos  = 0;
+        TBranch* b_zpos  = 0;
+
+        TBranch* b_axis_x = 0; // rotation angle branches
+        TBranch* b_axis_y = 0; 
+        TBranch* b_axis_z = 0; 
+
+        int val = metadata->SetBranchAddress("lepKE", &lepKE);
+        if(val < 0){return -1;}; // don't fill this if the branch doesn't exist
+        metadata->SetBranchAddress("axis_x", &axis_x);
+        metadata->SetBranchAddress("axis_y", &axis_y);
+        metadata->SetBranchAddress("axis_z", &axis_z);
+        metadata->SetBranchAddress("xpos", &xpos);
+        metadata->SetBranchAddress("ypos", &ypos);
+        metadata->SetBranchAddress("zpos", &zpos);
+        metadata->SetBranchAddress("nEvt", &nEvent);
+        metadata->SetBranchAddress("fsPdg", &pdg);
+        metadata->SetBranchAddress("fsEnergy", &fsEnergy);
+        metadata->SetBranchAddress("fsEvt", &event);
+        metadata->SetBranchAddress("fsFileNo", &fsFileNo);
+        metadata->SetBranchAddress("fsFHC", &isFHC);
+        metadata->SetBranchAddress("nFS", &nFS);
+        // metadata has single energy, check it to ensure we have a reasonable event
+        metadata->GetEntry(0);
+
+        // add the new branches to the tree
+        b_axis_x = event_tree->Branch("axis_x", &axis_x);
+        b_axis_y = event_tree->Branch("axis_y", &axis_y);
+        b_axis_z = event_tree->Branch("axis_z", &axis_z);
+        b_xpos = event_tree->Branch("xpos", &xpos);
+        b_ypos =  event_tree->Branch("ypos", &ypos);
+        b_zpos =  event_tree->Branch("zpos", &zpos);
+        b_nEvent = event_tree->Branch("nEvt", &nEvent);
+        b_pdg = event_tree->Branch("fsPdg", &pdg);
+        b_lepKE = event_tree->Branch("fsEnergy", &fsEnergy);
+        b_event = event_tree->Branch("fsEvt", &event);
+        b_fsFileNo = event_tree->Branch("fsFileNo", &fsFileNo);
+        b_isFHC = event_tree->Branch("fsFHC", &isFHC);
+        b_nFS = event_tree->Branch("nFS", &nFS);
+        b_fsEnergy = event_tree->Branch("lepKE", &lepKE);
+
+        // build update the branches 
+        int nEntries = event_tree->GetEntries();
+        for(int i=0; i<nEntries; i++){
+            b_axis_x->Fill();
+            b_axis_y->Fill();
+            b_axis_z->Fill();
+            b_xpos->Fill();
+            b_ypos->Fill();
+            b_zpos->Fill();
+            b_nEvent->Fill();
+            b_pdg->Fill();
+            b_lepKE->Fill();
+            b_event->Fill();
+            b_fsFileNo->Fill();
+            b_isFHC->Fill();
+            b_nFS->Fill();
+            b_fsEnergy->Fill();
+        }
+        return 1;
     }
 }

@@ -79,7 +79,7 @@ int main(int argc, char** argv)
   Qpix::Qpix_Paramaters * Qpix_params = new Qpix::Qpix_Paramaters();
   set_Qpix_Paramaters(Qpix_params);
   Qpix_params->Buffer_time = 100e3;
-  print_Qpix_Paramaters(Qpix_params);
+  // print_Qpix_Paramaters(Qpix_params);
 
   // root file manager
   int number_entries = -1;
@@ -100,7 +100,7 @@ int main(int argc, char** argv)
   std::vector<clock_t> stop_pixelize_times, stop_reset_times;
   
   // Loop though the events in the file
-  std::cout << "reading entries: " << number_entries << std::endl;
+  std::cout << "RTD begin with entries: " << number_entries << std::endl;
   for (int evt = 0; evt < number_entries; evt++)
   {
     // std::cout << "*********************************************" << std::endl;
@@ -149,10 +149,10 @@ int main(int argc, char** argv)
   // save and close
   rfm.Save();
 
-  std::cout << "done" << std::endl;
-  time_req = clock() - time_req;
-  time = (float)time_req/CLOCKS_PER_SEC;
-  std::cout<< "The operation took "<<time<<" Seconds"<<std::endl;
+  // std::cout << "done" << std::endl;
+  // time_req = clock() - time_req;
+  // time = (float)time_req/CLOCKS_PER_SEC;
+  // std::cout<< "The operation took "<<time<<" Seconds"<<std::endl;
   return 0;
 
 } // main()
