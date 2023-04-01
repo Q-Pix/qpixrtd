@@ -29,6 +29,8 @@ int main(int argc, char** argv)
     // make sure the trees that we want are there
     TTree* event_tree = (TTree*)tf->Get("event_tree");
     if(event_tree == NULL){std::cout << "WARNING unable to find event tree!\n"; return -1;};
+    float val_;
+    if(event_tree->SetBranchAddress("lepKE", &val_)>=0){std::cout << "branch exists.\n";return -1;};
     TTree* metadata = (TTree*)tf->Get("metadata");
     if(metadata == NULL){std::cout << "WARNING unable to find meta tree!\n"; return -1;};
 
