@@ -439,7 +439,7 @@ namespace Qpix {
         }
     }
 
-    // 
+    // associate the metadata with each of these resets before combining
     int RTDFriend(TTree* metadata, TTree* event_tree) {
         Int_t pdg = 0;
         Float_t energy = 0;
@@ -451,6 +451,15 @@ namespace Qpix {
         Int_t fsFileNo = 0;
         Int_t nFS = 0;
         Float_t lepKE = 0;
+
+        // hadron energy values
+        Float_t hadTot = 0;
+        Float_t hadPip = 0;
+        Float_t hadPim = 0;
+        Float_t hadPi0 = 0;
+        Float_t hadP = 0;
+        Float_t hadN = 0;
+        Float_t hadOther = 0;
 
         Float_t xpos  = 0; // vertex position
         Float_t ypos  = 0;
@@ -471,6 +480,14 @@ namespace Qpix {
         TBranch* b_fsFileNo = 0;
         TBranch* b_nFS= 0;
         TBranch* b_lepKE = 0;
+
+        TBranch* b_hadTot = 0;
+        TBranch* b_hadPip = 0;
+        TBranch* b_hadPim = 0;
+        TBranch* b_hadPi0 = 0;
+        TBranch* b_hadP = 0;
+        TBranch* b_hadN = 0;
+        TBranch* b_hadOther = 0;
 
         TBranch* b_xpos  = 0; // vertex position
         TBranch* b_ypos  = 0;
@@ -495,6 +512,14 @@ namespace Qpix {
         metadata->SetBranchAddress("fsFileNo", &fsFileNo);
         metadata->SetBranchAddress("fsFHC", &isFHC);
         metadata->SetBranchAddress("nFS", &nFS);
+        // hadronic branch values
+        metadata->SetBranchAddress("hadTot", &hadTot);
+        metadata->SetBranchAddress("hadPip", &hadPip);
+        metadata->SetBranchAddress("hadPim", &hadPim);
+        metadata->SetBranchAddress("hadPi0", &hadPi0);
+        metadata->SetBranchAddress("hadP", &hadP);
+        metadata->SetBranchAddress("hadN", &hadN);
+        metadata->SetBranchAddress("hadOther", &hadOther);
         // metadata has single energy, check it to ensure we have a reasonable event
         metadata->GetEntry(0);
 
@@ -513,6 +538,13 @@ namespace Qpix {
         b_isFHC = event_tree->Branch("fsFHC", &isFHC);
         b_nFS = event_tree->Branch("nFS", &nFS);
         b_fsEnergy = event_tree->Branch("lepKE", &lepKE);
+        b_hadTot = event_tree->Branch("hadTot", &hadTot);
+        b_hadPip = event_tree->Branch("hadPip", &hadPip);
+        b_hadPim = event_tree->Branch("hadPim", &hadPim);
+        b_hadPi0 = event_tree->Branch("hadPi0", &hadPi0);
+        b_hadP = event_tree->Branch("hadP", &hadP);
+        b_hadN = event_tree->Branch("hadN", &hadN);
+        b_hadOther = event_tree->Branch("hadOther", &hadOther);
 
         // build update the branches 
         int nEntries = event_tree->GetEntries();
@@ -531,6 +563,13 @@ namespace Qpix {
             b_isFHC->Fill();
             b_nFS->Fill();
             b_fsEnergy->Fill();
+            b_hadTot->Fill();
+            b_hadPip->Fill();
+            b_hadPim->Fill();
+            b_hadPi0->Fill();
+            b_hadP->Fill();
+            b_hadN->Fill();
+            b_hadOther->Fill();
         }
         return 1;
     }
