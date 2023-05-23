@@ -211,7 +211,7 @@ namespace Qpix {
         ttree->SetBranchAddress("particle_initial_energy", &particle_initial_energy_);
 
         ttree->SetBranchAddress("hit_track_id", &hit_track_id_);
-
+        ttree->SetBranchAddress("hit_pdg_code", &hit_pdg_code_);
         ttree->SetBranchAddress("hit_start_x", &hit_start_x_);
         ttree->SetBranchAddress("hit_start_y", &hit_start_y_);
         ttree->SetBranchAddress("hit_start_z", &hit_start_z_);
