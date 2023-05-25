@@ -1,5 +1,6 @@
 // C++ includes
 #include <iostream>
+// #include <numeric>
 #include <string>
 #include <vector>
 #include <ctime>
@@ -42,9 +43,17 @@ int main(int argc, char** argv)
   number_entries = rfm.NumberEntries();
   rfm.EventReset();
 
+  // std::vector< int > v{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  // auto start = v.begin() + 1;
+  // auto stop = start + 2;
+  // // auto stop = v.begin() + 3;
+  // int sum = accumulate(start, stop, 0);
+  // std::cout << "sum: " << sum << std::endl;
+
   // Loop though the events in the file
   for (int evt = 0; evt < number_entries; evt++)
   {
+    // break;
     std::cout << "*********************************************" << std::endl;
     std::cout << "Starting on event " << evt << std::endl;
 
@@ -60,10 +69,16 @@ int main(int argc, char** argv)
     // Pixelize the electrons 
     PixFunc.Pixelize_Event( hit_e, Pixel );
 
+    std::cout << "hit_e.size(): " << hit_e.size() << std::endl;
+
     std::cout << "Running the resets" << std::endl;
     // the reset function
-    // PixFunc.Reset(Qpix_params, Gaussian_Noise, Pixel);
-    PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, Pixel);
+    PixFunc.Reset(Qpix_params, Gaussian_Noise, Pixel);
+    // PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, Pixel);
+    // PixFunc.reset_th1_test(Qpix_params, Gaussian_Noise, Pixel);
+    // PixFunc.reset_thnsparse_test(Qpix_params, Gaussian_Noise, Pixel);
+    // PixFunc.reset_thnsparse_noise_test(Qpix_params, Gaussian_Noise, Pixel);
+    // PixFunc.Reset_THnSparse(Qpix_params, Gaussian_Noise, Pixel);
 
     rfm.AddEvent( Pixel );
     rfm.EventFill();

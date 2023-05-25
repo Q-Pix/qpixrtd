@@ -6,6 +6,8 @@ cmake ..
 
 make
 
+rm -rf ../Library/*
+
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     cp ./source/libQPixRTD.so ../Library/.
 elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -17,10 +19,12 @@ cp ./source/libQPixRTDDict.rootmap ../Library/.
 
 cd ../EXAMPLE/
 
-rm -rf build/*
-
 cd build
+rm -rf ../build/*
 
 cmake ..
 
 make
+
+cd ..
+
