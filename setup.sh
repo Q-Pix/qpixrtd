@@ -1,5 +1,14 @@
 #!/bin/sh
-# setting up the Qpix path
+
+###############################################################################
+# setup.sh
+#
+# sets up the Qpix path
+#
+# run by using the following command:
+# source setup.sh
+#
+###############################################################################
+
 export QPixRTDDir=$PWD
-cd $QPixRTDDir
 
