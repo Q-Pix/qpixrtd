@@ -39,7 +39,7 @@ namespace Qpix {
 
             void AddMetadata(Qpix::Qpix_Paramaters * const);
             double Modified_Box(double dEdx);
-            void Get_Event(int, Qpix::Qpix_Paramaters *, std::vector< Qpix::ELECTRON > &, double weight =1);
+            void Get_Event(int, Qpix::Qpix_Paramaters *, std::vector< Qpix::ELECTRON > &);
             void AddEvent(std::vector<Qpix::Pixel_Info> const);
 
         private:
@@ -155,6 +155,15 @@ namespace Qpix {
             // set branch addresses
             //--------------------------------------------------
             void set_branch_addresses(TTree *);
+
+
+            //--------------------------------------------------
+            // variables
+            //--------------------------------------------------
+            double           Recombination;
+            double           dEdx;
+            int              Nelectron;
+
 
     };
 

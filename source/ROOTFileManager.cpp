@@ -242,7 +242,7 @@ namespace Qpix {
 
     //--------------------------------------------------------------------------
     // gets the event from the file and tunrs it into electrons
-    void ROOTFileManager::Get_Event(int EVENT, Qpix::Qpix_Paramaters * Qpix_params, std::vector<Qpix::ELECTRON>& hit_e, double weight)
+    void ROOTFileManager::Get_Event(int EVENT, Qpix::Qpix_Paramaters * Qpix_params, std::vector<Qpix::ELECTRON>& hit_e)
     {
         ttree_->GetEntry(EVENT);
 
@@ -274,20 +274,17 @@ namespace Qpix {
             double const length_of_hit = hit_length_->at(h_idx);  // cm
 
             // Set up the paramaters for the recombiataion 
-            double const dEdx = energy_deposit/length_of_hit;
-            double const Recombonation = Modified_Box(dEdx);
-            int Nelectron;
-
+            Recombination = 1;
+            
             // to account for recombination or not
             // calcualte the number of electrons in the hit
             if (Qpix_params->Recombination)
             {
-                Nelectron = round(Recombonation * (energy_deposit*1e6/Qpix_params->Wvalue) );
-            }else
-            {
-                Nelectron = round( (energy_deposit*1e6/Qpix_params->Wvalue) );
+                dEdx = energy_deposit/length_of_hit;
+                Recombination = Modified_Box(dEdx);
             }
-            
+            Nelectron = round(Qpix_params->Sampling * Recombination * (energy_deposit*1e6/Qpix_params->Wvalue) );
+
             // if not enough move on
             if (Nelectron == 0){continue;}
 

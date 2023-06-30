@@ -142,7 +142,7 @@ int main(int argc, char** argv)
     std::cout << "Getting the event" << std::endl;
     std::vector<Qpix::ELECTRON> hit_e;
     // turn the Geant4 hits into electrons
-    rfm.Get_Event( evt, Qpix_params, hit_e, 1/Qpix_params->Sampling);
+    rfm.Get_Event( evt, Qpix_params, hit_e);
     std::cout << "size of hit_e = " << hit_e.size() << std::endl;
 
     std::cout << "Pixelizing the event" << std::endl;
@@ -154,7 +154,7 @@ int main(int argc, char** argv)
     std::cout << "Running the resets" << std::endl;
     // the reset function
     // PixFunc.Reset(Qpix_params, Gaussian_Noise, Pixel);
-    PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, Pixel, 1/Qpix_params->Sampling);
+    PixFunc.Reset_Fast(Qpix_params, Gaussian_Noise, Pixel);
 
     rfm.AddEvent( Pixel );
     rfm.EventFill();

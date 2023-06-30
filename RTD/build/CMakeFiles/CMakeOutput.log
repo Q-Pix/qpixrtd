@@ -1,0 +1,792 @@
+The system is: Linux - 3.10.0-1160.83.1.el7.x86_64 - x86_64
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /sw/eb/sw/GCCcore/10.2.0/bin/g++ 
+Build flags: -O2;-ftree-vectorize;-march=native;-fno-math-errno
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/home/dave.elofson/scratch/software/qpixrtd/RTD/build/CMakeFiles/3.18.4/CompilerIdCXX/a.out"
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /home/dave.elofson/scratch/software/qpixrtd/RTD/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_ad9d9/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_ad9d9.dir/build.make CMakeFiles/cmTC_ad9d9.dir/build
+gmake[1]: Entering directory `/scratch/user/dave.elofson/software/qpixrtd/RTD/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o
+/sw/eb/sw/GCCcore/10.2.0/bin/g++   -O2 -ftree-vectorize -march=native -fno-math-errno    -v -o CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o -c /sw/eb/sw/CMake/3.18.4-GCCcore-10.2.0/share/cmake-3.18/Modules/CMakeCXXCompilerABI.cpp
+Using built-in specs.
+COLLECT_GCC=/sw/eb/sw/GCCcore/10.2.0/bin/g++
+OFFLOAD_TARGET_NAMES=nvptx-none
+Target: x86_64-pc-linux-gnu
+Configured with: ../configure --enable-languages=c,c++,fortran --without-cuda-driver --enable-offload-targets=nvptx-none --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/sw/eb/sw/GCCcore/10.2.0 --with-local-prefix=/sw/eb/sw/GCCcore/10.2.0 --enable-bootstrap --with-isl=/tmp/j-perdue/easybuild/GCCcore/10.2.0/system-system/gcc-10.2.0/stage2_stuff --build=x86_64-pc-linux-gnu --host=x86_64-pc-linux-gnu
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 10.2.0 (GCC) 
+COLLECT_GCC_OPTIONS='-O2' '-ftree-vectorize' '-march=native' '-fno-math-errno' '-v' '-o' 'CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc'
+ /sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/cc1plus -quiet -v -D_GNU_SOURCE /sw/eb/sw/CMake/3.18.4-GCCcore-10.2.0/share/cmake-3.18/Modules/CMakeCXXCompilerABI.cpp -march=cascadelake -mmmx -mno-3dnow -msse -msse2 -msse3 -mssse3 -mno-sse4a -mcx16 -msahf -mmovbe -maes -mno-sha -mpclmul -mpopcnt -mabm -mno-lwp -mfma -mno-fma4 -mno-xop -mbmi -mno-sgx -mbmi2 -mno-pconfig -mno-wbnoinvd -mno-tbm -mavx -mavx2 -msse4.2 -msse4.1 -mlzcnt -mrtm -mhle -mrdrnd -mf16c -mfsgsbase -mrdseed -mprfchw -madx -mfxsr -mxsave -mxsaveopt -mavx512f -mno-avx512er -mavx512cd -mno-avx512pf -mno-prefetchwt1 -mclflushopt -mxsavec -mxsaves -mavx512dq -mavx512bw -mavx512vl -mno-avx512ifma -mno-avx512vbmi -mno-avx5124fmaps -mno-avx5124vnniw -mclwb -mno-mwaitx -mno-clzero -mpku -mno-rdpid -mno-gfni -mno-shstk -mno-avx512vbmi2 -mavx512vnni -mno-vaes -mno-vpclmulqdq -mno-avx512bitalg -mno-avx512vpopcntdq -mno-movdiri -mno-movdir64b -mno-waitpkg -mno-cldemote -mno-ptwrite -mno-avx512bf16 -mno-enqcmd -mno-avx512vp2intersect --param l1-cache-size=32 --param l1-cache-line-size=64 --param l2-cache-size=36608 -mtune=cascadelake -quiet -dumpbase CMakeCXXCompilerABI.cpp -auxbase-strip CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o -O2 -version -ftree-vectorize -fno-math-errno -o /tmp/cc3WB1Km.s
+GNU C++14 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)
+	compiled by GNU C version 10.2.0, GMP version 6.2.0, MPFR version 4.1.0, MPC version 1.1.0, isl version isl-0.22.1-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed"
+ignoring nonexistent directory "/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../x86_64-pc-linux-gnu/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /sw/eb/sw/Valgrind/3.16.1-gompi-2020b/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/include
+ /sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/include
+ /sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/include
+ /sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/include
+ /sw/eb/sw/NSS/3.57-GCCcore-10.2.0/include/nss
+ /sw/eb/sw/NSS/3.57-GCCcore-10.2.0/include
+ /sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/include
+ /sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/include
+ /sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/include
+ /sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/include
+ /sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/include
+ /sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/include
+ /sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/include
+ /sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/include
+ /sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/include
+ /sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/include
+ /sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/include
+ /sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/include
+ /sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/include
+ /sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/include
+ /sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/include
+ /sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/include
+ /sw/eb/sw/X11/20201008-GCCcore-10.2.0/include
+ /sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/include
+ /sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/include
+ /sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/include
+ /sw/eb/sw/pybind11/2.6.0-GCCcore-10.2.0/include
+ /sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/include
+ /sw/eb/sw/libffi/3.3-GCCcore-10.2.0/include
+ /sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/include
+ /sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/include
+ /sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/include
+ /sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/include/freetype2
+ /sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/include
+ /sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/include
+ /sw/eb/sw/GSL/2.6-GCC-10.2.0/include
+ /sw/eb/sw/Boost/1.74.0-GCC-10.2.0/include
+ /sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/include
+ /sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/include
+ /sw/eb/sw/gettext/0.21-GCCcore-10.2.0/include
+ /sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/include
+ /sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/include
+ /sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/include
+ /sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/include
+ /sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/include
+ /sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/include
+ /sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/include
+ /sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/include
+ /sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/include
+ /sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/include
+ /sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/include/libxml2
+ /sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/include
+ /sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/include
+ /sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/include
+ /scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/include
+ /sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0
+ /sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/x86_64-pc-linux-gnu
+ /sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/backward
+ /sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include
+ /sw/eb/sw/GCCcore/10.2.0/include
+ /usr/include
+End of search list.
+GNU C++14 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)
+	compiled by GNU C version 10.2.0, GMP version 6.2.0, MPFR version 4.1.0, MPC version 1.1.0, isl version isl-0.22.1-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: d1c63cc9970fd29cf3dc81b838883174
+COLLECT_GCC_OPTIONS='-O2' '-ftree-vectorize' '-march=native' '-fno-math-errno' '-v' '-o' 'CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc'
+ as -v --64 -o CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o /tmp/cc3WB1Km.s
+GNU assembler version 2.35 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.35
+COMPILER_PATH=/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/
+LIBRARY_PATH=/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib/../lib64/:/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib/../lib64/:/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib/../lib64/:/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/../lib64/:/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64/../lib64/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib/:/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib/:/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib/:/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib/:/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib/:/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib/:/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib/:/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib/:/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib/:/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib/:/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib/:/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib/:/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib/:/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib/:/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib/:/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib/:/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib/:/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib/:/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib/:/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib/:/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib/:/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib/:/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib/:/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/lib/:/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/:/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib/:/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib/:/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib/:/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib/:/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib/:/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib/:/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib/:/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib/:/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib/:/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib/:/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib/:/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib/:/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib/:/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib/:/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib/:/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib/:/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib/:/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib/:/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib/:/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib/:/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib/:/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib/:/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib/:/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib/:/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-O2' '-ftree-vectorize' '-march=native' '-fno-math-errno' '-v' '-o' 'CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc'
+Linking CXX executable cmTC_ad9d9
+/sw/eb/sw/CMake/3.18.4-GCCcore-10.2.0/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ad9d9.dir/link.txt --verbose=1
+/sw/eb/sw/GCCcore/10.2.0/bin/g++ -O2 -ftree-vectorize -march=native -fno-math-errno  -L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib64 -L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib -L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib64 -L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib -L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib64 -L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib -L/sw/eb/sw/GCCcore/10.2.0/lib64 -L/sw/eb/sw/GCCcore/10.2.0/lib -v CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_ad9d9 
+Using built-in specs.
+COLLECT_GCC=/sw/eb/sw/GCCcore/10.2.0/bin/g++
+COLLECT_LTO_WRAPPER=/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper
+OFFLOAD_TARGET_NAMES=nvptx-none
+Target: x86_64-pc-linux-gnu
+Configured with: ../configure --enable-languages=c,c++,fortran --without-cuda-driver --enable-offload-targets=nvptx-none --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/sw/eb/sw/GCCcore/10.2.0 --with-local-prefix=/sw/eb/sw/GCCcore/10.2.0 --enable-bootstrap --with-isl=/tmp/j-perdue/easybuild/GCCcore/10.2.0/system-system/gcc-10.2.0/stage2_stuff --build=x86_64-pc-linux-gnu --host=x86_64-pc-linux-gnu
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 10.2.0 (GCC) 
+COMPILER_PATH=/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/
+LIBRARY_PATH=/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib/../lib64/:/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib/../lib64/:/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib/../lib64/:/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/../lib64/:/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64/../lib64/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib/:/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib/:/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib/:/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib/:/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib/:/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib/:/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib/:/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib/:/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib/:/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib/:/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib/:/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib/:/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib/:/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib/:/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib/:/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib/:/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib/:/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib/:/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib/:/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib/:/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib/:/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib/:/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib/:/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/lib/:/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/:/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib/:/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib/:/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib/:/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib/:/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib/:/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib/:/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib/:/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib/:/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib/:/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib/:/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib/:/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib/:/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib/:/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib/:/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib/:/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib/:/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib/:/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib/:/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib/:/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib/:/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib/:/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib/:/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib/:/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib/:/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-O2' '-ftree-vectorize' '-march=native' '-fno-math-errno' '-L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib64' '-L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib' '-L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib64' '-L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib' '-L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib64' '-L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib' '-L/sw/eb/sw/GCCcore/10.2.0/lib64' '-L/sw/eb/sw/GCCcore/10.2.0/lib' '-v' '-o' 'cmTC_ad9d9' '-shared-libgcc'
+ /sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/collect2 -plugin /sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so -plugin-opt=/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccrDdyCx.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_ad9d9 /lib/../lib64/crt1.o /lib/../lib64/crti.o /sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbegin.o -L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib64 -L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib -L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib64 -L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib -L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib64 -L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib -L/sw/eb/sw/GCCcore/10.2.0/lib64 -L/sw/eb/sw/GCCcore/10.2.0/lib -L/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib/../lib64 -L/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib/../lib64 -L/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib/../lib64 -L/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/../lib64 -L/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64/../lib64 -L/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib/../lib64 -L/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib/../lib64 -L/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib/../lib64 -L/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib/../lib64 -L/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib/../lib64 -L/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0 -L/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib -L/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib -L/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib -L/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib -L/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib -L/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib -L/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib -L/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib -L/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib -L/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib -L/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib -L/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib -L/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib -L/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib -L/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib -L/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib -L/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib -L/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib -L/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib -L/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib -L/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib -L/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib -L/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib -L/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib -L/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib -L/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/lib -L/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib -L/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib -L/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64 -L/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib -L/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib -L/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib -L/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib -L/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib -L/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib -L/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib -L/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib -L/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib -L/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib -L/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib -L/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib -L/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib -L/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib -L/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib -L/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib -L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib -L/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib -L/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib -L/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib -L/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib -L/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib -L/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib -L/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib -L/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib -L/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib -L/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib -L/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../.. CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtend.o /lib/../lib64/crtn.o
+COLLECT_GCC_OPTIONS='-O2' '-ftree-vectorize' '-march=native' '-fno-math-errno' '-L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib64' '-L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib' '-L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib64' '-L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib' '-L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib64' '-L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib' '-L/sw/eb/sw/GCCcore/10.2.0/lib64' '-L/sw/eb/sw/GCCcore/10.2.0/lib' '-v' '-o' 'cmTC_ad9d9' '-shared-libgcc'
+gmake[1]: Leaving directory `/scratch/user/dave.elofson/software/qpixrtd/RTD/build/CMakeFiles/CMakeTmp'
+
+
+
+Parsed CXX implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/include/nss]
+    add: [/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/include]
+    add: [/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/include]
+    add: [/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/include]
+    add: [/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/X11/20201008-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/include]
+    add: [/sw/eb/sw/pybind11/2.6.0-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/include/freetype2]
+    add: [/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/GSL/2.6-GCC-10.2.0/include]
+    add: [/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/include]
+    add: [/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/include]
+    add: [/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/include]
+    add: [/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/include]
+    add: [/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/include/libxml2]
+    add: [/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/include]
+    add: [/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/include]
+    add: [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0]
+    add: [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/x86_64-pc-linux-gnu]
+    add: [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/backward]
+    add: [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include]
+    add: [/sw/eb/sw/GCCcore/10.2.0/include]
+    add: [/usr/include]
+  end of search list found
+  collapse include dir [/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/include] ==> [/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/include] ==> [/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/include] ==> [/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/include] ==> [/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/include/nss] ==> [/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/include/nss]
+  collapse include dir [/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/include] ==> [/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/include] ==> [/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/include] ==> [/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/include] ==> [/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/include] ==> [/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/include] ==> [/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/include]
+  collapse include dir [/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/include] ==> [/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/include]
+  collapse include dir [/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/include] ==> [/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/include] ==> [/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/include]
+  collapse include dir [/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/include] ==> [/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/include] ==> [/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/include] ==> [/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/include] ==> [/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/include] ==> [/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/include] ==> [/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/include] ==> [/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/include] ==> [/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/X11/20201008-GCCcore-10.2.0/include] ==> [/sw/eb/sw/X11/20201008-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/include] ==> [/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/include] ==> [/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/include] ==> [/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/include]
+  collapse include dir [/sw/eb/sw/pybind11/2.6.0-GCCcore-10.2.0/include] ==> [/sw/eb/sw/pybind11/2.6.0-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/include] ==> [/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/include] ==> [/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/include] ==> [/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/include] ==> [/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/include] ==> [/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/include/freetype2] ==> [/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/include/freetype2]
+  collapse include dir [/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/include] ==> [/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/include] ==> [/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/GSL/2.6-GCC-10.2.0/include] ==> [/sw/eb/sw/GSL/2.6-GCC-10.2.0/include]
+  collapse include dir [/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/include] ==> [/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/include]
+  collapse include dir [/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/include] ==> [/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/include]
+  collapse include dir [/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/include] ==> [/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/include] ==> [/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/include] ==> [/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/include] ==> [/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/include] ==> [/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/include]
+  collapse include dir [/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/include] ==> [/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/include]
+  collapse include dir [/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/include] ==> [/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/include] ==> [/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/include] ==> [/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/include] ==> [/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/include] ==> [/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/include] ==> [/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/include/libxml2] ==> [/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/include/libxml2]
+  collapse include dir [/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/include] ==> [/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/include] ==> [/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/include] ==> [/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/include]
+  collapse include dir [/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/include] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/include]
+  collapse include dir [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0] ==> [/sw/eb/sw/GCCcore/10.2.0/include/c++/10.2.0]
+  collapse include dir [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/x86_64-pc-linux-gnu] ==> [/sw/eb/sw/GCCcore/10.2.0/include/c++/10.2.0/x86_64-pc-linux-gnu]
+  collapse include dir [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/backward] ==> [/sw/eb/sw/GCCcore/10.2.0/include/c++/10.2.0/backward]
+  collapse include dir [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include] ==> [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include]
+  collapse include dir [/sw/eb/sw/GCCcore/10.2.0/include] ==> [/sw/eb/sw/GCCcore/10.2.0/include]
+  collapse include dir [/usr/include] ==> [/usr/include]
+  implicit include dirs: [/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/include;/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/include;/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/include;/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/include;/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/include;/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/include;/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/include;/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/include;/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/include;/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/include/nss;/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/include;/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/include;/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/include;/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/include;/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/include;/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/include;/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/include;/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/include;/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/include;/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/include;/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/include;/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/include;/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/include;/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/include;/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/include;/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/include;/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/include;/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/include;/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/include;/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/include;/sw/eb/sw/X11/20201008-GCCcore-10.2.0/include;/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/include;/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/include;/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/include;/sw/eb/sw/pybind11/2.6.0-GCCcore-10.2.0/include;/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/include;/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/include;/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/include;/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/include;/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/include;/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/include/freetype2;/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/include;/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/include;/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/include;/sw/eb/sw/GSL/2.6-GCC-10.2.0/include;/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/include;/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/include;/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/include;/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/include;/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/include;/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/include;/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/include;/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/include;/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/include;/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/include;/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/include;/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/include;/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/include;/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/include;/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/include;/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/include;/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/include;/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/include;/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/include;/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/include/libxml2;/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/include;/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/include;/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/include;/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/include;/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/include;/sw/eb/sw/GCCcore/10.2.0/include/c++/10.2.0;/sw/eb/sw/GCCcore/10.2.0/include/c++/10.2.0/x86_64-pc-linux-gnu;/sw/eb/sw/GCCcore/10.2.0/include/c++/10.2.0/backward;/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include;/sw/eb/sw/GCCcore/10.2.0/include;/usr/include]
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/dave.elofson/scratch/software/qpixrtd/RTD/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/bin/gmake cmTC_ad9d9/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_ad9d9.dir/build.make CMakeFiles/cmTC_ad9d9.dir/build]
+  ignore line: [gmake[1]: Entering directory `/scratch/user/dave.elofson/software/qpixrtd/RTD/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building CXX object CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/sw/eb/sw/GCCcore/10.2.0/bin/g++   -O2 -ftree-vectorize -march=native -fno-math-errno    -v -o CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o -c /sw/eb/sw/CMake/3.18.4-GCCcore-10.2.0/share/cmake-3.18/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/sw/eb/sw/GCCcore/10.2.0/bin/g++]
+  ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Configured with: ../configure --enable-languages=c,c++,fortran --without-cuda-driver --enable-offload-targets=nvptx-none --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/sw/eb/sw/GCCcore/10.2.0 --with-local-prefix=/sw/eb/sw/GCCcore/10.2.0 --enable-bootstrap --with-isl=/tmp/j-perdue/easybuild/GCCcore/10.2.0/system-system/gcc-10.2.0/stage2_stuff --build=x86_64-pc-linux-gnu --host=x86_64-pc-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [Supported LTO compression algorithms: zlib]
+  ignore line: [gcc version 10.2.0 (GCC) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-O2' '-ftree-vectorize' '-march=native' '-fno-math-errno' '-v' '-o' 'CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc']
+  ignore line: [ /sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/cc1plus -quiet -v -D_GNU_SOURCE /sw/eb/sw/CMake/3.18.4-GCCcore-10.2.0/share/cmake-3.18/Modules/CMakeCXXCompilerABI.cpp -march=cascadelake -mmmx -mno-3dnow -msse -msse2 -msse3 -mssse3 -mno-sse4a -mcx16 -msahf -mmovbe -maes -mno-sha -mpclmul -mpopcnt -mabm -mno-lwp -mfma -mno-fma4 -mno-xop -mbmi -mno-sgx -mbmi2 -mno-pconfig -mno-wbnoinvd -mno-tbm -mavx -mavx2 -msse4.2 -msse4.1 -mlzcnt -mrtm -mhle -mrdrnd -mf16c -mfsgsbase -mrdseed -mprfchw -madx -mfxsr -mxsave -mxsaveopt -mavx512f -mno-avx512er -mavx512cd -mno-avx512pf -mno-prefetchwt1 -mclflushopt -mxsavec -mxsaves -mavx512dq -mavx512bw -mavx512vl -mno-avx512ifma -mno-avx512vbmi -mno-avx5124fmaps -mno-avx5124vnniw -mclwb -mno-mwaitx -mno-clzero -mpku -mno-rdpid -mno-gfni -mno-shstk -mno-avx512vbmi2 -mavx512vnni -mno-vaes -mno-vpclmulqdq -mno-avx512bitalg -mno-avx512vpopcntdq -mno-movdiri -mno-movdir64b -mno-waitpkg -mno-cldemote -mno-ptwrite -mno-avx512bf16 -mno-enqcmd -mno-avx512vp2intersect --param l1-cache-size=32 --param l1-cache-line-size=64 --param l2-cache-size=36608 -mtune=cascadelake -quiet -dumpbase CMakeCXXCompilerABI.cpp -auxbase-strip CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o -O2 -version -ftree-vectorize -fno-math-errno -o /tmp/cc3WB1Km.s]
+  ignore line: [GNU C++14 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)]
+  ignore line: [	compiled by GNU C version 10.2.0  GMP version 6.2.0  MPFR version 4.1.0  MPC version 1.1.0  isl version isl-0.22.1-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring nonexistent directory "/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed"]
+  ignore line: [ignoring nonexistent directory "/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../x86_64-pc-linux-gnu/include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /sw/eb/sw/Valgrind/3.16.1-gompi-2020b/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/NSS/3.57-GCCcore-10.2.0/include/nss]
+  ignore line: [ /sw/eb/sw/NSS/3.57-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/include]
+  ignore line: [ /sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/include]
+  ignore line: [ /sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/include]
+  ignore line: [ /sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/X11/20201008-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/include]
+  ignore line: [ /sw/eb/sw/pybind11/2.6.0-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/libffi/3.3-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/include/freetype2]
+  ignore line: [ /sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/GSL/2.6-GCC-10.2.0/include]
+  ignore line: [ /sw/eb/sw/Boost/1.74.0-GCC-10.2.0/include]
+  ignore line: [ /sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/include]
+  ignore line: [ /sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/gettext/0.21-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/include]
+  ignore line: [ /sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/include]
+  ignore line: [ /sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/include/libxml2]
+  ignore line: [ /sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/include]
+  ignore line: [ /scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/include]
+  ignore line: [ /sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0]
+  ignore line: [ /sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/x86_64-pc-linux-gnu]
+  ignore line: [ /sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../include/c++/10.2.0/backward]
+  ignore line: [ /sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include]
+  ignore line: [ /sw/eb/sw/GCCcore/10.2.0/include]
+  ignore line: [ /usr/include]
+  ignore line: [End of search list.]
+  ignore line: [GNU C++14 (GCC) version 10.2.0 (x86_64-pc-linux-gnu)]
+  ignore line: [	compiled by GNU C version 10.2.0  GMP version 6.2.0  MPFR version 4.1.0  MPC version 1.1.0  isl version isl-0.22.1-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: d1c63cc9970fd29cf3dc81b838883174]
+  ignore line: [COLLECT_GCC_OPTIONS='-O2' '-ftree-vectorize' '-march=native' '-fno-math-errno' '-v' '-o' 'CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc']
+  ignore line: [ as -v --64 -o CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o /tmp/cc3WB1Km.s]
+  ignore line: [GNU assembler version 2.35 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.35]
+  ignore line: [COMPILER_PATH=/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib/../lib64/:/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib/../lib64/:/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib/../lib64/:/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/../lib64/:/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64/../lib64/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib/:/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib/:/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib/:/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib/:/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib/:/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib/:/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib/:/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib/:/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib/:/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib/:/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib/:/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib/:/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib/:/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib/:/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib/:/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib/:/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib/:/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib/:/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib/:/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib/:/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib/:/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib/:/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib/:/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/lib/:/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/:/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib/:/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib/:/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib/:/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib/:/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib/:/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib/:/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib/:/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib/:/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib/:/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib/:/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib/:/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib/:/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib/:/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib/:/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib/:/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib/:/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib/:/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib/:/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib/:/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib/:/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib/:/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib/:/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib/:/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib/:/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-O2' '-ftree-vectorize' '-march=native' '-fno-math-errno' '-v' '-o' 'CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc']
+  ignore line: [Linking CXX executable cmTC_ad9d9]
+  ignore line: [/sw/eb/sw/CMake/3.18.4-GCCcore-10.2.0/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ad9d9.dir/link.txt --verbose=1]
+  ignore line: [/sw/eb/sw/GCCcore/10.2.0/bin/g++ -O2 -ftree-vectorize -march=native -fno-math-errno  -L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib64 -L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib -L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib64 -L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib -L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib64 -L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib -L/sw/eb/sw/GCCcore/10.2.0/lib64 -L/sw/eb/sw/GCCcore/10.2.0/lib -v CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_ad9d9 ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/sw/eb/sw/GCCcore/10.2.0/bin/g++]
+  ignore line: [COLLECT_LTO_WRAPPER=/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper]
+  ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Configured with: ../configure --enable-languages=c,c++,fortran --without-cuda-driver --enable-offload-targets=nvptx-none --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/sw/eb/sw/GCCcore/10.2.0 --with-local-prefix=/sw/eb/sw/GCCcore/10.2.0 --enable-bootstrap --with-isl=/tmp/j-perdue/easybuild/GCCcore/10.2.0/system-system/gcc-10.2.0/stage2_stuff --build=x86_64-pc-linux-gnu --host=x86_64-pc-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [Supported LTO compression algorithms: zlib]
+  ignore line: [gcc version 10.2.0 (GCC) ]
+  ignore line: [COMPILER_PATH=/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib/../lib64/:/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib/../lib64/:/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib/../lib64/:/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/../lib64/:/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64/../lib64/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib/../lib64/:/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib/../lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib/../lib64/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib/:/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib/:/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib/:/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib/:/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib/:/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib/:/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib/:/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib/:/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib/:/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib/:/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib/:/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib/:/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib/:/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64/:/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib/:/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib/:/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib/:/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib/:/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib/:/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib/:/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib/:/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib/:/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib/:/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib/:/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/lib/:/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/:/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64/:/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib/:/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib/:/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib/:/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib/:/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib/:/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib/:/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib/:/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib/:/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib/:/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib/:/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib/:/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib/:/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib/:/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib/:/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib/:/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib/:/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib/:/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib/:/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib/:/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib/:/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib/:/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib/:/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib/:/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib/:/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib/:/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib/:/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib/:/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-O2' '-ftree-vectorize' '-march=native' '-fno-math-errno' '-L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib64' '-L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib' '-L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib64' '-L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib' '-L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib64' '-L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib' '-L/sw/eb/sw/GCCcore/10.2.0/lib64' '-L/sw/eb/sw/GCCcore/10.2.0/lib' '-v' '-o' 'cmTC_ad9d9' '-shared-libgcc']
+  link line: [ /sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/collect2 -plugin /sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so -plugin-opt=/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccrDdyCx.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_ad9d9 /lib/../lib64/crt1.o /lib/../lib64/crti.o /sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbegin.o -L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib64 -L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib -L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib64 -L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib -L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib64 -L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib -L/sw/eb/sw/GCCcore/10.2.0/lib64 -L/sw/eb/sw/GCCcore/10.2.0/lib -L/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib/../lib64 -L/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib/../lib64 -L/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib/../lib64 -L/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/../lib64 -L/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64/../lib64 -L/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib/../lib64 -L/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib/../lib64 -L/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib/../lib64 -L/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib/../lib64 -L/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib/../lib64 -L/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib/../lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib/../lib64 -L/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0 -L/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib -L/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib -L/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib -L/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib -L/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib -L/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib -L/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib -L/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib -L/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib -L/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib -L/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib -L/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib -L/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib -L/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64 -L/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib -L/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib -L/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib -L/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib -L/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib -L/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib -L/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib -L/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib -L/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib -L/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib -L/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib -L/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib -L/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/lib -L/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib -L/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib -L/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64 -L/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib -L/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib -L/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib -L/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib -L/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib -L/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib -L/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib -L/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib -L/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib -L/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib -L/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib -L/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib -L/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib -L/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib -L/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib -L/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib -L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib -L/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib -L/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib -L/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib -L/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib -L/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib -L/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib -L/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib -L/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib -L/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib -L/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib -L/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib -L/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../.. CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtend.o /lib/../lib64/crtn.o]
+    arg [/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/sw/eb/sw/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccrDdyCx.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_ad9d9] ==> ignore
+    arg [/lib/../lib64/crt1.o] ==> ignore
+    arg [/lib/../lib64/crti.o] ==> ignore
+    arg [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbegin.o] ==> ignore
+    arg [-L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib64] ==> dir [/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib64]
+    arg [-L/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib] ==> dir [/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib]
+    arg [-L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib64] ==> dir [/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib64]
+    arg [-L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib] ==> dir [/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib]
+    arg [-L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib64] ==> dir [/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib64]
+    arg [-L/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib] ==> dir [/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib]
+    arg [-L/sw/eb/sw/GCCcore/10.2.0/lib64] ==> dir [/sw/eb/sw/GCCcore/10.2.0/lib64]
+    arg [-L/sw/eb/sw/GCCcore/10.2.0/lib] ==> dir [/sw/eb/sw/GCCcore/10.2.0/lib]
+    arg [-L/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib/../lib64] ==> dir [/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib/../lib64] ==> dir [/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib/../lib64]
+    arg [-L/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib/../lib64] ==> dir [/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib/../lib64]
+    arg [-L/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64/../lib64] ==> dir [/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib/../lib64]
+    arg [-L/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/../lib64] ==> dir [/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/../lib64]
+    arg [-L/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64/../lib64] ==> dir [/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64/../lib64]
+    arg [-L/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib/../lib64] ==> dir [/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib/../lib64] ==> dir [/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib/../lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib/../lib64]
+    arg [-L/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0] ==> dir [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0]
+    arg [-L/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib64] ==> dir [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib64]
+    arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+    arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+    arg [-L/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib] ==> dir [/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib] ==> dir [/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib]
+    arg [-L/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib] ==> dir [/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib]
+    arg [-L/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64] ==> dir [/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib]
+    arg [-L/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/lib] ==> dir [/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/lib]
+    arg [-L/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib] ==> dir [/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib]
+    arg [-L/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64] ==> dir [/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64]
+    arg [-L/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib] ==> dir [/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib]
+    arg [-L/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib] ==> dir [/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib]
+    arg [-L/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib] ==> dir [/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib]
+    arg [-L/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib] ==> dir [/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib]
+    arg [-L/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib] ==> dir [/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib]
+    arg [-L/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib] ==> dir [/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib]
+    arg [-L/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib] ==> dir [/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib]
+    arg [-L/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../..] ==> dir [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../..]
+    arg [CMakeFiles/cmTC_ad9d9.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [-lm] ==> lib [m]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lc] ==> lib [c]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtend.o] ==> ignore
+    arg [/lib/../lib64/crtn.o] ==> ignore
+  collapse library dir [/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib64] ==> [/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib64]
+  collapse library dir [/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib] ==> [/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib]
+  collapse library dir [/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib64] ==> [/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib64]
+  collapse library dir [/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib] ==> [/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib]
+  collapse library dir [/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib64] ==> [/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib] ==> [/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/GCCcore/10.2.0/lib64] ==> [/sw/eb/sw/GCCcore/10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/GCCcore/10.2.0/lib] ==> [/sw/eb/sw/GCCcore/10.2.0/lib]
+  collapse library dir [/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib/../lib64] ==> [/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib/../lib64] ==> [/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib64]
+  collapse library dir [/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib/../lib64] ==> [/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib64]
+  collapse library dir [/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64/../lib64] ==> [/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64]
+  collapse library dir [/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/../lib64] ==> [/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib64]
+  collapse library dir [/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64/../lib64] ==> [/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib/../lib64] ==> [/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib/../lib64] ==> [/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib/../lib64] ==> [/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib/../lib64] ==> [/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib/../lib64] ==> [/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib/../lib64] ==> [/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib/../lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0] ==> [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0]
+  collapse library dir [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib64] ==> [/sw/eb/sw/GCCcore/10.2.0/lib64]
+  collapse library dir [/lib/../lib64] ==> [/lib64]
+  collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+  collapse library dir [/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib] ==> [/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib] ==> [/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib]
+  collapse library dir [/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib] ==> [/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib]
+  collapse library dir [/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64] ==> [/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib]
+  collapse library dir [/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/lib] ==> [/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/lib]
+  collapse library dir [/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib] ==> [/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib]
+  collapse library dir [/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64] ==> [/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64]
+  collapse library dir [/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib] ==> [/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib] ==> [/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib] ==> [/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib] ==> [/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib] ==> [/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib] ==> [/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib]
+  collapse library dir [/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib] ==> [/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib]
+  collapse library dir [/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../..] ==> [/sw/eb/sw/GCCcore/10.2.0/lib]
+  implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
+  implicit dirs: [/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib64;/sw/eb/sw/FFTW/3.3.8-gompi-2020b/lib;/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib64;/sw/eb/sw/ScaLAPACK/2.1.0-gompi-2020b/lib;/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib64;/sw/eb/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib;/sw/eb/sw/GCCcore/10.2.0/lib64;/sw/eb/sw/GCCcore/10.2.0/lib;/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib64;/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib64;/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib64;/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib64;/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib64;/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib64;/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib64;/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib64;/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib64;/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib64;/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib64;/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib64;/sw/eb/sw/libjpeg-turbo/2.0.5-GCCcore-10.2.0/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib64;/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib64;/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib64;/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib64;/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib64;/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib64;/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib64;/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib64;/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib64;/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib64;/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib64;/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib64;/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib64;/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib64;/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib64;/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib64;/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib64;/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib64;/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib64;/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib64;/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib64;/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib64;/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib64;/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib64;/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib64;/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib64;/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib64;/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib64;/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib64;/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib64;/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib64;/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib64;/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib64;/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib64;/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib64;/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib64;/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib64;/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib64;/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib64;/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib64;/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib64;/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib64;/sw/eb/sw/GCCcore/10.2.0/lib/gcc/x86_64-pc-linux-gnu/10.2.0;/lib64;/usr/lib64;/sw/eb/sw/Valgrind/3.16.1-gompi-2020b/lib;/scratch/group/mitchcomp/eb/x86_64/sw/CLHEP/2.4.4.0-foss-2020b/lib;/scratch/group/mitchcomp/eb/x86_64/sw/GENIE/R-3_02_00-foss-2020b-Python-3.8.6/lib;/scratch/group/mitchcomp/eb/x86_64/sw/LHAPDF/5.9.1-GCCcore-10.2.0/lib;/sw/eb/sw/Uproot/4.1.2-foss-2020b-Python-3.8.6/lib;/scratch/group/mitchcomp/eb/x86_64/sw/Geant4/10.7.2-foss-2020bcxx17/lib;/scratch/group/mitchcomp/eb/x86_64/sw/Xerces-C++/3.2.3-GCCcore-10.2.0/lib;/sw/eb/sw/Qt5/5.14.2-GCCcore-10.2.0/lib;/sw/eb/sw/JasPer/2.0.24-GCCcore-10.2.0/lib;/sw/eb/sw/snappy/1.1.8-GCCcore-10.2.0/lib;/sw/eb/sw/NSS/3.57-GCCcore-10.2.0/lib;/sw/eb/sw/NSPR/4.29-GCCcore-10.2.0/lib;/sw/eb/sw/DBus/1.13.18-GCCcore-10.2.0/lib;/sw/eb/sw/PCRE2/10.35-GCCcore-10.2.0/lib;/sw/eb/sw/GLib/2.66.1-GCCcore-10.2.0/lib;/sw/eb/sw/double-conversion/3.1.5-GCCcore-10.2.0/lib;/scratch/group/mitchcomp/eb/x86_64/sw/ROOT/6.26.06-foss-2020b-Python-3.8.6-Pythia/lib;/sw/eb/sw/PYTHIA/8.307-foss-2020b-Python-3.8.6/lib;/scratch/group/mitchcomp/eb/x86_64/sw/PYTHIA6/416-foss-2020b/lib;/scratch/group/mitchcomp/eb/x86_64/sw/GL2PS/1.4.2-GCCcore-10.2.0/lib;/sw/eb/sw/freeglut/3.2.1-GCCcore-10.2.0/lib;/scratch/group/mitchcomp/eb/x86_64/sw/glew/2.2.0-GCCcore-10.2.0-glx/lib;/sw/eb/sw/libGLU/9.0.1-GCCcore-10.2.0/lib;/sw/eb/sw/Mesa/20.2.1-GCCcore-10.2.0/lib;/sw/eb/sw/LLVM/11.0.0-GCCcore-10.2.0/lib;/sw/eb/sw/libunwind/1.4.0-GCCcore-10.2.0/lib;/sw/eb/sw/libglvnd/1.3.2-GCCcore-10.2.0/lib;/sw/eb/sw/libdrm/2.4.102-GCCcore-10.2.0/lib;/sw/eb/sw/zstd/1.4.5-GCCcore-10.2.0/lib;/sw/eb/sw/lz4/1.9.2-GCCcore-10.2.0/lib;/sw/eb/sw/X11/20201008-GCCcore-10.2.0/lib;/sw/eb/sw/fontconfig/2.13.92-GCCcore-10.2.0/lib;/sw/eb/sw/util-linux/2.36-GCCcore-10.2.0/lib;/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib/python3.8/site-packages/numpy/core/lib;/sw/eb/sw/SciPy-bundle/2020.11-foss-2020b/lib;/sw/eb/sw/Python/3.8.6-GCCcore-10.2.0/lib;/sw/eb/sw/libffi/3.3-GCCcore-10.2.0/lib;/sw/eb/sw/GMP/6.2.0-GCCcore-10.2.0/lib;/sw/eb/sw/SQLite/3.33.0-GCCcore-10.2.0/lib;/sw/eb/sw/Tcl/8.6.10-GCCcore-10.2.0/lib;/sw/eb/sw/freetype/2.10.3-GCCcore-10.2.0/lib;/sw/eb/sw/libpng/1.6.37-GCCcore-10.2.0/lib;/scratch/group/mitchcomp/eb/x86_64/sw/CFITSIO/3.49-GCCcore-10.2.0/lib;/sw/eb/sw/PCRE/8.44-GCCcore-10.2.0/lib;/sw/eb/sw/GSL/2.6-GCC-10.2.0/lib;/sw/eb/sw/Boost/1.74.0-GCC-10.2.0/lib;/sw/eb/sw/log4cpp/1.1.3-GCC-10.2.0/lib;/sw/eb/sw/Perl/5.32.0-GCCcore-10.2.0/lib;/sw/eb/sw/DB/18.1.40-GCCcore-10.2.0/lib;/scratch/group/mitchcomp/eb/x86_64/sw/libreadline/8.0-GCCcore-10.2.0/lib;/sw/eb/sw/gettext/0.21-GCCcore-10.2.0/lib;/sw/eb/sw/expat/2.2.9-GCCcore-10.2.0/lib;/sw/eb/sw/libarchive/3.4.3-GCCcore-10.2.0/lib;/sw/eb/sw/cURL/7.72.0-GCCcore-10.2.0/lib;/scratch/group/mitchcomp/eb/x86_64/sw/bzip2/1.0.8-GCCcore-10.2.0/lib;/scratch/group/mitchcomp/eb/x86_64/sw/ncurses/6.2-GCCcore-10.2.0/lib;/scratch/group/mitchcomp/eb/x86_64/sw/FFTW/3.3.8-gompi-2020b/lib;/scratch/group/mitchcomp/eb/x86_64/sw/OpenBLAS/0.3.12-GCC-10.2.0/lib;/sw/eb/sw/OpenMPI/4.0.5-GCC-10.2.0/lib;/sw/eb/sw/PMIx/3.1.5-GCCcore-10.2.0/lib;/sw/eb/sw/libfabric/1.11.0-GCCcore-10.2.0/lib;/sw/eb/sw/UCX/1.9.0-GCCcore-10.2.0/lib;/sw/eb/sw/libevent/2.1.12-GCCcore-10.2.0/lib;/sw/eb/sw/hwloc/2.2.0-GCCcore-10.2.0/lib;/sw/eb/sw/libpciaccess/0.16-GCCcore-10.2.0/lib;/sw/eb/sw/libxml2/2.9.10-GCCcore-10.2.0/lib;/sw/eb/sw/XZ/5.2.5-GCCcore-10.2.0/lib;/sw/eb/sw/numactl/2.0.13-GCCcore-10.2.0/lib;/scratch/group/mitchcomp/eb/x86_64/sw/binutils/2.35-GCCcore-10.2.0/lib;/scratch/group/mitchcomp/eb/x86_64/sw/zlib/1.2.11-GCCcore-10.2.0/lib]
+  implicit fwks: []
+
+

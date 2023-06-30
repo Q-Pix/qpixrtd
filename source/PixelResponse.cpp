@@ -175,7 +175,7 @@ namespace Qpix
 
 
     // function performs the resets 
-    void Pixel_Functions::Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info, double weight)
+    void Pixel_Functions::Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info)
     {
         // time window before and after event
         double Window = 1e-6;
@@ -218,7 +218,7 @@ namespace Qpix
             std::vector<double>  TSLR;
 
             // skip if it wont reset
-            if (pix_size*weight < (Qpix_params->Reset)*0.5){continue;}
+            if (pix_size/Qpix_params->Sampling < (Qpix_params->Reset)*0.5){continue;}
 
             // for each pixel loop through the buffer time
             while (current_time <= End_Time)
@@ -238,7 +238,7 @@ namespace Qpix
                     {
                                                              
                         trk_id_holder.push_back(Pix_info[i].Trk_ID[pix_dex]);
-                        charge += weight;
+                        charge += 1/Qpix_params->Sampling;
 
                         pix_dex += 1;
                         if (pix_dex >= pix_size){break; }
