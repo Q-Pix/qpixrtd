@@ -12,23 +12,19 @@
 #include "PixelResponse.h"
 
 
-
-//----------------------------------------------------------------------
-// declare global variables
-//----------------------------------------------------------------------
-
-static int f_noise;
-static int f_reco;
-static int threshold = 0;
-static std::string file_in;
-static std::string file_out;
-static double downsample = 1.;
-
 //----------------------------------------------------------------------
 // main function
 //----------------------------------------------------------------------
 int main(int argc, char** argv)
 {
+
+  static int f_noise;
+  static int f_reco;
+  static int threshold = 0;
+  static std::string file_in;
+  static std::string file_out;
+  static double downsample = 1.;
+
 
   int c;
 
