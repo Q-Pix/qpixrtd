@@ -61,6 +61,10 @@ namespace Qpix {
         tbranch_buffer_window_ = metadata_->Branch("buffer_window", &buffer_window_);
         tbranch_dead_time_ = metadata_->Branch("dead_time", &dead_time_);
         tbranch_charge_loss_ = metadata_->Branch("charge_loss", &charge_loss_);
+        tbranch_noise_ = metadata_->Branch("noise", &noise_);
+        tbranch_recombination_ = metadata_->Branch("recombination", &recombination_);
+        tbranch_downsampling_ = metadata_->Branch("downsampling", &downsampling_);
+
     }
 
     //--------------------------------------------------------------------------
@@ -215,6 +219,9 @@ namespace Qpix {
         buffer_window_ = Qpix_params->Buffer_time;
         dead_time_ = Qpix_params->Dead_time;
         charge_loss_ = static_cast<int>(Qpix_params->Charge_loss);
+        noise_ = Qpix_params->Noise;
+        recombination_ = Qpix_params->Recombination;
+        downsampling_ = Qpix_params->Sampling;
 
         tbranch_w_value_->Fill();
         tbranch_drift_velocity_->Fill();
@@ -228,11 +235,14 @@ namespace Qpix {
         tbranch_buffer_window_->Fill();
         tbranch_dead_time_->Fill();
         tbranch_charge_loss_->Fill();
+        tbranch_noise_->Fill();
+        tbranch_recombination_->Fill();
+        tbranch_downsampling_->Fill();
     }
 
     //--------------------------------------------------------------------------
     // gets the event from the file and tunrs it into electrons
-    void ROOTFileManager::Get_Event(int EVENT, Qpix::Qpix_Paramaters * Qpix_params, std::vector<Qpix::ELECTRON>& hit_e)
+    void ROOTFileManager::Get_Event(int EVENT, Qpix::Qpix_Paramaters * Qpix_params, std::vector<Qpix::ELECTRON>& hit_e, double weight)
     {
         ttree_->GetEntry(EVENT);
 

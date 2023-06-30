@@ -175,7 +175,7 @@ namespace Qpix
 
 
     // function performs the resets 
-    void Pixel_Functions::Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info)
+    void Pixel_Functions::Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info, double weight)
     {
         // time window before and after event
         double Window = 1e-6;
@@ -218,7 +218,7 @@ namespace Qpix
             std::vector<double>  TSLR;
 
             // skip if it wont reset
-            if (pix_size < (Qpix_params->Reset)*0.5){continue;}
+            if (pix_size*weight < (Qpix_params->Reset)*0.5){continue;}
 
             // for each pixel loop through the buffer time
             while (current_time <= End_Time)
@@ -236,8 +236,10 @@ namespace Qpix
                 {   // this adds the electrons that are in the step
                     while( current_time > pix_time )
                     {
+                                                             
                         trk_id_holder.push_back(Pix_info[i].Trk_ID[pix_dex]);
-                        charge += 1;
+                        charge += weight;
+
                         pix_dex += 1;
                         if (pix_dex >= pix_size){break; }
                         pix_time = Pix_info[i].time[pix_dex];
@@ -245,12 +247,13 @@ namespace Qpix
                 }
 
                 // this is the reset 
-                if ( charge >= Qpix_params->Reset )
+                if ( charge >= Qpix_params->Reset ) //this line needs to change to deal with more drastic downsampling
                 {
                     std::vector<int> trk_TrkIDs_holder;
                     std::vector<int> trk_weight_holder;
                     Get_Frequencies(trk_id_holder, trk_TrkIDs_holder, trk_weight_holder);
                     RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
+                    //std::transform(trk_weight_holder.begin(), trk_weight_holder.end(), trk_weight_holder.begin(), [&weight](auto& c){return c*weight;});
                     RESET_TRUTH_W.push_back(trk_weight_holder);
 
 

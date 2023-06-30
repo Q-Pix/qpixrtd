@@ -39,7 +39,7 @@ namespace Qpix {
 
             void AddMetadata(Qpix::Qpix_Paramaters * const);
             double Modified_Box(double dEdx);
-            void Get_Event(int, Qpix::Qpix_Paramaters *, std::vector< Qpix::ELECTRON > &);
+            void Get_Event(int, Qpix::Qpix_Paramaters *, std::vector< Qpix::ELECTRON > &, double weight =1);
             void AddEvent(std::vector<Qpix::Pixel_Info> const);
 
         private:
@@ -52,7 +52,7 @@ namespace Qpix {
             //--------------------------------------------------
 
             std::vector< int > pixel_x_;
-            std::vector< int > pixel_y_;
+            std::vector< int > pixel_y_; 
             std::vector< std::vector < double > > pixel_reset_;
             std::vector< std::vector < double > > pixel_tslr_;
             // std::vector< std::vector< std::vector < int > > > pixel_reset_truth_track_id_;
@@ -74,7 +74,7 @@ namespace Qpix {
             int run_;
             int event_;
             int number_particles_;
-            int number_hits_;
+            Long64_t number_hits_;
             double energy_deposit_;
 
             std::vector< int >    * particle_track_id_;
@@ -126,6 +126,9 @@ namespace Qpix {
             int    buffer_window_;
             int    dead_time_;
             int    charge_loss_;
+            bool   noise_;
+            bool   recombination_;
+            double downsampling_;
 
             TBranch * tbranch_w_value_;
             TBranch * tbranch_drift_velocity_;
@@ -139,6 +142,9 @@ namespace Qpix {
             TBranch * tbranch_buffer_window_;
             TBranch * tbranch_dead_time_;
             TBranch * tbranch_charge_loss_;
+            TBranch * tbranch_noise_;
+            TBranch * tbranch_recombination_;
+            TBranch * tbranch_downsampling_;
 
             //--------------------------------------------------
             // initialize
