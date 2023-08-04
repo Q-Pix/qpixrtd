@@ -452,6 +452,8 @@ namespace Qpix {
         Int_t nFS = 0;
         Float_t lepKE = 0;
 
+        double energy_deposit = 0;
+
         // hadron energy values
         Float_t hadTot = 0;
         Float_t hadPip = 0;
@@ -489,6 +491,8 @@ namespace Qpix {
         TBranch* b_hadN = 0;
         TBranch* b_hadOther = 0;
 
+        TBranch* b_energy_deposit = 0;
+
         TBranch* b_xpos  = 0; // vertex position
         TBranch* b_ypos  = 0;
         TBranch* b_zpos  = 0;
@@ -520,6 +524,8 @@ namespace Qpix {
         metadata->SetBranchAddress("hadP", &hadP);
         metadata->SetBranchAddress("hadN", &hadN);
         metadata->SetBranchAddress("hadOther", &hadOther);
+        // extra data
+        metadata->SetBranchAddress("energy_deposit", &energy_deposit);
         // metadata has single energy, check it to ensure we have a reasonable event
         metadata->GetEntry(0);
 
@@ -546,6 +552,8 @@ namespace Qpix {
         b_hadN = event_tree->Branch("hadN", &hadN);
         b_hadOther = event_tree->Branch("hadOther", &hadOther);
 
+        b_energy_deposit = event_tree->Branch("energy_deposit", &energy_deposit);
+
         // build update the branches 
         int nEntries = event_tree->GetEntries();
         for(int i=0; i<nEntries; i++){
@@ -570,6 +578,7 @@ namespace Qpix {
             b_hadP->Fill();
             b_hadN->Fill();
             b_hadOther->Fill();
+            b_energy_deposit->Fill();
         }
         return 1;
     }
