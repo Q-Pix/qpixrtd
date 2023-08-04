@@ -92,6 +92,24 @@ namespace Qpix
         return pixel_ids;
     }
 
+    std::set<int> Pixel_Functions::Pixelize_Event(std::vector<Qpix::ELECTRON>& hit_e, std::unordered_map<int, Pixel_Info>& mPix_info, std::set<int> good_pixels)
+    {
+        std::set<int> pixel_ids;
+
+        // go through all of the hits in the electron cloud, adding the events we want into our set
+        for(auto hit : hit_e){
+            if(good_pixels.find(hit.Pix_ID) == good_pixels.end()) continue;
+            pixel_ids.insert(hit.Pix_ID);
+            auto& hitPixel = mPix_info[hit.Pix_ID];
+            hitPixel.time.push_back(hit.time);
+            if(hit.Trk_ID > UINT16_MAX) std::cout << "WARNING trk id more than max!\n";
+            hitPixel.Trk_ID.push_back(hit.Trk_ID);
+        }
+
+        return pixel_ids;
+    }
+    
+
     // function performs the resets 
     void Pixel_Functions::Reset(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info)
     {

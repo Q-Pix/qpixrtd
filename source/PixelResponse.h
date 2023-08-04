@@ -21,13 +21,13 @@ namespace Qpix
 
         // overload with unordered_map to handle all searching
         std::set<int> Pixelize_Event(std::vector<Qpix::ELECTRON>& hit_e, std::unordered_map<int, Pixel_Info>& mPix_info);
+        std::set<int> Pixelize_Event(std::vector<Qpix::ELECTRON>& hit_e, std::unordered_map<int, Pixel_Info>& mPix_info, std::set<int> good_pixels);
 
         void Reset(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info);
         
         void Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, std::vector<double>& Gaussian_Noise, std::vector<Pixel_Info>& Pix_info);
 
         void Reset_Fast(Qpix::Qpix_Paramaters * Qpix_params, const std::set<int>& mPixIds, std::unordered_map<int, Pixel_Info>& mPix_info);
-
     };
 
     // helper functions

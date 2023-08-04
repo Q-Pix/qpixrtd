@@ -8,6 +8,7 @@
 // Qpix includes
 #include "Random.h"
 #include "ROOTFileManager.h"
+#include "ROOT/RDataFrame.hxx"
 #include "Structures.h"
 #include "PixelResponse.h"
 
@@ -148,8 +149,24 @@ int main(int argc, char** argv)
     rfm.EventReset();
   }
 
-  // save and close
+  // save and close generated rtd file
   rfm.Save();
+
+  // find the maximum entry for this bin
+  auto rdf = ROOT::RDataFrame("event_tree", file_out.c_str());
+  auto h2 = rdf.Histo2D({"h", "h", 575, 0.5, 575.5, 1500, 0.5, 1500.5}, "pixel_x", "pixel_y");
+  int pix_x_width = 8;
+  int pix_y_width = 8;
+  int pix_x_max;
+  int pix_y_max;
+  int z;
+
+  h2->Rebin2D(pix_x_width, pix_y_width);
+  int maxBin = h2->GetMaximumBin();
+  int size = h2->GetBinContent(maxBin);
+  h2->GetBinXYZ(maxBin, pix_x_max, pix_y_max, z);
+  std::cout << "Max Hits:" << size << "\n";
+  std::cout << "found maximum pixel_x: " << pix_x_max*pix_x_width << ", maximum pixel_y: " << pix_y_max*pix_y_width << std::endl;
 
   // std::cout << "done" << std::endl;
   // time_req = clock() - time_req;
