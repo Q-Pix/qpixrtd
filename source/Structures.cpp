@@ -85,7 +85,7 @@ namespace Qpix
         std::cout << "Liquid Argon Paramaters" << std::endl;
         std::cout << "**********************************************************" << std::endl;
         std::cout   << "W value                       = " << Qpix_params->Wvalue << " [eV] \n"
-                    << "Dirft velocity                = " << Qpix_params->E_vel<< " [cm/s] \n"
+                    << "Drift velocity                = " << Qpix_params->E_vel<< " [cm/s] \n"
                     << "Longitidunal diffusion        = " << Qpix_params->DiffusionL<< " [cm^2/s] \n"
                     << "Transverse diffusion          = " << Qpix_params->DiffusionT<< " [cm^2/s] \n"
                     << "Electron life time            = " << Qpix_params->Life_Time<< " [s] \n"

@@ -74,7 +74,7 @@ namespace Qpix {
             int run_;
             int event_;
             int number_particles_;
-            Long64_t number_hits_;
+            Int_t number_hits_;
             double energy_deposit_;
 
             std::vector< int >    * particle_track_id_;
