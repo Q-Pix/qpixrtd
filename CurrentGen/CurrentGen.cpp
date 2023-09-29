@@ -13,8 +13,8 @@
 
 #include <fstream>
 
-#define pix_x_start 408
-#define pix_y_start 824
+// #define pix_x_start 408
+// #define pix_y_start 824
 #define pix_x_width 8
 #define pix_y_width 8
 
@@ -23,8 +23,8 @@ void saveTxtFile(std::set<int> hit_pixels, std::unordered_map<int, Qpix::Pixel_I
 
   // find the largest stopping time for each of the pixel
   double cur_time=0;
-  double timeStep = 10e-9;
-  double stop_time=10e-3;
+  double timeStep = 1e-9;
+  double stop_time=1e-3;
 
   // create the file and the file header
   std::ofstream output_txt_file;
@@ -48,10 +48,15 @@ void saveTxtFile(std::set<int> hit_pixels, std::unordered_map<int, Qpix::Pixel_I
     int nPix = 0;
     for(auto pix : hit_pixels){
 
+      int count = 0;
       while(nelectrons[nPix] < hit_map[pix].time.size() && hit_map[pix].time[nelectrons[nPix]] < cur_time){
         ++nelectrons[nPix];
+        count += 1;
       }
-      int pixel_nelectrons = nelectrons[nPix];
+      // running sum
+      // int pixel_nelectrons = nelectrons[nPix];
+      // count for this
+      int pixel_nelectrons = count;
       input = input + std::to_string(pixel_nelectrons);
       // go to next pixel
       nPix++;
@@ -75,9 +80,17 @@ int main(int argc, char** argv)
   constexpr std::uint64_t Seed = 41;
   Qpix::Random_Set_Seed(Seed);
 
+  if(argc != 4){
+    std::cout << "must provide input file, pixel_x, and pixel_y for testing\n";
+    return -1;
+  }
+
   // In and out files
   std::string file_in = argv[1];
-  std::string file_out = "poop.root";
+  int pix_x_start = std::stoi(argv[2]);
+  int pix_y_start = std::stoi(argv[3]);
+  std::cout << "looking for pixels beginning at (" << pix_x_start << "," << pix_y_start << ")" << std::endl;
+  std::string file_out = "cur_gen_poop.root";
 
   // Qpix paramaters 
   Qpix::Qpix_Paramaters * Qpix_params = new Qpix::Qpix_Paramaters();
