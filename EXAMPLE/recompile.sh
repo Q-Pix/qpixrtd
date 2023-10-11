@@ -24,3 +24,5 @@ cd build
 cmake ..
 
 make
+
+cp ../params.json .
