@@ -11,6 +11,7 @@ INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
 
 ## find the ROOT package
 find_package(ROOT REQUIRED)
+find_package(nlohmann_json 3.2.0 REQUIRED)
 
 ## include ROOT header files
 include(${ROOT_USE_FILE})

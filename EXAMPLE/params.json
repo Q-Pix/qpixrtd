@@ -1,0 +1,18 @@
+{
+  "QPix":
+    {
+      "Wvalue": 23.6,
+      "E_vel": 164800.0,
+      "DiffusionL": 6.8223,
+      "DiffusionT": 13.1586,
+      "Life_Time": 0.1,
+      "Readout_Dim": 100,
+      "Pix_Size": 0.4,
+      "Reset": 500,
+      "Sample_time": 10e-9,
+      "Buffer_time": 1,
+      "Dead_time": 0,
+      "Charge_loss": false,
+      "Recombination": true
+    }
+}

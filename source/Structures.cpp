@@ -1,8 +1,12 @@
 // C++ includes
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <map>
+
+#include <nlohmann/json.hpp>
+
 
 // see this include for the actiual structs...
 #include "Structures.h"
@@ -15,15 +19,11 @@ namespace Qpix
         return (one.Pix_ID < two.Pix_ID);
     }//Electron_Pix_Sort
 
-
-
     //sort the electrons in a pixel by time
     bool Pixel_Time_Sorter(Qpix::ELECTRON const& lhs, Qpix::ELECTRON const& rhs) 
     {
         return lhs.time < rhs.time;
     }//Pixel_Time_Sorter
-
-
 
     void Get_Frequencies(std::vector<int> vec, std::vector<int>& TrkIDs, std::vector<int>& weight )
     {   // Define an map
@@ -45,34 +45,33 @@ namespace Qpix
         }
     }//Get_Frequencies
 
-
-
-
     // setup the default Qpix paramaters
     void set_Qpix_Paramaters(Qpix_Paramaters * Qpix_params)
     {
-        Qpix_params->Wvalue = 23.6; // in eV
-        Qpix_params->E_vel = 164800.0; // cm/s
-        Qpix_params->DiffusionL = 6.8223  ;  //cm**2/s
-        Qpix_params->DiffusionT = 13.1586 ; //cm**2/s
-        Qpix_params->Life_Time = 0.1; // in s
+
+        std::ifstream param_file("params.json");
+        nlohmann::json QPixParamsFile = nlohmann::json::parse(param_file);
+
+        Qpix_params->Wvalue = QPixParamsFile["QPix"]["Wvalue"]; // in eV
+        Qpix_params->E_vel = QPixParamsFile["QPix"]["E_vel"]; // cm/s
+        Qpix_params->DiffusionL = QPixParamsFile["QPix"]["DiffusionL"];  //cm**2/s
+        Qpix_params->DiffusionT = QPixParamsFile["QPix"]["DiffusionT"]; //cm**2/s
+        Qpix_params->Life_Time = QPixParamsFile["QPix"]["Life_Time"]; // in s
 
         // Read out plane size in cm
-        Qpix_params->Readout_Dim = 100;
-        Qpix_params->Pix_Size = 0.4;
+        Qpix_params->Readout_Dim = QPixParamsFile["QPix"]["Readout_Dim"];
+        Qpix_params->Pix_Size = QPixParamsFile["QPix"]["Pix_Size"];
 
         // Number of electrons for reset
-        Qpix_params->Reset = 6250;
+        Qpix_params->Reset = QPixParamsFile["QPix"]["Reset"];
         // time in ns
-        
-        Qpix_params->Sample_time = 10e-9; // in s 
-        Qpix_params->Buffer_time = 1; // in s 
-        Qpix_params->Dead_time = 0; // in s 
-        Qpix_params->Charge_loss = false;
-        Qpix_params->Recombination = true;
+
+        Qpix_params->Sample_time = QPixParamsFile["QPix"]["Sample_time"]; // in s 
+        Qpix_params->Buffer_time = QPixParamsFile["QPix"]["Buffer_time"]; // in s 
+        Qpix_params->Dead_time = QPixParamsFile["QPix"]["Dead_time"]; // in s 
+        Qpix_params->Charge_loss = QPixParamsFile["QPix"]["Charge_loss"];
+        Qpix_params->Recombination = QPixParamsFile["QPix"]["Recombination"];
     }//set_Qpix_Paramaters
-
-
 
     // A nice printing function 
     void print_Qpix_Paramaters(Qpix_Paramaters * Qpix_params)
