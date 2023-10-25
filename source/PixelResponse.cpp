@@ -87,7 +87,7 @@ namespace Qpix
             std::vector<std::vector<int>> RESET_TRUTH_W;
 
             // seting up some parameters
-            double charge = 0;
+            double charge = 0.;
             int pix_size = Pix_info[i].time.size();
             int pix_dex = 0;
             double current_time = 0;
@@ -194,7 +194,7 @@ namespace Qpix
             std::vector<std::vector<int>> RESET_TRUTH_W;
 
             // seting up some parameters
-            double charge = 0;
+            double charge = 0.;
             int pix_size = Pix_info[i].time.size();
             int pix_dex = 0;
             // int current_time = 0;
