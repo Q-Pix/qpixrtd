@@ -59,6 +59,8 @@ namespace Qpix
         double Dead_time;
         bool Charge_loss;
         bool Recombination;
+        bool Noise;
+        double Sampling;
     };
 
     void set_Qpix_Paramaters(Qpix_Paramaters * Qpix_params);

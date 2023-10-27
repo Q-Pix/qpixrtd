@@ -61,6 +61,10 @@ namespace Qpix {
         tbranch_buffer_window_ = metadata_->Branch("buffer_window", &buffer_window_);
         tbranch_dead_time_ = metadata_->Branch("dead_time", &dead_time_);
         tbranch_charge_loss_ = metadata_->Branch("charge_loss", &charge_loss_);
+        tbranch_noise_ = metadata_->Branch("noise", &noise_);
+        tbranch_recombination_ = metadata_->Branch("recombination", &recombination_);
+        tbranch_downsampling_ = metadata_->Branch("downsampling", &downsampling_);
+
     }
 
     //--------------------------------------------------------------------------
@@ -215,6 +219,9 @@ namespace Qpix {
         buffer_window_ = Qpix_params->Buffer_time;
         dead_time_ = Qpix_params->Dead_time;
         charge_loss_ = static_cast<int>(Qpix_params->Charge_loss);
+        noise_ = Qpix_params->Noise;
+        recombination_ = Qpix_params->Recombination;
+        downsampling_ = Qpix_params->Sampling;
 
         tbranch_w_value_->Fill();
         tbranch_drift_velocity_->Fill();
@@ -228,6 +235,9 @@ namespace Qpix {
         tbranch_buffer_window_->Fill();
         tbranch_dead_time_->Fill();
         tbranch_charge_loss_->Fill();
+        tbranch_noise_->Fill();
+        tbranch_recombination_->Fill();
+        tbranch_downsampling_->Fill();
     }
 
     //--------------------------------------------------------------------------
@@ -264,20 +274,17 @@ namespace Qpix {
             double const length_of_hit = hit_length_->at(h_idx);  // cm
 
             // Set up the paramaters for the recombiataion 
-            double const dEdx = energy_deposit/length_of_hit;
-            double const Recombonation = Modified_Box(dEdx);
-            int Nelectron;
-
+            Recombination = 1;
+            
             // to account for recombination or not
             // calcualte the number of electrons in the hit
             if (Qpix_params->Recombination)
             {
-                Nelectron = round(Recombonation * (energy_deposit*1e6/Qpix_params->Wvalue) );
-            }else
-            {
-                Nelectron = round( (energy_deposit*1e6/Qpix_params->Wvalue) );
+                dEdx = energy_deposit/length_of_hit;
+                Recombination = Modified_Box(dEdx);
             }
-            
+            Nelectron = round(Qpix_params->Sampling * Recombination * (energy_deposit*1e6/Qpix_params->Wvalue) );
+
             // if not enough move on
             if (Nelectron == 0){continue;}
 
