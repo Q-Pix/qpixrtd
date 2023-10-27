@@ -74,6 +74,7 @@ namespace Qpix
         Qpix_params->Charge_loss = false;
         Qpix_params->Recombination = true;
         Qpix_params->Noise = true;
+        Qpix_params->TimeWindow = true;
     }//set_Qpix_Paramaters
 
 
@@ -106,7 +107,10 @@ namespace Qpix
         if (Qpix_params->Noise)
         {std::cout << "Noise                         = " << "YES" << " [yes/no] " << std::endl;}
         else{std::cout << "Noise                         = " << "NO" << " [yes/no] " << std::endl;}
-        
+        if (Qpix_params->TimeWindow)
+        {std::cout << "TimeWindow                    = " << "YES" << " [yes/no] " << std::endl;}
+        else{std::cout << "TimeWindow                    = " << "NO" << " [yes/no] " << std::endl;}       
+ 
         std::cout << "**********************************************************" << std::endl;
     }//print_Qpix_Paramaters
     
