@@ -60,6 +60,7 @@ namespace Qpix
         bool Charge_loss;
         bool Recombination;
         bool Noise;
+        bool TimeWindow;
         double Sampling;
     };
 

@@ -36,6 +36,7 @@ int main(int argc, char** argv)
       /* these options set flags */
       {"nonoise",         no_argument,        &f_noise,     1},
       {"norecombination", no_argument,        &f_reco,      1},
+      {"notimewindow",    no_argument,        &f_twind,     1},
       /* these options take inputs */
       {"threshold",       required_argument,  NULL,         't'},
       {"input",           required_argument,  NULL,       'i'},
@@ -99,6 +100,10 @@ int main(int argc, char** argv)
 
   // Set Noise (if --nonoise is passed, Noise will be turned off)
   if (f_noise == 1) Qpix_params->Noise = false;
+
+  // Set Time Window Flag
+  if (f_twind == 1) Qpix_params->TimeWindow = false;
+
 
   // Set Reset threshold to threshold passed
   Qpix_params->Reset = threshold;

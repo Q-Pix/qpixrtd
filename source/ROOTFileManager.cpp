@@ -265,7 +265,10 @@ namespace Qpix {
             // follow the track for truth matching
             int const hit_trk_id = hit_track_id_->at(h_idx); // track id
 
-            if (start_t < 0.0 || start_t > Qpix_params->Buffer_time){continue;}
+            if (Qpix->TimeWindow)
+            {
+              if (start_t < 0.0 || start_t > Qpix_params->Buffer_time){continue;}
+            }
 
             // energy deposit
             double const energy_deposit = hit_energy_deposit_->at(h_idx);  // MeV
