@@ -265,7 +265,7 @@ namespace Qpix {
             // follow the track for truth matching
             int const hit_trk_id = hit_track_id_->at(h_idx); // track id
 
-            if (Qpix->TimeWindow)
+            if (Qpix_params->TimeWindow)
             {
               if (start_t < 0.0 || start_t > Qpix_params->Buffer_time){continue;}
             }
