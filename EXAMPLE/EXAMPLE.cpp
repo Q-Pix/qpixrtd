@@ -96,8 +96,8 @@ int main(int argc, char** argv)
   std::unordered_map<int, Qpix::Pixel_Info> mPixelInfo = rfm.MakePixelInfoMap(); // ~870k pixels
 
   clock_t time_req;
-  time_req = clock();
-  double time;
+  // time_req = clock();
+  // double time;
 
   std::vector<clock_t> start_pixelize_times, start_reset_times;
   std::vector<clock_t> stop_pixelize_times, stop_reset_times;

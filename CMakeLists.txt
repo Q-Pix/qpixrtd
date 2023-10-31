@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(QPixRTD)
+project(QPixRTD CUDA CXX)
 
 ## find the Boost package
 set(Boost_NO_BOOST_CMAKE ON)
@@ -16,11 +16,17 @@ find_package(ROOT REQUIRED)
 include(${ROOT_USE_FILE})
 
 ## link ROOT libraries
-# link_libraries(${ROOT_LIBRARIES})
+link_libraries(${ROOT_LIBRARIES})
 
 include_directories(${CMAKE_SOURCE_DIR}/source)
 
 add_subdirectory(source)
 add_subdirectory(EXAMPLE)
 add_subdirectory(RTDFriend)
-add_subdirectory(CurrentGen)
+
+if(CMAKE_CUDA_COMPILER) 
+message("RTD--- FOUND Cuda.. Building for speed")
+add_subdirectory(RTDCuda)
+else()
+message("RTD--- Did not find Cuda.. building tortoise speeds")
+endif()
