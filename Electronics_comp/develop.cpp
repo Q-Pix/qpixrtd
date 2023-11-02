@@ -108,7 +108,6 @@ int main()
 
   // Qpix paramaters 
   Qpix::Qpix_Paramaters * Qpix_params = new Qpix::Qpix_Paramaters();
-  set_Qpix_Paramaters(Qpix_params);
   // Qpix_params->Buffer_time = 1e10;
   print_Qpix_Paramaters(Qpix_params);
 

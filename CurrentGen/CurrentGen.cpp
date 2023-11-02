@@ -94,7 +94,6 @@ int main(int argc, char** argv)
 
   // Qpix paramaters 
   Qpix::Qpix_Paramaters * Qpix_params = new Qpix::Qpix_Paramaters();
-  set_Qpix_Paramaters(Qpix_params);
   Qpix_params->Buffer_time = 100e3; // useful for radiogenic data
   // neutrino events happen quickly
   // Qpix_params->Buffer_time = 1;

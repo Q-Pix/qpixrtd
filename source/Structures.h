@@ -99,8 +99,6 @@ namespace Qpix
         double Recombination = true;
     };
 
-    void set_Qpix_Paramaters(Qpix_Paramaters * Qpix_params);
-
     void print_Qpix_Paramaters(Qpix_Paramaters * Qpix_params);
     
     void Get_Frequencies(std::vector<int> vec, std::vector<int>& freq, std::vector<int>& weig );

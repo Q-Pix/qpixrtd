@@ -93,7 +93,6 @@ int main(int argc, char** argv)
 
   // Qpix paramaters 
   Qpix::Qpix_Paramaters * Qpix_params = new Qpix::Qpix_Paramaters();
-  set_Qpix_Paramaters(Qpix_params);
   Qpix_params->Buffer_time = 0.01;
   Qpix_params->Recombination = false;
   if (f_reco == 1)
