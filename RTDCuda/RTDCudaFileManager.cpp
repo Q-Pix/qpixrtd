@@ -73,24 +73,20 @@ namespace Qpix {
             in_ttree_->GetEntry(_currentEntry++);
         }
 
-        // single call here to create all ionization electrons
-        std::vector<Qpix::ION> ions(2);
-
-        // std::vector<Qpix::ION> ions(total_e);
-        // Qpix::ION* ions = new Qpix::ION[Nelectron];
-        // makeElectrons(v_hit_start_x.data(), v_hit_start_y.data(), v_hit_start_z.data(), v_hit_start_t.data(),
-        //               v_hit_step_x.data(), v_hit_step_y.data(), v_hit_step_z.data(), v_hit_step_t.data(),
-        //               ions.data(),
-        //               v_hit_n.data(), v_hit_n.size());
-
         std::vector<Qpix::ION> h_ions(total_e);
-        // std::vector<double> h_ions(total_e);
-        launch_add_diff_arrays(v_hit_start_x.data(), v_hit_step_x.data(), h_ions.data(), v_hit_n.data(), total_e, v_hit_n.size());
+        launch_add_diff_arrays(v_hit_start_x.data(), v_hit_step_x.data(), 
+                               v_hit_start_y.data(), v_hit_step_y.data(), 
+                               v_hit_start_z.data(), v_hit_step_z.data(), 
+                               v_hit_start_t.data(), v_hit_step_t.data(), 
+                               h_ions.data(), v_hit_n.data(), total_e, v_hit_n.size());
 
-        // if(total_e)
-            // for(auto c : ions) std::cout << c.x << ", ";
-            // std::cout << "found n ions: " << ions.size() << ", electron.x: " << ions[0].x << std::endl;
-        return ions;
+        if(total_e)
+            std::cout << "found n ions: " << h_ions.size() << ", pos: (" << h_ions[0].x << ","
+                                                                         << h_ions[0].y << ","
+                                                                         << h_ions[0].z << ","
+                                                                         << h_ions[0].t << ")\n";
+
+        return h_ions;
     };
 
     void RTDCudaFileManager::AddEvent(std::vector<Qpix::Pixel_Info> const)
