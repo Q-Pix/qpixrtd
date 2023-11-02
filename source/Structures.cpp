@@ -48,35 +48,6 @@ namespace Qpix
         }
     }//Get_Frequencies
 
-
-
-
-    // setup the default Qpix paramaters
-    void set_Qpix_Paramaters(Qpix_Paramaters * Qpix_params)
-    {
-        Qpix_params->Wvalue = 23.6; // in eV
-        Qpix_params->E_vel = 164800.0; // cm/s
-        Qpix_params->DiffusionL = 6.8223  ;  //cm**2/s
-        Qpix_params->DiffusionT = 13.1586 ; //cm**2/s
-        Qpix_params->Life_Time = 0.1; // in s
-
-        // Read out plane size in cm
-        Qpix_params->Readout_Dim = 100;
-        Qpix_params->Pix_Size = 0.4;
-
-        // Number of electrons for reset
-        Qpix_params->Reset = 6250;
-        // time in ns
-        
-        Qpix_params->Sample_time = 1/30e6;// in s 
-        Qpix_params->Buffer_time = 1; // in s 
-        Qpix_params->Dead_time = 0; // in s 
-        Qpix_params->Charge_loss = false;
-        Qpix_params->Recombination = true;
-    }//set_Qpix_Paramaters
-
-
-
     // A nice printing function 
     void print_Qpix_Paramaters(Qpix_Paramaters * Qpix_params)
     {

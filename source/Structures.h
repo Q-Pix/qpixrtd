@@ -16,7 +16,7 @@ namespace Qpix
         int    Trk_ID;
     };
 
-    struct ION
+    struct ION : ELECTRON
     {
         // ionization electrons created from the hits that we're going to group into a single image
         double x, y, z, t;
@@ -78,19 +78,25 @@ namespace Qpix
 
     struct Qpix_Paramaters 
     {
-        double Wvalue;
-        double E_vel;
-        double DiffusionL;
-        double DiffusionT;
-        double Life_Time;
-        double Readout_Dim;
-        double Pix_Size;
-        int Reset;
-        double Sample_time;
-        double Buffer_time;
-        double Dead_time;
-        bool Charge_loss;
-        bool Recombination;
+        double Wvalue = 23.6; // in eV
+        double E_vel = 164800.0; // cm/s
+        double DiffusionL = 6.8223  ;  //cm**2/s
+        double DiffusionT = 13.1586 ; //cm**2/s
+        double Life_Time = 0.1; // in s
+
+        // Read out plane size in cm
+        double Readout_Dim = 100;
+        double Pix_Size = 0.4;
+
+        // Number of electrons for reset
+        int Reset = 6250;
+
+        // time in ns
+        double Sample_time = 1/30e6;// in s 
+        double Buffer_time = 1; // in s 
+        double Dead_time = 0; // in s 
+        double Charge_loss = false;
+        double Recombination = true;
     };
 
     void set_Qpix_Paramaters(Qpix_Paramaters * Qpix_params);
