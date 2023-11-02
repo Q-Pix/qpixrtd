@@ -7,9 +7,11 @@
 
 // Qpix includes
 #include "Random.h"
-#include "ROOTFileManager.h"
 #include "Structures.h"
 #include "PixelResponse.h"
+
+// RTDCuda includes
+#include "RTDCudaFileManager.h"
 
 // ROOT includes
 #include "ROOT/RDataFrame.hxx"
@@ -20,7 +22,10 @@
 #include <cuda_runtime.h>
 
 // Prototype for the CUDA function
-extern "C" void launch_add_arrays(int* a, int* b, int* c, int size);
+// extern "C" void launch_add_arrays(int* a, int* b, int* c, int size);
+
+#include "RTDCuda.h"
+// extern "C" void launch_add_diff_arrays(int* a, int* b, int* c, int size);
 
 int main(int argc, char** argv) {
 
@@ -40,22 +45,25 @@ int main(int argc, char** argv) {
             ++gpuDeviceCount;
     }
     printf("%d GPU CUDA device(s) found\n", gpuDeviceCount);
-    int size = 5;
 
-    // Initialize input arrays a and b
-    std::vector<int> a(size);
-    std::vector<int> b(size);
-    
-    for (int i = 0; i < size; i++) {
-        a[i] = i;
-        b[i] = 2 * i;
+    // attempt the diff array size add
+    int points = 500;
+    std::vector<double> h_point, h_step;
+    std::vector<int> h_nsum;
+
+    int run_sum = 100;
+    for(int i=0; i<points; ++i){
+        h_point.push_back(i+1);
+        h_step.push_back(0.0001);
+        run_sum += 100;
+        h_nsum.push_back(run_sum);
     }
 
-    // Initialize the output array c
-    std::vector<int> c(size);
+    std::vector<double> h_elec(h_nsum.back());
+    std::cout << "hstep / size: " << points << ", " << h_elec.size() << "\n";
 
-    // Call the CUDA function
-    launch_add_arrays(a.data(), b.data(), c.data(), size);
+    // launch_add_diff_arrays(h_point.data(), h_step.data(), h_elec.data(), h_nsum.data(), h_elec.size(), h_nsum.size());
+    // return 0;
 
     // begin the main parsing function to rip into the G4 Code
     // changing the seed for the random numbergenerator and generating the noise vector 
@@ -75,10 +83,9 @@ int main(int argc, char** argv) {
     Qpix_params->Buffer_time = 1;
 
     // root file manager
-    int number_entries = -1;
-    Qpix::ROOTFileManager rfm = Qpix::ROOTFileManager(file_in, file_out);
+    Qpix::RTDCudaFileManager rfm = Qpix::RTDCudaFileManager(file_in, file_out);
     rfm.AddMetadata(Qpix_params);  // add parameters to metadata
-    number_entries = rfm.NumberEntries();
+    rfm.SetQPixParams(*Qpix_params);
     rfm.EventReset();
 
     // we can make the pixel map once since we know everything about the detector
@@ -86,32 +93,33 @@ int main(int argc, char** argv) {
     std::unordered_map<int, Qpix::Pixel_Info> mPixelInfo = rfm.MakePixelInfoMap(); // ~870k pixels
 
     // Loop though the hit events in the geant file
-    std::cout << "CUDA RTD begin with entries: " << number_entries << std::endl;
-    Qpix::Pixel_Functions PixFunc = Qpix::Pixel_Functions();
+    std::cout << "CUDA RTD begin with entries: " << rfm.NumberEntries() << std::endl;
+    // Qpix::Pixel_Functions PixFunc = Qpix::Pixel_Functions();
     long unsigned int nElectrons = 0;
-    for (int evt = 0; evt < number_entries; evt++)
+    int curEvent = 0;
+    while (rfm.GetCurrentEntry() < rfm.NumberEntries())
     {
         // create true electron image  2P3T * E -> N_e * P3T
-        std::vector<Qpix::ELECTRON> hit_e;
-        rfm.Get_Event(evt, Qpix_params, hit_e, false); // sort by time, not index
-
-        nElectrons += hit_e.size();
+        std::vector<Qpix::ION> event_ions = rfm.Get_Event(curEvent++);
+        nElectrons += event_ions.size();
 
         // Pixelize the electrons P3T -> P2T
-        std::set<int> hit_pixels = PixFunc.Pixelize_Event(hit_e, mPixelInfo);
+        // std::set<int> hit_pixels = PixFunc.Pixelize_Event(hit_e, mPixelInfo);
 
         // the reset function -> P2T
-        PixFunc.Reset_Fast(Qpix_params, hit_pixels, mPixelInfo);
+        // PixFunc.Reset_Fast(Qpix_params, hit_pixels, mPixelInfo);
 
-        // fill output to tree
-        rfm.AddEvent(hit_pixels, mPixelInfo);
-        rfm.EventFill();
-        rfm.EventReset();
+        // // fill output to tree
+        // rfm.AddEvent(hit_pixels, mPixelInfo);
+        // rfm.EventFill();
+        // rfm.EventReset();
+
     }
-    std::cout << "created a total of " << nElectrons << std::endl;
+    // std::cout << "read a total of " << rfm.GetCurrentEntry() << ", entries.\n";
+    // std::cout << "created a total of " << nElectrons << std::endl;
 
     // save and close generated rtd file
-    rfm.Save();
+    // rfm.Save();
 
     return 0;
 }

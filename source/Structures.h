@@ -16,6 +16,11 @@ namespace Qpix
         int    Trk_ID;
     };
 
+    struct ION
+    {
+        // ionization electrons created from the hits that we're going to group into a single image
+        double x, y, z, t;
+    };
 
     // matches with PixelResponse Decoder..
     int ID_Encoder(const int&, const int&);

@@ -32,7 +32,7 @@ find_package(CUDA REQUIRED)
 enable_language(CUDA)
 
 # Define your source files
-set(SOURCE_FILES RTDCudaMain.cpp)
+set(SOURCE_FILES RTDCudaMain.cpp RTDCudaFileManager.cpp)
 
 # Add the CUDA source file
 # list(APPEND CUDA_NVCC_FLAGS -gencode arch=compute_52,code=sm_52)
@@ -44,7 +44,9 @@ add_executable(RTDCudaMain ${SOURCE_FILES})
 target_link_libraries(RTDCudaMain ${ROOT_LIBRARIES})
 target_link_libraries(RTDCudaMain ${QPixRTD_LIBRARIES})
 target_link_libraries(RTDCudaMain QPixRTD)
-target_include_directories(RTDCudaMain PUBLIC ${CMAKE_SOURCE_DIR}/source/)
+target_include_directories(RTDCudaMain PUBLIC ${CMAKE_SOURCE_DIR}/source/
+                                              ${CMAKE_SOURCE_DIR}/RTDCuda/
+)
 
 set(CUDA_ARCHITECTURES 86)
 set_target_properties(RTDCudaMain PROPERTIES

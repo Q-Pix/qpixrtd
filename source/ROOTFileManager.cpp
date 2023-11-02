@@ -115,12 +115,12 @@ namespace Qpix {
         hit_energy_deposit_ = 0;
         hit_process_key_ = 0;
 
-        // ttree->SetBranchAddress("run", &run_);
-        // ttree->SetBranchAddress("event", &event_);
-        // ttree->SetBranchAddress("number_particles", &number_particles_);
-        // ttree->SetBranchAddress("number_hits", &number_hits_);
-        // ttree->SetBranchAddress("energy_deposit", &energy_deposit_);
-        ttree->SetBranchAddress("particle_id", &particle_id_);
+        ttree->SetBranchAddress("run", &run_);
+        ttree->SetBranchAddress("event", &event_);
+        ttree->SetBranchAddress("number_particles", &number_particles_);
+        ttree->SetBranchAddress("number_hits", &number_hits_);
+        ttree->SetBranchAddress("energy_deposit", &energy_deposit_);
+        // ttree->SetBranchAddress("particle_id", &particle_id_);
 
         // use friend ttree
         // ttree->SetBranchAddress("particle_track_id", &particle_track_id_);

@@ -44,7 +44,7 @@ namespace Qpix {
             void AddEvent(const std::set<int>&, std::unordered_map<int, Qpix::Pixel_Info>&);
             std::unordered_map<int, Qpix::Pixel_Info> MakePixelInfoMap();
 
-        private:
+        protected:
 
             TFile * in_tfile_;
             TFile * out_tfile_;
