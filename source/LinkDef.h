@@ -4,4 +4,7 @@
 #pragma link C++ class vector<vector <float> >+;
 #pragma link C++ class vector<vector< vector <int> > >+;
 #pragma link C++ class vector<vector< vector <double> > >+;
+#pragma link C++ class Qpix::ELECTRON +;
+#pragma link C++ class Qpix::ION +;
+#pragma link C++ class vector<Qpix::ION> +;
 #endif

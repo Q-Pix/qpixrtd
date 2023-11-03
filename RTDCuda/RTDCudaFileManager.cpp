@@ -17,8 +17,6 @@ namespace Qpix {
         // continue reading from the TTree until Entry is not what we expect
         int maxEntries = in_ttree_->GetEntries();
         in_ttree_->GetEntry(_currentEntry++);
-        // std::cout << "getting entry: " << _currentEntry;
-        // std::cout << ", at event: " << event_ << ".. ";
         int total_e = 0;
 
         std::vector<double> v_hit_start_x, v_hit_start_y, v_hit_start_z, v_hit_start_t;
@@ -38,11 +36,9 @@ namespace Qpix {
 
             // to account for recombination or not
             // calcualte the number of electrons in the hit
-            if (_params.Recombination)
-            {
+            if (_params.Recombination) {
                 Nelectron = round(Recombonation * (energy_deposit*1e6/_params.Wvalue));
-            }else
-            {
+            }else {
                 Nelectron = round((energy_deposit*1e6/_params.Wvalue));
             }
 
@@ -74,17 +70,19 @@ namespace Qpix {
         }
 
         std::vector<Qpix::ION> h_ions(total_e);
-        launch_add_diff_arrays(v_hit_start_x.data(), v_hit_step_x.data(), 
-                               v_hit_start_y.data(), v_hit_step_y.data(), 
-                               v_hit_start_z.data(), v_hit_step_z.data(), 
-                               v_hit_start_t.data(), v_hit_step_t.data(), 
-                               h_ions.data(), v_hit_n.data(), total_e, v_hit_n.size());
+        Launch_Make_QPixIons(v_hit_start_x.data(), v_hit_step_x.data(), 
+                             v_hit_start_y.data(), v_hit_step_y.data(), 
+                             v_hit_start_z.data(), v_hit_step_z.data(), 
+                             v_hit_start_t.data(), v_hit_step_t.data(), 
+                             h_ions.data(), v_hit_n.data(), total_e, v_hit_n.size(),
+                             _params, evt);
 
         if(total_e)
             std::cout << "found n ions: " << h_ions.size() << ", pos: (" << h_ions[0].x << ","
                                                                          << h_ions[0].y << ","
                                                                          << h_ions[0].z << ","
-                                                                         << h_ions[0].t << ")\n";
+                                                                         << h_ions[0].t << ") @ "
+                                                                         << h_ions[0].Pix_ID << "\n";
 
         return h_ions;
     };

@@ -28,7 +28,6 @@
 # target_link_libraries(rtdcudaLib ${ROOT_LIBRARIES})
 
 ## gpt
-find_package(CUDA REQUIRED)
 enable_language(CUDA)
 
 # Define your source files
@@ -42,7 +41,7 @@ list(APPEND SOURCE_FILES RTDCuda.cu)
 add_executable(RTDCudaMain ${SOURCE_FILES})
 
 target_link_libraries(RTDCudaMain ${ROOT_LIBRARIES})
-target_link_libraries(RTDCudaMain ${QPixRTD_LIBRARIES})
+# target_link_libraries(RTDCudaMain ${QPixRTD_LIBRARIES})
 target_link_libraries(RTDCudaMain QPixRTD)
 target_include_directories(RTDCudaMain PUBLIC ${CMAKE_SOURCE_DIR}/source/
                                               ${CMAKE_SOURCE_DIR}/RTDCuda/
@@ -50,7 +49,6 @@ target_include_directories(RTDCudaMain PUBLIC ${CMAKE_SOURCE_DIR}/source/
 
 set(CUDA_ARCHITECTURES 86)
 set_target_properties(RTDCudaMain PROPERTIES
-  CUDA_STANDARD 11
   CUDA_SEPARABLE_COMPILATION ON
   CUDA_ARCHITECTURES ${CUDA_ARCHITECTURES}
 )

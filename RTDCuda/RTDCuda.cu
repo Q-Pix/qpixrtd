@@ -6,20 +6,58 @@
 
 #include <stdlib.h>
 
+// #define MAX_DEPTH 2048
+#define INSERTION_SORT 32
 
-__global__ void addDiffArrays(double* point, double* step, double *start_y, double *step_y,
-                              double* start_z, double* step_z, double *start_t, double *step_t, 
-                              Qpix::ION * dest, int* count, int size, int nHits)
+// reimplemented from Qpix::Functions
+__device__ inline int ID_Encoder(const int& pix_x, const int& pix_y)
+{
+    return (int)(pix_x*10000+pix_y);
+}
+
+__device__ void DiffuseIon(Qpix::ION* qp_ion, Qpix::Qpix_Paramaters *Qpix_params, double& rand_x, double& rand_y, double& rand_z)
+{
+    double T_drift = qp_ion->z / Qpix_params->E_vel;
+    // diffuse the electrons position
+    double sigma_T = sqrt(2*Qpix_params->DiffusionT*T_drift);
+    double sigma_L = sqrt(2*Qpix_params->DiffusionL*T_drift);
+
+    double px = qp_ion->x + sigma_T * rand_x; 
+    double py = qp_ion->y + sigma_T * rand_y; 
+    double pz = rand_z + sigma_L * rand_x; 
+
+    // convert the electrons x,y to a pixel index
+    int Pix_Xloc = (int) ceil(px / Qpix_params->Pix_Size);
+    int Pix_Yloc = (int) ceil(py / Qpix_params->Pix_Size);
+
+    qp_ion->Pix_ID = ID_Encoder(Pix_Xloc, Pix_Yloc);
+    qp_ion->time = qp_ion->t + ( pz / Qpix_params->E_vel );
+}
+
+__global__ void makeQPixIons(double* start_x, double* step_x, double *start_y, double *step_y,
+                             double* start_z, double* step_z, double *start_t, double *step_t, 
+                             Qpix::ION * dest, int* count, int size, int nHits,
+                             Qpix::Qpix_Paramaters qp_params,
+                             curandState* state)
 {
     int tid = threadIdx.x + blockIdx.x * blockDim.x;
 
+
     if (tid < size) {
+
+        curandState localState = state[tid]; 
+        double rand_x = curand_normal_double(&localState);
+        double rand_y = curand_normal_double(&localState);
+        double rand_z = curand_normal_double(&localState);
+
         for(int i=0; i<nHits; ++i){
             if(count[i] >= tid + 1){
-                dest[tid].x = point[i] - step[i] * (tid + 1 - count[i]);
+                dest[tid].x = start_x[i] - step_x[i] * (tid + 1 - count[i]);
                 dest[tid].y = start_y[i] - step_y[i] * (tid + 1 - count[i]);
                 dest[tid].z = start_z[i] - step_z[i] * (tid + 1 - count[i]);
                 dest[tid].t = start_t[i] - step_t[i] * (tid + 1 - count[i]);
+
+                DiffuseIon(&dest[tid], &qp_params, rand_x, rand_y, rand_z);
                 return;
             }
         }
@@ -32,23 +70,36 @@ __global__ void addDiffArrays(double* point, double* step, double *start_y, doub
 
 };
 
-extern "C" void launch_add_diff_arrays(double* start, double* step, double *start_y, double *step_y, 
-                                       double* start_z, double* step_z, double *start_t, double *step_t, 
-                                        Qpix::ION * dest_ions, int* con, int size, int nHits)
+extern "C" void Launch_Make_QPixIons(double* start_x, double* step_x, double *start_y, double *step_y, 
+                                     double* start_z, double* step_z, double *start_t, double *step_t, 
+                                     Qpix::ION * dest_ions, int* con, int size, int nHits,
+                                     Qpix::Qpix_Paramaters qp_params, int seed)
 {
-    double *d_a, *d_b;
+    // std::cout << "running with diffusion: " << qp_params->DiffusionT << "\n";
+    // exit(-1);
+
+    double *d_start_x, *d_step_x;
     double *d_start_y, *d_step_y;
     double *d_start_z, *d_step_z;
     double *d_start_t, *d_step_t;
     Qpix::ION *d_c;
+
     int *d_con;
 
-    // Allocate device memory
-    cudaMalloc(&d_c, size * sizeof(Qpix::ION));
+    int blocksPerGrid = (size + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
 
-    cudaMalloc(&d_a, nHits * sizeof(double));
-    cudaMalloc(&d_b, nHits * sizeof(double));
+    // random number generation
+    curandState *d_devStates;
+    cudaMalloc((void **)&d_devStates, size * sizeof(curandState));
+    setup_normal_kernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_devStates, size, seed);
 
+    // Allocate device memory for ION destination
+    auto err = cudaMalloc(&d_c, size * sizeof(Qpix::ION));
+    // if(err != 0){std::cout << "error.\n"; exit(-1);};
+
+    cudaMalloc(&d_con, nHits * sizeof(int));
+    cudaMalloc(&d_start_x, nHits * sizeof(double));
+    cudaMalloc(&d_step_x, nHits * sizeof(double));
     cudaMalloc(&d_start_y, nHits * sizeof(double));
     cudaMalloc(&d_step_y, nHits * sizeof(double));
     cudaMalloc(&d_start_z, nHits * sizeof(double));
@@ -56,38 +107,37 @@ extern "C" void launch_add_diff_arrays(double* start, double* step, double *star
     cudaMalloc(&d_start_t, nHits * sizeof(double));
     cudaMalloc(&d_step_t, nHits * sizeof(double));
 
-    cudaMalloc(&d_con, nHits * sizeof(int));
 
     // Copy input data from host to device
-    cudaMemcpy(d_a, start, nHits * sizeof(double), cudaMemcpyHostToDevice);
-    cudaMemcpy(d_b, step, nHits * sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(d_con, con, nHits * sizeof(int), cudaMemcpyHostToDevice);
-
+    cudaMemcpy(d_start_x, start_x, nHits * sizeof(double), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_step_x, step_x, nHits * sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(d_start_y, start_y, nHits * sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(d_step_y, step_y, nHits * sizeof(double), cudaMemcpyHostToDevice);
-
     cudaMemcpy(d_start_z, start_z, nHits * sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(d_step_z, step_z, nHits * sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(d_start_t, start_t, nHits * sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(d_step_t, step_t, nHits * sizeof(double), cudaMemcpyHostToDevice);
 
-    // Launch the kernel
-    int threadsPerBlock = 256;
-    int blocksPerGrid = (size + threadsPerBlock - 1) / threadsPerBlock;
-    addDiffArrays<<<blocksPerGrid, threadsPerBlock>>>(d_a, d_b, d_start_y, d_step_y, 
-                                                      d_start_z, d_step_z, d_start_t, d_step_t, 
-                                                      d_c, d_con, size, nHits);
+    // Launch the working kernel
+    makeQPixIons<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_start_x, d_step_x, d_start_y, d_step_y, 
+                                                       d_start_z, d_step_z, d_start_t, d_step_t, 
+                                                       d_c, d_con, size, nHits,
+                                                       qp_params,
+                                                       d_devStates);
 
     // Copy the result from device to host
     cudaMemcpy(dest_ions, d_c, size * sizeof(Qpix::ION), cudaMemcpyDeviceToHost);
 
-    for (int i = 0; i < size; i++) {
-        if(dest_ions[i].x == 0)
-            std::cout << "warning val at index: " << i << "\n";
-    }
+    // for (int i = 0; i < size; i++) {
+    //     if(dest_ions[i].x == 0)
+    //         std::cout << "warning val at index: " << i << "\n";
+    // }
     // Free device memory
-    cudaFree(d_a);
-    cudaFree(d_b);
+    cudaFree(d_devStates);
+
+    cudaFree(d_start_x);
+    cudaFree(d_step_x);
     cudaFree(d_c);
 
     cudaFree(d_start_y);
@@ -100,94 +150,124 @@ extern "C" void launch_add_diff_arrays(double* start, double* step, double *star
     cudaFree(d_con);
 };
 
-__global__ void makeElectron(double* start_x, double* start_y, double* start_z, double* start_t,
-                             double* step_x, double* step_y, double* step_z, double* step_t,
-                             Qpix::ION* ions,
-                             int* nElectrons, int maxElec, int size_step)
+/* modified from: https://docs.nvidia.com/cuda/curand/device-api-overview.html */
+__global__ void setup_normal_kernel(curandState* state,
+                                    int nElectrons, int seed)
 {
-    int tid = threadIdx.x + blockIdx.x * blockDim.x;
-
-    if (tid < maxElec) {
-        for(int i=0; i<size_step; ++i){
-            if(nElectrons[i] >= tid + 1){
-                ions[tid].x = start_x[i] - step_x[i] * (tid + 1 - nElectrons[i]);
-                ions[tid].y = start_y[i] - step_y[i] * (tid + 1 - nElectrons[i]);
-                ions[tid].z = start_z[i] - step_z[i] * (tid + 1 - nElectrons[i]);
-                ions[tid].t = start_t[i] - step_t[i] * (tid + 1 - nElectrons[i]);
-                return;
-            }
-        }
-        ions[tid].x = -41;
-        ions[tid].y = -42;
-        ions[tid].z = -42;
-        ions[tid].t = -42;
+    int id = threadIdx.x + blockIdx.x * blockDim.x;
+    /* Each thread uses 3 different dimensions */
+    // curand_init(0, id, 0, &state[id]);
+    // curand(&state[id]);
+    if(id < nElectrons){
+        curand_init(seed, 0, 0, &state[id]);
     }
 }
 
-extern "C" void makeElectrons(double* start_x, double* start_y, double* start_z, double* start_t,
-                              double* step_x, double* step_y, double* step_z, double* step_t,
-                              Qpix::ION* dest_ions,
-                              int* nElec, int nElecSize)
+// prototyping the sort function
+extern "C" void Launch_QuickSort(unsigned int* h_input_keys, unsigned int* h_output_keys, const int size, const int max_depth)
 {
-    // allocate memory for all of the electrons
-    Qpix::ION* d_ions;
+    std::cout << "kernel launch from host with size: " << size << "\n";
+    unsigned int *d_input_keys;
+    cudaMalloc((void**)&d_input_keys, size * sizeof(unsigned int));
 
-    int nElectrons = nElec[nElecSize -1];
-    cudaMalloc((void**)&d_ions, nElectrons * sizeof(Qpix::ION));  
+    cudaMemcpy(d_input_keys, h_input_keys, size * sizeof(unsigned int), cudaMemcpyHostToDevice);
 
-    // allocate and copy memory for the step information on each hit
-    double *d_sx, *d_sy, *d_sz, *d_st;
-    double *d_stepx, *d_stepy, *d_stepz, *d_stept;
-    int* d_nElec;
+    // Launch the working kernel
+    cdp_simple_quicksort<<<1, 1>>>(d_input_keys, 0, size-1, 0, max_depth);
 
-    // allocate the starting points
-    cudaMalloc((void**)&d_sx, nElecSize * sizeof(double));  
-    cudaMalloc((void**)&d_sy, nElecSize * sizeof(double));  
-    cudaMalloc((void**)&d_sz, nElecSize * sizeof(double));  
-    cudaMalloc((void**)&d_st, nElecSize * sizeof(double));  
-    cudaMalloc((void**)&d_stepx, nElecSize * sizeof(double));  
-    cudaMalloc((void**)&d_stepy, nElecSize * sizeof(double));  
-    cudaMalloc((void**)&d_stepz, nElecSize * sizeof(double));  
-    cudaMalloc((void**)&d_stept, nElecSize * sizeof(double));  
-    cudaMalloc((void**)&d_nElec, nElecSize * sizeof(int));  
+    cudaMemcpy(h_output_keys, d_input_keys, size * sizeof(unsigned int), cudaMemcpyDeviceToHost);
 
-    // copy the starting points
-    cudaMemcpy(start_x, d_sx, nElecSize * sizeof(double), cudaMemcpyHostToDevice);
-    cudaMemcpy(start_y, d_sy, nElecSize * sizeof(double), cudaMemcpyHostToDevice);
-    cudaMemcpy(start_z, d_sz, nElecSize * sizeof(double), cudaMemcpyHostToDevice);
-    cudaMemcpy(start_t, d_st, nElecSize * sizeof(double), cudaMemcpyHostToDevice);
-    cudaMemcpy(step_x, d_stepx, nElecSize * sizeof(double), cudaMemcpyHostToDevice);
-    cudaMemcpy(step_y, d_stepy, nElecSize * sizeof(double), cudaMemcpyHostToDevice);
-    cudaMemcpy(step_z, d_stepz, nElecSize * sizeof(double), cudaMemcpyHostToDevice);
-    cudaMemcpy(step_t, d_stept, nElecSize * sizeof(double), cudaMemcpyHostToDevice);
-    cudaMemcpy(nElec, d_nElec, nElecSize * sizeof(int), cudaMemcpyHostToDevice);
+    cudaFree(d_input_keys);
+}
 
-    dim3 blockDim(256,1,1);
-    dim3 gridDim((nElectrons + blockDim.x - 1) / blockDim.x, 1, 1);
-    // std::cout << "producing n blocks: " << gridDim.x << "\n";
-    makeElectron<<<gridDim, blockDim>>>(d_sx, d_sy, d_sz, d_st,
-                                        d_stepx, d_stepy, d_stepz, d_stept,
-                                        d_ions,
-                                        d_nElec, nElectrons, nElecSize);
+/* Below working examples taking from cuda-samples */
+////////////////////////////////////////////////////////////////////////////////
+// Selection sort used when depth gets too big or the number of elements drops
+// below a threshold.
+////////////////////////////////////////////////////////////////////////////////
+__device__ void selection_sort(unsigned int *data, int left, int right) {
+  for (int i = left; i <= right; ++i) {
+    unsigned min_val = data[i];
+    int min_idx = i;
 
-    cudaMemcpy(dest_ions, d_ions, nElectrons * sizeof(Qpix::ION), cudaMemcpyDeviceToHost);
+    // Find the smallest value in the range [left, right].
+    for (int j = i + 1; j <= right; ++j) {
+      unsigned val_j = data[j];
 
-    // if(ions[0].x != -41)
-    //     std::cout << "found n ions: " << nElectrons << ", electron.x: " << ions[0].x << std::endl;
-    for (int i = 0; i < nElectrons; i++) {
-        if(dest_ions[i].x == 0)
-            std::cout << "warning val at index: " << i << "\n";
+      if (val_j < min_val) {
+        min_idx = j;
+        min_val = val_j;
+      }
     }
 
-    // free bird
-    cudaFree(d_ions);
-    cudaFree(d_sx);
-    cudaFree(d_sy);
-    cudaFree(d_sz);
-    cudaFree(d_st);
-    cudaFree(d_stepx);
-    cudaFree(d_stepy);
-    cudaFree(d_stepz);
-    cudaFree(d_stept);
-    cudaFree(d_nElec);
-};
+    // Swap the values.
+    if (i != min_idx) {
+      data[min_idx] = data[i];
+      data[i] = min_val;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Very basic quicksort algorithm, recursively launching the next level.
+////////////////////////////////////////////////////////////////////////////////
+__global__ void cdp_simple_quicksort(unsigned int *data, int left, int right,
+                                     int depth, const int max_depth) {
+  // If we're too deep or there are few elements left, we use an insertion
+  // sort...
+  if (depth >= max_depth || right - left <= INSERTION_SORT) {
+    selection_sort(data, left, right);
+    return;
+  }
+
+  unsigned int *lptr = data + left;
+  unsigned int *rptr = data + right;
+  unsigned int pivot = data[(left + right) / 2];
+
+  // Do the partitioning.
+  while (lptr <= rptr) {
+    // Find the next left- and right-hand values to swap
+    unsigned int lval = *lptr;
+    unsigned int rval = *rptr;
+
+    // Move the left pointer as long as the pointed element is smaller than the
+    // pivot.
+    while (lval < pivot) {
+      lptr++;
+      lval = *lptr;
+    }
+
+    // Move the right pointer as long as the pointed element is larger than the
+    // pivot.
+    while (rval > pivot) {
+      rptr--;
+      rval = *rptr;
+    }
+
+    // If the swap points are valid, do the swap!
+    if (lptr <= rptr) {
+      *lptr++ = rval;
+      *rptr-- = lval;
+    }
+  }
+
+  // Now the recursive part
+  int nright = rptr - data;
+  int nleft = lptr - data;
+
+  // Launch a new block to sort the left part.
+  if (left < (rptr - data)) {
+    cudaStream_t s;
+    cudaStreamCreateWithFlags(&s, cudaStreamNonBlocking);
+    cdp_simple_quicksort<<<1, 1, 0, s>>>(data, left, nright, depth + 1, max_depth);
+    cudaStreamDestroy(s);
+  }
+
+  // Launch a new block to sort the right part.
+  if ((lptr - data) < right) {
+    cudaStream_t s1;
+    cudaStreamCreateWithFlags(&s1, cudaStreamNonBlocking);
+    cdp_simple_quicksort<<<1, 1, 0, s1>>>(data, nleft, right, depth + 1, max_depth);
+    cudaStreamDestroy(s1);
+  }
+}

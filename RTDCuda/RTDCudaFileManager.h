@@ -14,9 +14,6 @@ namespace Qpix {
             std::vector<Qpix::ION> Get_Event(int);
             void AddEvent(std::vector<Qpix::Pixel_Info> const);
             void AddEvent(const std::set<int>&, std::unordered_map<int, Qpix::Pixel_Info>&);
-
-            void SetQPixParams(Qpix::Qpix_Paramaters p) {_params = p;};
-
             int GetCurrentEntry() const {return _currentEntry;};
 
         private:
