@@ -5,10 +5,13 @@
 #
 # Author: Dave Elofson
 # Created: 2022-03-31
+# This script will make the build directory, then run cmake and make. Should
+# only have to be run the first time after installation.
+#
+# run by using the following command:
+# ./build.sh
+#
 ##########################################
-
-# This script will make the build directory, then run cmake and make. Should only have to be run the first time after installation
-
 
 source ./setup.sh
 

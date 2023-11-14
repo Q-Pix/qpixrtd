@@ -12,23 +12,20 @@
 #include "PixelResponse.h"
 
 
-
-//----------------------------------------------------------------------
-// declare global variables
-//----------------------------------------------------------------------
-
-static int f_noise;
-static int f_reco;
-static int threshold = 0;
-static std::string file_in;
-static std::string file_out;
-
-
 //----------------------------------------------------------------------
 // main function
 //----------------------------------------------------------------------
 int main(int argc, char** argv)
 {
+
+  static int f_noise;
+  static int f_reco;
+  static int f_twind;
+  static int threshold = 0;
+  static std::string file_in;
+  static std::string file_out;
+  static double downsample = 1.;
+
 
   int c;
 
@@ -37,15 +34,19 @@ int main(int argc, char** argv)
     int option_index = 0;
     static struct option long_options[] =
     {
-      {"noise",           no_argument,        &f_noise,     1},
-      {"recombination",   no_argument,        &f_reco,      1},
-      {"threshold",       required_argument,  NULL,       't'},
+      /* these options set flags */
+      {"nonoise",         no_argument,        &f_noise,     1},
+      {"norecombination", no_argument,        &f_reco,      1},
+      {"notimewindow",    no_argument,        &f_twind,     1},
+      /* these options take inputs */
+      {"threshold",       required_argument,  NULL,         't'},
       {"input",           required_argument,  NULL,       'i'},
       {"output",          required_argument,  NULL,       'o'},
+      {"downsample",      required_argument,  NULL,         'd'},
       {NULL,              0,                  NULL,         0}
       };
 
-    c = getopt_long(argc, argv, ":i:o:t:", long_options, &option_index);
+    c = getopt_long(argc, argv, ":i:o:t:d:", long_options, &option_index);
     if (c == -1)
       break;
 
@@ -60,8 +61,13 @@ int main(int argc, char** argv)
         file_out = optarg;
         break;
       case 't':
-        //printf("Option t has arg: %s\n", optarg);
+        printf("Option t has arg: %s\n", optarg);
         threshold = atoi(optarg);
+        break;
+      case 'd':
+        printf("Option d has arg: %s\n", optarg);
+        downsample = atof(optarg);
+        if (downsample > 1.) {std::cout << "downsampling must be a fraction less than 1" <<std::endl; abort;}
         break;
       case '?':
         printf("Unknown option: %c\n", optopt);
@@ -79,36 +85,61 @@ int main(int argc, char** argv)
   time_req = clock();
   double time;
 
+
+  // --------------------------------------
+  // Setting Qpix paramaters 
+  // --------------------------------------
+
+  Qpix::Qpix_Paramaters * Qpix_params = new Qpix::Qpix_Paramaters();
+  set_Qpix_Paramaters(Qpix_params);
+
+  // Set Qpix Buffer time
+  Qpix_params->Buffer_time = 0.01;
+
+  // Set Recombination (if --norecombination is passed, Recombination will be turned off)
+  if (f_reco == 1) Qpix_params->Recombination = false;
+
+  // Set Noise (if --nonoise is passed, Noise will be turned off)
+  if (f_noise == 1) Qpix_params->Noise = false;
+
+  // Set Time Window Flag
+  if (f_twind == 1) Qpix_params->TimeWindow = false;
+
+
+  // Set Reset threshold to threshold passed
+  Qpix_params->Reset = threshold;
+
+  // Set Downsampling (will be set to 1 by default)
+  Qpix_params->Sampling = downsample;
+
+  // Print the Qpix_params for the run
+  print_Qpix_Paramaters(Qpix_params);
+
+  
+  // ----------------------------------------
+  // Generating Noise vector
+  // ----------------------------------------
+
   // changing the seed for the random numbergenerator and generating the noise vector 
   constexpr std::uint64_t Seed = 777;
   Qpix::Random_Set_Seed(Seed);
-  std::vector<double> Gaussian_Noise(1e7,0.0);// = Qpix::Make_Gaussian_Noise(0, (int) 1e7);
-  if (f_noise == 1)
-	Gaussian_Noise = Qpix::Make_Gaussian_Noise(0, (int) 1e7);
+  // Initialize empty vector (synonymous with no noise)
+  // If Noise is turned on, fill empty noise vector with Gaussian noise
+  std::vector<double> Gaussian_Noise(1e7,0.0);
+  if (Qpix_params->Noise == true) {Gaussian_Noise = Qpix::Make_Gaussian_Noise(0, (int) 1e7);}
 
-
-  // In and out files
-  //std::string file_in = argv[1];
-  //std::string file_out = argv[2];
-
-  // Qpix paramaters 
-  Qpix::Qpix_Paramaters * Qpix_params = new Qpix::Qpix_Paramaters();
-  set_Qpix_Paramaters(Qpix_params);
-  Qpix_params->Buffer_time = 0.01;
-  Qpix_params->Recombination = false;
-  if (f_reco == 1)
-	Qpix_params->Recombination = true;
-  Qpix_params->Reset = threshold;
-  print_Qpix_Paramaters(Qpix_params);
-
+  // -----------------------------------------
   // root file manager
+  // -----------------------------------------
   int number_entries = -1;
   Qpix::ROOTFileManager rfm = Qpix::ROOTFileManager(file_in, file_out);
   rfm.AddMetadata(Qpix_params);  // add parameters to metadata
   number_entries = rfm.NumberEntries();
   rfm.EventReset();
 
+  // -------------------------------------------
   // Loop though the events in the file
+  // -------------------------------------------
   for (int evt = 0; evt < number_entries; evt++)
   {
     std::cout << "*********************************************" << std::endl;

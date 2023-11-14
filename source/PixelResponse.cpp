@@ -87,7 +87,7 @@ namespace Qpix
             std::vector<std::vector<int>> RESET_TRUTH_W;
 
             // seting up some parameters
-            int charge = 0;
+            double charge = 0.;
             int pix_size = Pix_info[i].time.size();
             int pix_dex = 0;
             double current_time = 0;
@@ -117,7 +117,7 @@ namespace Qpix
                     while( current_time > pix_time )
                     {
                         trk_id_holder.push_back(Pix_info[i].Trk_ID[pix_dex]);
-                        charge += 1;
+                        charge += 1.0;
                         pix_dex += 1;
                         if (pix_dex >= pix_size){break; }
                         pix_time = Pix_info[i].time[pix_dex];
@@ -194,7 +194,7 @@ namespace Qpix
             std::vector<std::vector<int>> RESET_TRUTH_W;
 
             // seting up some parameters
-            int charge = 0;
+            double charge = 0.;
             int pix_size = Pix_info[i].time.size();
             int pix_dex = 0;
             // int current_time = 0;
@@ -218,7 +218,7 @@ namespace Qpix
             std::vector<double>  TSLR;
 
             // skip if it wont reset
-            if (pix_size < (Qpix_params->Reset)*0.5){continue;}
+            if (pix_size/Qpix_params->Sampling < (Qpix_params->Reset)*0.5){continue;}
 
             // for each pixel loop through the buffer time
             while (current_time <= End_Time)
@@ -236,8 +236,10 @@ namespace Qpix
                 {   // this adds the electrons that are in the step
                     while( current_time > pix_time )
                     {
+                                                             
                         trk_id_holder.push_back(Pix_info[i].Trk_ID[pix_dex]);
-                        charge += 1;
+                        charge += 1.0/Qpix_params->Sampling;
+
                         pix_dex += 1;
                         if (pix_dex >= pix_size){break; }
                         pix_time = Pix_info[i].time[pix_dex];
@@ -245,12 +247,13 @@ namespace Qpix
                 }
 
                 // this is the reset 
-                if ( charge >= Qpix_params->Reset )
+                if ( charge >= Qpix_params->Reset ) //this line needs to change to deal with more drastic downsampling
                 {
                     std::vector<int> trk_TrkIDs_holder;
                     std::vector<int> trk_weight_holder;
                     Get_Frequencies(trk_id_holder, trk_TrkIDs_holder, trk_weight_holder);
                     RESET_TRUTH_ID.push_back(trk_TrkIDs_holder);
+                    //std::transform(trk_weight_holder.begin(), trk_weight_holder.end(), trk_weight_holder.begin(), [&weight](auto& c){return c*weight;});
                     RESET_TRUTH_W.push_back(trk_weight_holder);
 
 
