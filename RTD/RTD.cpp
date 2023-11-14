@@ -20,6 +20,7 @@ int main(int argc, char** argv)
 
   static int f_noise;
   static int f_reco;
+  static int f_twind;
   static int threshold = 0;
   static std::string file_in;
   static std::string file_out;

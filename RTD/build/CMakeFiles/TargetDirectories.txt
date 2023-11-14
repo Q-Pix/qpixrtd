@@ -1,3 +1,0 @@
-/home/dave.elofson/scratch/software/qpixrtd/RTD/build/CMakeFiles/rebuild_cache.dir
-/home/dave.elofson/scratch/software/qpixrtd/RTD/build/CMakeFiles/edit_cache.dir
-/home/dave.elofson/scratch/software/qpixrtd/RTD/build/CMakeFiles/RTD.dir
