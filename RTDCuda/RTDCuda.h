@@ -1,3 +1,6 @@
+#include "Structures.h"
+#include "RTDThrust.h"
+
 // list of CUDA functions to make things go fast
 #include <cuda_runtime.h>
 #include <device_launch_parameters.h>
@@ -5,8 +8,6 @@
 // random things
 #include "curand.h"
 #include <curand_kernel.h>
-
-#include "Structures.h"
 
 #define THREADS_PER_BLOCK 512
 
@@ -31,6 +32,7 @@ extern "C" void Launch_Make_QPixIons(double* start_x, double* step_x, double *st
 // once each thread makes an ion, it can call device functions to put these ions where we want them to go
 __global__ void setup_normal_kernel(curandState *state,
                                     int nElectrons, int seed);
+
 
 // prototyping the sort function
 extern "C" void Launch_QuickSort(unsigned int* h_input_keys, unsigned int* h_output_keys, const int size, const int max_depth);

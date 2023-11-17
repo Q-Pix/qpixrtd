@@ -6,8 +6,11 @@
 #include <vector>
 #include <map>
 
+#include <math.h>
+
 namespace Qpix
 {
+
 
     struct ELECTRON 
     {
@@ -16,7 +19,7 @@ namespace Qpix
         int    Trk_ID;
     };
 
-    struct ION : ELECTRON
+    struct ION : public ELECTRON
     {
         // ionization electrons created from the hits that we're going to group into a single image
         double x, y, z, t;
@@ -24,6 +27,7 @@ namespace Qpix
 
     // matches with PixelResponse Decoder..
     int ID_Encoder(const int&, const int&);
+
 
     struct Pixel_Info 
     {

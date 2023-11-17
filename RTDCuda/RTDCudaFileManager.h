@@ -1,4 +1,9 @@
+#ifndef __RTDCudaFileManager
+#define __RTDCudaFileManager
+
 #include "ROOTFileManager.h"
+#include "RTDCuda.h"
+#include "RTDThrust.h"
 
 
 namespace Qpix {
@@ -23,4 +28,7 @@ namespace Qpix {
 
     };
 
+
 }
+
+#endif

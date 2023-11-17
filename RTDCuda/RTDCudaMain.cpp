@@ -7,6 +7,8 @@
 
 // for rand
 #include <cstdlib>
+#include <chrono>
+#include <algorithm>
 
 // Qpix includes
 #include "Random.h"
@@ -15,6 +17,8 @@
 
 // RTDCuda includes
 #include "RTDCudaFileManager.h"
+#include "RTDCuda.h"
+#include "RTDThrust.h"
 
 // ROOT includes
 #include "ROOT/RDataFrame.hxx"
@@ -24,11 +28,14 @@
 // cuda includes
 #include <cuda_runtime.h>
 
-// Prototype for the CUDA function
-// extern "C" void launch_add_arrays(int* a, int* b, int* c, int size);
-
-#include "RTDCuda.h"
-// extern "C" void launch_add_diff_arrays(int* a, int* b, int* c, int size);
+template <typename T> 
+void printArray(T* a, const unsigned int& size)
+{
+    // print the input result
+    std::cout << "int keys: { ";
+    for(int i=0; i<size; ++i) std::cout << a[i] << " ";
+    std::cout << "}\n";
+}
 
 /* use the input and output file to create a set of ions using CUDA */
 void makeEvents(std::string& input_file, std::string& output_file)
@@ -68,8 +75,8 @@ void makeEvents(std::string& input_file, std::string& output_file)
         std::vector<Qpix::ION> event_ions = rfm->Get_Event(curEvent++);
         // b_ions = &event_ions;
         // tt->Fill();
-
     }
+
     // tf->Write();
     // tf->Close();
     // std::cout << "read a total of " << rfm.GetCurrentEntry() << ", entries.\n";
@@ -79,6 +86,52 @@ void makeEvents(std::string& input_file, std::string& output_file)
     // rfm.Save();
 
     delete rfm;
+}
+
+void testThrustSort(){
+    // prototype the sorting function
+    int N_keys = 1e7;
+    std::vector<unsigned int> h_keys;
+    h_keys.reserve(N_keys);
+
+    // srand(1);
+    // unsigned int first_pivot;
+    // for(int i=0; i<N_keys; ++i){
+    //     first_pivot = (((double)rand() / (RAND_MAX)) * N_keys);
+    //     h_keys.push_back(first_pivot);
+    // }
+
+    // sorting kernel call here
+    srand(1);
+    unsigned int first_pivot;
+    std::vector<unsigned int> vals;
+    for(int i=0; i<N_keys; ++i){
+        first_pivot = (((double)rand() / (RAND_MAX)) * N_keys);
+        vals.push_back(first_pivot);
+    }
+
+    // print the input result
+    // printArray<unsigned int>(vals.data(), vals.size());
+
+    auto start = std::chrono::high_resolution_clock::now();
+    Launch_ThrustSort(vals.data(), vals.size());
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    std::cout << "launch thrust alloc and call time: " << duration.count() << "\n";
+    // std::cout << "input arr: {";
+    // for(int i=0; i<5; ++i)std::cout << vals[i] << " ";
+    // std::cout << "}\n";
+
+    vals.clear();
+    for(int i=0; i<N_keys; ++i){
+        first_pivot = (((double)rand() / (RAND_MAX)) * N_keys);
+        vals.push_back(first_pivot);
+    }
+    start = std::chrono::high_resolution_clock::now();
+    std::sort(vals.begin(), vals.end());
+    stop = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    std::cout << "quicksort call time: " << duration.count() << "\n";
 }
 
 int main(int argc, char** argv) {
@@ -100,28 +153,11 @@ int main(int argc, char** argv) {
     }
     printf("%d GPU CUDA device(s) found\n", gpuDeviceCount);
 
-    // prototype the sorting function
-    int N_keys = 128;
-    std::vector<unsigned int> h_keys;
-    h_keys.reserve(N_keys);
-
-    srand(1);
-    unsigned int first_pivot;
-    for(int i=0; i<N_keys; ++i){
-        first_pivot = (((double)rand() / (RAND_MAX)) * N_keys);
-        h_keys.push_back(first_pivot);
-    }
-
-    std::vector<unsigned int> h_out_keys(N_keys);
-    // if(h_out_keys.size() != h_keys.size() || h_out_keys.size() != N_keys) exit(-1);
-
-    Launch_QuickSort(h_keys.data(), h_out_keys.data(), N_keys, 1024);
-
     // run the CUDA core on the input file and make the output ROOT file
     // In and out files
-    // std::string file_in = argv[1];
-    // std::string file_out = argv[2];
-    // makeEvents(file_in, file_out);
+    std::string file_in = argv[1];
+    std::string file_out = argv[2];
+    makeEvents(file_in, file_out);
 
     return 0;
 }

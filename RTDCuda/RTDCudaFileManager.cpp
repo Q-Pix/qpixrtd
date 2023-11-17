@@ -1,12 +1,5 @@
 #include "RTDCudaFileManager.h"
 
-#include <thrust/host_vector.h>
-#include <thrust/device_vector.h>
-#include <thrust/copy.h>
-#include <thrust/fill.h>
-#include <thrust/sequence.h>
-
-#include "RTDCuda.h"
 
 namespace Qpix {
 
@@ -77,12 +70,16 @@ namespace Qpix {
                              h_ions.data(), v_hit_n.data(), total_e, v_hit_n.size(),
                              _params, evt);
 
-        if(total_e)
-            std::cout << "found n ions: " << h_ions.size() << ", pos: (" << h_ions[0].x << ","
-                                                                         << h_ions[0].y << ","
-                                                                         << h_ions[0].z << ","
-                                                                         << h_ions[0].t << ") @ "
-                                                                         << h_ions[0].Pix_ID << "\n";
+        // // debug print ions
+        // if(total_e){
+        //     for(int i=0; i<2; ++i){
+        //         std::cout << "found n ions: " << h_ions.size() << ", pos: (" << h_ions[i].x << ","
+        //                                                                      << h_ions[i].y << ","
+        //                                                                      << h_ions[i].z << ","
+        //                                                                      << h_ions[i].t << ") @ "
+        //                                                                      << h_ions[i].Pix_ID << "\n";
+        //     }
+        // }
 
         return h_ions;
     };

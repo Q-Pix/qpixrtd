@@ -24,7 +24,7 @@ __device__ void DiffuseIon(Qpix::ION* qp_ion, Qpix::Qpix_Paramaters *Qpix_params
 
     double px = qp_ion->x + sigma_T * rand_x; 
     double py = qp_ion->y + sigma_T * rand_y; 
-    double pz = rand_z + sigma_L * rand_x; 
+    double pz = rand_z + sigma_L * rand_z; 
 
     // convert the electrons x,y to a pixel index
     int Pix_Xloc = (int) ceil(px / Qpix_params->Pix_Size);
@@ -82,7 +82,7 @@ extern "C" void Launch_Make_QPixIons(double* start_x, double* step_x, double *st
     double *d_start_y, *d_step_y;
     double *d_start_z, *d_step_z;
     double *d_start_t, *d_step_t;
-    Qpix::ION *d_c;
+    Qpix::ION *d_qpion;
 
     int *d_con;
 
@@ -94,7 +94,7 @@ extern "C" void Launch_Make_QPixIons(double* start_x, double* step_x, double *st
     setup_normal_kernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_devStates, size, seed);
 
     // Allocate device memory for ION destination
-    auto err = cudaMalloc(&d_c, size * sizeof(Qpix::ION));
+    auto err = cudaMalloc(&d_qpion, size * sizeof(Qpix::ION));
     // if(err != 0){std::cout << "error.\n"; exit(-1);};
 
     cudaMalloc(&d_con, nHits * sizeof(int));
@@ -106,7 +106,6 @@ extern "C" void Launch_Make_QPixIons(double* start_x, double* step_x, double *st
     cudaMalloc(&d_step_z, nHits * sizeof(double));
     cudaMalloc(&d_start_t, nHits * sizeof(double));
     cudaMalloc(&d_step_t, nHits * sizeof(double));
-
 
     // Copy input data from host to device
     cudaMemcpy(d_con, con, nHits * sizeof(int), cudaMemcpyHostToDevice);
@@ -122,23 +121,31 @@ extern "C" void Launch_Make_QPixIons(double* start_x, double* step_x, double *st
     // Launch the working kernel
     makeQPixIons<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_start_x, d_step_x, d_start_y, d_step_y, 
                                                        d_start_z, d_step_z, d_start_t, d_step_t, 
-                                                       d_c, d_con, size, nHits,
+                                                       d_qpion, d_con, size, nHits,
                                                        qp_params,
                                                        d_devStates);
 
-    // Copy the result from device to host
-    cudaMemcpy(dest_ions, d_c, size * sizeof(Qpix::ION), cudaMemcpyDeviceToHost);
+    // sort the IONs on the GPU before copying back
+    ThrustQSort(d_qpion, size);
 
-    // for (int i = 0; i < size; i++) {
-    //     if(dest_ions[i].x == 0)
-    //         std::cout << "warning val at index: " << i << "\n";
-    // }
+    // merge and count the relevant time steps
+    auto d_pixel_current = ThrustQMerge(d_qpion, size); // return a device_vector of pixel_current
+    thrust::host_vector<Pixel_Current> hvec = d_pixel_current;
+    for(int i=0; i<hvec.size() && i<2; ++i){
+      std::cout << "hpix: " << hvec[i].ID << " @ " << hvec[i].elecTime << ", @ " << hvec[i].t << ", n: "
+                << "size: " << hvec.size() << " "
+                << hvec[i].nElec << "\n";
+    }
+
+    // Copy the result from device to host
+    cudaMemcpy(dest_ions, d_qpion, size * sizeof(Qpix::ION), cudaMemcpyDeviceToHost);
+
     // Free device memory
     cudaFree(d_devStates);
 
     cudaFree(d_start_x);
     cudaFree(d_step_x);
-    cudaFree(d_c);
+    cudaFree(d_qpion);
 
     cudaFree(d_start_y);
     cudaFree(d_step_y);
@@ -163,7 +170,7 @@ __global__ void setup_normal_kernel(curandState* state,
     }
 }
 
-// prototyping the sort function
+// prototyping the sort function -> not nearly as fast as thrust::sort
 extern "C" void Launch_QuickSort(unsigned int* h_input_keys, unsigned int* h_output_keys, const int size, const int max_depth)
 {
     std::cout << "kernel launch from host with size: " << size << "\n";
