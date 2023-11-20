@@ -13,6 +13,8 @@
 #
 ##########################################
 
+initdir=$(pwd)
+
 source ./setup.sh
 
 [ ! -d "./Build" ] && mkdir Build
@@ -31,4 +33,20 @@ fi
 cp ./source/libQPixRTDDict_rdict.pcm ../Library/.
 cp ./source/libQPixRTDDict.rootmap ../Library/.
 
+echo Building the EXAMPLE...;
+echo $(pwd -P);
+cd $initdir/EXAMPLE;
+[ -d "build" ] || mkdir build;
+cd build;
+cmake ..;
+make;
+cd $initdir;
+
+echo Building RTD...;
+cd $initdir/RTD;
+[ -d "build" ] || mkdir build;
+cd build;
+cmake ../;
+make;
+cd $initdir;
 
