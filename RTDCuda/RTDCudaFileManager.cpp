@@ -1,9 +1,8 @@
 #include "RTDCudaFileManager.h"
 
-
 namespace Qpix {
 
-    std::vector<Qpix::ION> RTDCudaFileManager::Get_Event(int evt)
+    std::vector<Pixel_Current> RTDCudaFileManager::Get_Event(int evt, std::vector<Qpix::ION>& a_ions)
     {
         std::vector<Qpix::ION> electrons;
 
@@ -15,7 +14,9 @@ namespace Qpix {
         std::vector<double> v_hit_start_x, v_hit_start_y, v_hit_start_z, v_hit_start_t;
         std::vector<double> v_hit_step_x, v_hit_step_y, v_hit_step_z, v_hit_step_t;
         std::vector<int> v_hit_n;
+        std::vector<int> v_hit_id;
 
+        auto start = std::chrono::high_resolution_clock::now();
         while(event_ == evt and _currentEntry < maxEntries){
 
             int Nelectron = 0;
@@ -56,21 +57,26 @@ namespace Qpix {
                 v_hit_step_z.push_back((hit_end_z_ - v_hit_start_z.back()) / Nelectron);
                 v_hit_step_t.push_back((hit_end_t_*1e-9 - v_hit_start_t.back()) / Nelectron);
 
+                v_hit_id.push_back(hit_track_id_);
                 v_hit_n.push_back(total_e);
             }
             // load next event, and check if event number matches
             in_ttree_->GetEntry(_currentEntry++);
         }
+        auto stop = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+        std::cout << "read time: " << " @ make time: " << duration.count() << "\n";
 
+        std::vector<Pixel_Current> pixel_current;
         std::vector<Qpix::ION> h_ions(total_e);
-        Launch_Make_QPixIons(v_hit_start_x.data(), v_hit_step_x.data(), 
-                             v_hit_start_y.data(), v_hit_step_y.data(), 
-                             v_hit_start_z.data(), v_hit_step_z.data(), 
-                             v_hit_start_t.data(), v_hit_step_t.data(), 
-                             h_ions.data(), v_hit_n.data(), total_e, v_hit_n.size(),
-                             _params, evt);
-
-        // // debug print ions
+        std::cout << "nhits: " << v_hit_n.size() << "\n";
+        pixel_current = Launch_Make_QPixIons(v_hit_start_x.data(), v_hit_step_x.data(), 
+                                             v_hit_start_y.data(), v_hit_step_y.data(), 
+                                             v_hit_start_z.data(), v_hit_step_z.data(), 
+                                             v_hit_start_t.data(), v_hit_step_t.data(), 
+                                             h_ions.data(), v_hit_n.data(), v_hit_id.data(),
+                                             total_e, v_hit_n.size(), _params, evt);
+        // debug print ions
         // if(total_e){
         //     for(int i=0; i<2; ++i){
         //         std::cout << "found n ions: " << h_ions.size() << ", pos: (" << h_ions[i].x << ","
@@ -81,7 +87,7 @@ namespace Qpix {
         //     }
         // }
 
-        return h_ions;
+        return pixel_current;
     };
 
     void RTDCudaFileManager::AddEvent(std::vector<Qpix::Pixel_Info> const)

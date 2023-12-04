@@ -95,8 +95,8 @@ int main(int argc, char** argv)
   std::unordered_map<int, Qpix::Pixel_Info> mPixelInfo = rfm.MakePixelInfoMap(); // ~870k pixels
 
   clock_t time_req;
-  // time_req = clock();
-  // double time;
+  time_req = clock();
+  double time;
 
   std::vector<clock_t> start_pixelize_times, start_reset_times;
   std::vector<clock_t> stop_pixelize_times, stop_reset_times;
@@ -152,25 +152,25 @@ int main(int argc, char** argv)
   rfm.Save();
 
   // find the maximum entry for this bin
-  auto rdf = ROOT::RDataFrame("event_tree", file_out.c_str());
-  auto h2 = rdf.Histo2D({"h", "h", 575, 0.5, 575.5, 1500, 0.5, 1500.5}, "pixel_x", "pixel_y");
-  int pix_x_width = 8;
-  int pix_y_width = 8;
-  int pix_x_max;
-  int pix_y_max;
-  int z;
+  // auto rdf = ROOT::RDataFrame("event_tree", file_out.c_str());
+  // auto h2 = rdf.Histo2D({"h", "h", 575, 0.5, 575.5, 1500, 0.5, 1500.5}, "pixel_x", "pixel_y");
+  // int pix_x_width = 8;
+  // int pix_y_width = 8;
+  // int pix_x_max;
+  // int pix_y_max;
+  // int z;
 
-  h2->Rebin2D(pix_x_width, pix_y_width);
-  int maxBin = h2->GetMaximumBin();
-  int size = h2->GetBinContent(maxBin);
-  h2->GetBinXYZ(maxBin, pix_x_max, pix_y_max, z);
-  std::cout << "Max Hits:" << size << "\n";
-  std::cout << "found maximum pixel_x: " << pix_x_max*pix_x_width << ", maximum pixel_y: " << pix_y_max*pix_y_width << std::endl;
+  // h2->Rebin2D(pix_x_width, pix_y_width);
+  // int maxBin = h2->GetMaximumBin();
+  // int size = h2->GetBinContent(maxBin);
+  // h2->GetBinXYZ(maxBin, pix_x_max, pix_y_max, z);
+  // std::cout << "Max Hits:" << size << "\n";
+  // std::cout << "found maximum pixel_x: " << pix_x_max*pix_x_width << ", maximum pixel_y: " << pix_y_max*pix_y_width << std::endl;
 
-  // std::cout << "done" << std::endl;
-  // time_req = clock() - time_req;
-  // time = (float)time_req/CLOCKS_PER_SEC;
-  // std::cout<< "The operation took "<<time<<" Seconds"<<std::endl;
+  std::cout << "done" << std::endl;
+  time_req = clock() - time_req;
+  time = (float)time_req/CLOCKS_PER_SEC;
+  std::cout<< "The operation took "<<time<<" Seconds"<<std::endl;
   return 0;
 
 } // main()

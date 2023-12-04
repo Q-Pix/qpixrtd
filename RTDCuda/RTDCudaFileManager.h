@@ -16,7 +16,7 @@ namespace Qpix {
             using ROOTFileManager::ROOTFileManager;
 
             // we're overloading the main function class to GetEvent() / Pixelize_Event() / and Reset_Fast() 
-            std::vector<Qpix::ION> Get_Event(int);
+            std::vector<Pixel_Current> Get_Event(int, std::vector<Qpix::ION>&);
             void AddEvent(std::vector<Qpix::Pixel_Info> const);
             void AddEvent(const std::set<int>&, std::unordered_map<int, Qpix::Pixel_Info>&);
             int GetCurrentEntry() const {return _currentEntry;};

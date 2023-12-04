@@ -38,7 +38,7 @@ set(SOURCE_FILES RTDCudaMain.cpp RTDCudaFileManager.cpp)
 
 # Add the CUDA source file
 # list(APPEND CUDA_NVCC_FLAGS -gencode arch=compute_52,code=sm_52)
-list(APPEND SOURCE_FILES RTDCuda.cu RTDThrust.cu)
+list(APPEND SOURCE_FILES RTDCuda.cu RTDThrust.cu RTDStructures.cu)
 
 # Add the executable
 add_executable(RTDCudaMain ${SOURCE_FILES})

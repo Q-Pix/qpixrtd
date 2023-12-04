@@ -19,20 +19,30 @@ __device__ void DiffuseIon(Qpix::ION* qp_ion, Qpix::Qpix_Paramaters *Qpix_params
 // RTD Things to make life go fast
 __global__ void makeQPixIons(double* start_x, double* step_x, double *start_y, double *step_y,
                              double* start_z, double* step_z, double *start_t, double *step_t, 
-                             Qpix::ION* dest, int* count, int size, int nHits,
+                             Qpix::ION* dest, int* count, int* hid_id, int size, int nHits,
                              Qpix::Qpix_Paramaters qp_params,
                              curandState* state);
 
-extern "C" void Launch_Make_QPixIons(double* start_x, double* step_x, double *start_y, double *step_y, 
-                                     double* start_z, double* step_z, double *start_t, double *step_t, 
-                                     Qpix::ION* dest, int* con, int size, int nHits,
-                                     Qpix::Qpix_Paramaters qp_params, int seed);
+extern "C" std::vector<Pixel_Current> 
+Launch_Make_QPixIons(double* start_x, double* step_x, double *start_y, double *step_y, 
+                     double* start_z, double* step_z, double *start_t, double *step_t, 
+                     Qpix::ION* dest, int* con, int* hit_id, int size, int nHits,
+                     Qpix::Qpix_Paramaters qp_params, int seed);
 
 
 // once each thread makes an ion, it can call device functions to put these ions where we want them to go
 __global__ void setup_normal_kernel(curandState *state,
                                     int nElectrons, int seed);
 
+
+__global__ void makeQPixSort(Qpix::ION* dest, int* count);
+
+// worker function to take a vector of pixel currents and create
+// the pixel resets for the detector. This function should also (optionally) 
+// incorporate any detector / analog front-end noise response
+extern "C" void
+Launch_Make_QResets(std::vector<Pixel_Current>& vpc, int* pid, double* resets, 
+                    std::vector<std::vector<int>>& trk_weights);
 
 // prototyping the sort function
 extern "C" void Launch_QuickSort(unsigned int* h_input_keys, unsigned int* h_output_keys, const int size, const int max_depth);
