@@ -121,43 +121,43 @@ void makeEvents(std::string& input_file, std::string& output_file)
 }
 
 
-struct compPix
-{
-    bool operator()(const pix& lhs, const pix& rhs)
-    {return lhs.a > rhs.a;};
-};
+// struct compPix
+// {
+//     bool operator()(const pix& lhs, const pix& rhs)
+//     {return lhs.a > rhs.a;};
+// };
 
 const int N_keys = 1e6;
-void testThrustSortStruct(){
-    std::vector<pix> v_pix;
-    v_pix.reserve(N_keys);
+// void testThrustSortStruct(){
+//     std::vector<pix> v_pix;
+//     v_pix.reserve(N_keys);
 
-    // std sorting
-    // fill
-    srand(1);
-    pix first_pivot;
-    for(int i=0; i<N_keys; ++i){
-        first_pivot.a = (((double)rand() / (RAND_MAX)) * N_keys);
-        first_pivot.b = 42;
-        first_pivot.c = 42;
-        v_pix.push_back(first_pivot);
-    }
+//     // std sorting
+//     // fill
+//     srand(1);
+//     pix first_pivot;
+//     for(int i=0; i<N_keys; ++i){
+//         first_pivot.a = (((double)rand() / (RAND_MAX)) * N_keys);
+//         first_pivot.b = 42;
+//         first_pivot.c = 42;
+//         v_pix.push_back(first_pivot);
+//     }
 
-    // thrust sorting struct
-    auto v_pix_copy = v_pix;
-    auto start = std::chrono::high_resolution_clock::now();
-    Launch_ThrustSortStruct(v_pix_copy.data(), N_keys);
-    auto stop = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-    std::cout << "thrust sort struct alloc and call time: " << duration.count() << "\n";
+//     // thrust sorting struct
+//     auto v_pix_copy = v_pix;
+//     auto start = std::chrono::high_resolution_clock::now();
+//     Launch_ThrustSortStruct(v_pix_copy.data(), N_keys);
+//     auto stop = std::chrono::high_resolution_clock::now();
+//     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+//     std::cout << "thrust sort struct alloc and call time: " << duration.count() << "\n";
 
-    // std sorting struct
-    start = std::chrono::high_resolution_clock::now();
-    std::sort(v_pix.begin(), v_pix.end(), compPix());
-    stop = std::chrono::high_resolution_clock::now();
-    duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-    std::cout << "std sort struct call time: " << duration.count() << "\n";
-}
+//     // std sorting struct
+//     start = std::chrono::high_resolution_clock::now();
+//     std::sort(v_pix.begin(), v_pix.end(), compPix());
+//     stop = std::chrono::high_resolution_clock::now();
+//     duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+//     std::cout << "std sort struct call time: " << duration.count() << "\n";
+// }
 
 void testThrustSort(){
     // prototype the sorting function
@@ -204,6 +204,8 @@ int main(int argc, char** argv) {
         std::cout << "received device err code: " << cudaResultCode << std::endl;
     }
 
+    cudaError_t err = cudaDeviceSetLimit(cudaLimitMallocHeapSize, 1048576ULL*1024*5);
+
     /* machines with no GPUs can still report one emulation device */
     for (device = 0; device < deviceCount; ++device) {
         cudaGetDeviceProperties(&properties, device);
@@ -223,6 +225,8 @@ int main(int argc, char** argv) {
 
     // testThrustSort();
     // testThrustSortStruct();
+
+    // ThrustTestSort();
 
     std::cout << "done" << std::endl;
     time_req = clock() - time_req;

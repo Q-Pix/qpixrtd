@@ -1,5 +1,6 @@
 #include "RTDStructures.h"
 
+/*
 // used for time sorting Qpix::IONs
 __host__ __device__
 bool compIon::operator()(const Qpix::ION& a, const Qpix::ION& b) 
@@ -28,6 +29,8 @@ bool countPixels::operator()(const Qpix::ION& a, const Qpix::ION& b)
   // pixels are the same iff they have same the ID
   return a.Pix_ID == b.Pix_ID;
 }
+
+*/
 
 // used in inclusive scan to quickly add electrons from same track / same pixel / same time bin
 __host__ __device__
@@ -70,13 +73,13 @@ void sID_Decoder(const int& ID, int& Xcurr, int& Ycurr){
 }
 
 __host__ __device__
-Pixel_Current::Pixel_Current(const Qpix::ION& qion, const double& timeBinSize) : _timeBinSize(timeBinSize) 
+Pixel_Current::Pixel_Current(const int& pix_id, const int& trk_id, const double& time, const double& timeBinSize) : _timeBinSize(timeBinSize) 
 {
-    ID = qion.Pix_ID;
-    t = qion.time;
-    Trk_ID = qion.Trk_ID;
-    sID_Decoder(qion.Pix_ID, X_Pix, Y_Pix);
-    elecTime = (long unsigned int)( qion.t / _timeBinSize);
+    ID = pix_id;
+    t = time;
+    Trk_ID = trk_id;
+    sID_Decoder(ID, X_Pix, Y_Pix);
+    elecTime = (long unsigned int)( time / _timeBinSize);
     nElec = 1;
 };
 

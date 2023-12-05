@@ -3,7 +3,11 @@
 
 #include "Structures.h"
 #include <thrust/device_ptr.h>
+#include <thrust/zip_function.h>
+#include <thrust/tuple.h>
+#include <thrust/device_vector.h>
 
+/*
 struct compIon{
   __host__ __device__
   bool operator()(const Qpix::ION& a, const Qpix::ION& b) ;
@@ -20,15 +24,18 @@ struct countPixels{
   __host__ __device__
   bool operator()(const Qpix::ION& a, const Qpix::ION& b);
 };
+*/
 
-// after the electrons (photons) are created via ionization (scintillation) they
-// are drifted to a pixel this structor forms the sparse matrix where the
-// elements are the time bin and number of elements in time bin
+/*
+after the electrons (photons) are created via ionization (scintillation) they
+are drifted to a pixel this structor forms the sparse matrix where the
+elements are the time bin and number of elements in time bin
+*/
 struct Pixel_Current
 {
     Pixel_Current() = default;
     __host__ __device__
-    Pixel_Current(const Qpix::ION& qion, const double& timeBinSize);
+    Pixel_Current(const int& pix_id, const int& trk_id, const double& time, const double& timeBinSize);
 
     // pixel identifiers
     int X_Pix, Y_Pix;
@@ -48,6 +55,12 @@ struct Pixel_Current
 
 };
 
+// relevant type naming for the merge
+typedef thrust::device_vector<int>::iterator IntIterator;
+typedef thrust::device_vector<double>::iterator DoubleIterator;
+typedef thrust::tuple<IntIterator, IntIterator, DoubleIterator> Iterator3Tuple;
+typedef thrust::zip_iterator<Iterator3Tuple> Zip3Iterator;
+
 // unaryOP for the ThrustQMerge
 struct single_pixelCurrent{
   single_pixelCurrent() = delete;
@@ -55,9 +68,10 @@ struct single_pixelCurrent{
 
   // convert each ION into a pixel_current time bin
   __host__ __device__
-  Pixel_Current operator()(const Qpix::ION& a) 
+  Pixel_Current operator()(const int& pix_id, const int& trk_id, const double& time) 
+  // Pixel_Current operator()(Iterator3Tuple zip) 
   {
-    return Pixel_Current(a, _timeBin);
+    return Pixel_Current(pix_id, trk_id, time, _timeBin);
   }
 
   double _timeBin;
@@ -95,5 +109,6 @@ struct d_compPix
     __host__ __device__
     bool operator()(const pix& lhs, const pix& rhs);
 };
+
 
 #endif

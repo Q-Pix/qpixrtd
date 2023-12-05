@@ -13,13 +13,11 @@
 
 __device__ inline int ID_Encoder(const int& pix_x, const int& pix_y);
 
-__device__ void DiffuseIon(Qpix::ION* qp_ion, Qpix::Qpix_Paramaters *Qpix_params, double& rand_x, double& rand_y,
-                           double& rand_z);
-
 // RTD Things to make life go fast
 __global__ void makeQPixIons(double* start_x, double* step_x, double *start_y, double *step_y,
                              double* start_z, double* step_z, double *start_t, double *step_t, 
-                             Qpix::ION* dest, int* count, int* hid_id, int size, int nHits,
+                             Qpix::ION* dest, int* Pix_ID, int* Trk_ID, double* time,
+                             int* count, int* hid_id, int size, int nHits,
                              Qpix::Qpix_Paramaters qp_params,
                              curandState* state);
 
@@ -35,7 +33,7 @@ __global__ void setup_normal_kernel(curandState *state,
                                     int nElectrons, int seed);
 
 
-__global__ void makeQPixSort(Qpix::ION* dest, int* count);
+// __global__ void makeQPixSort(Qpix::ION* dest, int* count);
 
 // worker function to take a vector of pixel currents and create
 // the pixel resets for the detector. This function should also (optionally) 

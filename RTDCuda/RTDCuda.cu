@@ -15,29 +15,11 @@ __device__ inline int ID_Encoder(const int& pix_x, const int& pix_y)
     return (int)(pix_x*10000+pix_y);
 }
 
-__device__ void DiffuseIon(Qpix::ION* qp_ion, Qpix::Qpix_Paramaters *Qpix_params, double& rand_x, double& rand_y, double& rand_z)
-{
-    double T_drift = qp_ion->z / Qpix_params->E_vel;
-    // diffuse the electrons position
-    double sigma_T = sqrt(2*Qpix_params->DiffusionT*T_drift);
-    double sigma_L = sqrt(2*Qpix_params->DiffusionL*T_drift);
-
-    double px = qp_ion->x + sigma_T * rand_x; 
-    double py = qp_ion->y + sigma_T * rand_y; 
-    double pz = rand_z + sigma_L * rand_z; 
-
-    // convert the electrons x,y to a pixel index
-    int Pix_Xloc = (int) ceil(px / Qpix_params->Pix_Size);
-    int Pix_Yloc = (int) ceil(py / Qpix_params->Pix_Size);
-
-    qp_ion->Pix_ID = ID_Encoder(Pix_Xloc, Pix_Yloc);
-    qp_ion->time = qp_ion->t + ( pz / Qpix_params->E_vel );
-}
 
 __global__ void makeQPixIons(double* start_x, double* step_x, double *start_y, double *step_y,
                              double* start_z, double* step_z, double *start_t, double *step_t, 
-                             Qpix::ION * dest, int* count, int* hit_id, int size, int nHits,
-                             Qpix::Qpix_Paramaters qp_params,
+                             Qpix::ION * dest, int* Pix_ID, int* Trk_ID, double* time, int* count, 
+                             int* hit_id, int size, int nHits, Qpix::Qpix_Paramaters qp_params,
                              curandState* state)
 {
     int tid = threadIdx.x + blockIdx.x * blockDim.x;
@@ -57,9 +39,24 @@ __global__ void makeQPixIons(double* start_x, double* step_x, double *start_y, d
                 dest[tid].z = start_z[i] - step_z[i] * (tid + 1 - count[i]);
                 dest[tid].t = start_t[i] - step_t[i] * (tid + 1 - count[i]);
 
-                dest[tid].Trk_ID = hit_id[i]; // marks which parent caused this ion
+                Trk_ID[tid] = hit_id[i]; // marks which parent caused this ion
 
-                DiffuseIon(&dest[tid], &qp_params, rand_x, rand_y, rand_z);
+                double T_drift = dest[tid].z / qp_params.E_vel;
+                // diffuse the electrons position
+                double sigma_T = sqrt(2*qp_params.DiffusionT*T_drift);
+                double sigma_L = sqrt(2*qp_params.DiffusionL*T_drift);
+
+                double px = dest[tid].x + sigma_T * rand_x; 
+                double py = dest[tid].y + sigma_T * rand_y; 
+                double pz = rand_z + sigma_L * rand_z; 
+
+                // convert the electrons x,y to a pixel index
+                int Pix_Xloc = (int) ceil(px / qp_params.Pix_Size);
+                int Pix_Yloc = (int) ceil(py / qp_params.Pix_Size);
+
+                Pix_ID[tid] = ID_Encoder(Pix_Xloc, Pix_Yloc);
+                time[tid] = dest[tid].t + ( pz / qp_params.E_vel );
+
                 return;
             }
         }
@@ -82,7 +79,13 @@ Launch_Make_QPixIons(double* start_x, double* step_x, double *start_y, double *s
     double *d_start_y, *d_step_y;
     double *d_start_z, *d_step_z;
     double *d_start_t, *d_step_t;
+
+    // storage IONs for x, y, z, t
     Qpix::ION *d_qpion;
+
+    // storage electrons, but raw values not a struct
+    int *d_Pix_ID, *d_Trk_ID;
+    double *d_time;
 
     int *d_con, *d_hit_id;
 
@@ -96,10 +99,13 @@ Launch_Make_QPixIons(double* start_x, double* step_x, double *start_y, double *s
     // Allocate device memory for ION destination
     auto start = std::chrono::high_resolution_clock::now();
     auto err = cudaMalloc(&d_qpion, size * sizeof(Qpix::ION));
+    err = cudaMalloc(&d_Pix_ID, size * sizeof(int));
+    err = cudaMalloc(&d_Trk_ID, size * sizeof(int));
+    err = cudaMalloc(&d_time, size * sizeof(double));
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     std::cout << "rand: " << size << " @ random setup time: " << duration.count() << "\n";
-    // if(err != 0){std::cout << "error.\n"; exit(-1);};
+    if(err != 0){std::cout << "error.\n"; exit(-1);};
 
     cudaMalloc(&d_con, nHits * sizeof(int));
     cudaMalloc(&d_hit_id, nHits * sizeof(int));
@@ -128,9 +134,9 @@ Launch_Make_QPixIons(double* start_x, double* step_x, double *start_y, double *s
     start = std::chrono::high_resolution_clock::now();
     makeQPixIons<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_start_x, d_step_x, d_start_y, d_step_y, 
                                                        d_start_z, d_step_z, d_start_t, d_step_t, 
-                                                       d_qpion, d_con, d_hit_id, size, nHits,
-                                                       qp_params,
-                                                       d_devStates);
+                                                       d_qpion, d_Pix_ID, d_Trk_ID, d_time,
+                                                       d_con, d_hit_id, size, nHits,
+                                                       qp_params, d_devStates);
     cudaDeviceSynchronize();
     stop = std::chrono::high_resolution_clock::now();
     duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
@@ -138,10 +144,7 @@ Launch_Make_QPixIons(double* start_x, double* step_x, double *start_y, double *s
 
     // sort the IONs on the GPU before copying back
     start = std::chrono::high_resolution_clock::now();
-    blocksPerGrid = (nHits + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
-    std::cout << "making nblocks for hits: " <<  blocksPerGrid << "\n";
-    // makeQPixSort<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_qpion, d_con);
-    ThrustQSort(d_qpion, size);
+    ThrustQSort(d_Pix_ID, d_Trk_ID, d_time, d_con, nHits, size);
     cudaDeviceSynchronize();
     stop = std::chrono::high_resolution_clock::now();
     duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
@@ -149,7 +152,7 @@ Launch_Make_QPixIons(double* start_x, double* step_x, double *start_y, double *s
 
     // merge and count the relevant time steps
     start = std::chrono::high_resolution_clock::now();
-    auto d_pixel_current = ThrustQMerge(d_qpion, size); // return a device_vector of pixel_current
+    auto d_pixel_current = ThrustQMerge(d_Pix_ID, d_Trk_ID, d_time, d_con, size); // return a device_vector of pixel_current
     stop = std::chrono::high_resolution_clock::now();
     duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     std::cout << "size: " << size << " @ Thrust Q Merge Time: " << duration.count() << "\n";
@@ -177,6 +180,9 @@ Launch_Make_QPixIons(double* start_x, double* step_x, double *start_y, double *s
     cudaFree(d_start_x);
     cudaFree(d_step_x);
     cudaFree(d_qpion);
+    cudaFree(d_Pix_ID);
+    cudaFree(d_Trk_ID);
+    cudaFree(d_time);
     cudaFree(d_start_y);
     cudaFree(d_step_y);
     cudaFree(d_start_z);
@@ -195,27 +201,6 @@ Launch_Make_QResets(std::vector<Pixel_Current>& vpc, int* pid, double* resets,
 {
  std::cout << "building.\n";
 };
-
-
-// use the number of electrons at each hit step as the first sorted index for each electron
-// this should be launched with a number of threads equal to the number of hits
-__global__ void makeQPixSort(Qpix::ION* dest, int* count)
-{
-    int tid = threadIdx.x + blockIdx.x * blockDim.x;
-
-    int nStep = count[tid]; // count is the running of the the electrons
-
-    // calculate the correct index range to sort the electrons on
-    int nElec;
-    if(tid == 0)
-      nElec = 0;
-    else
-      nElec = count[tid-1];
-    nStep -= nElec;
-
-    thrust::device_ptr<Qpix::ION> d_qion_ptr(dest+nElec);
-    thrust::sort(d_qion_ptr, d_qion_ptr+nStep, compIon());
-}
 
 
 /* modified from: https://docs.nvidia.com/cuda/curand/device-api-overview.html */

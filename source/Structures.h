@@ -19,7 +19,7 @@ namespace Qpix
         int    Trk_ID;
     };
 
-    struct ION : public ELECTRON
+    struct ION
     {
         // ionization electrons created from the hits that we're going to group into a single image
         double x, y, z, t;
