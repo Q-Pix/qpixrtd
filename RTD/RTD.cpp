@@ -22,6 +22,7 @@ int main(int argc, char** argv)
   static int f_reco;
   static int f_twind;
   static int threshold = 0;
+  static double pix_dim = 0;
   static std::string file_in;
   static std::string file_out;
   static double downsample = 1.;
@@ -40,13 +41,14 @@ int main(int argc, char** argv)
       {"notimewindow",    no_argument,        &f_twind,     1},
       /* these options take inputs */
       {"threshold",       required_argument,  NULL,         't'},
+      {"pix_dim",         required_argument,  NULL,         's'},
       {"input",           required_argument,  NULL,       'i'},
       {"output",          required_argument,  NULL,       'o'},
       {"downsample",      required_argument,  NULL,         'd'},
       {NULL,              0,                  NULL,         0}
       };
 
-    c = getopt_long(argc, argv, ":i:o:t:d:", long_options, &option_index);
+    c = getopt_long(argc, argv, ":i:o:t:s:d:", long_options, &option_index);
     if (c == -1)
       break;
 
@@ -63,6 +65,10 @@ int main(int argc, char** argv)
       case 't':
         printf("Option t has arg: %s\n", optarg);
         threshold = atoi(optarg);
+        break;
+      case 's':
+        printf("Option s has arg: %s\n", optarg);
+        pix_dim = atof(optarg);
         break;
       case 'd':
         printf("Option d has arg: %s\n", optarg);
@@ -108,6 +114,9 @@ int main(int argc, char** argv)
 
   // Set Reset threshold to threshold passed
   Qpix_params->Reset = threshold;
+
+  // Set Pixel Size
+  Qpix_params->Pix_Size = pix_dim;
 
   // Set Downsampling (will be set to 1 by default)
   Qpix_params->Sampling = downsample;
