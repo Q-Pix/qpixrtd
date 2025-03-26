@@ -22,8 +22,8 @@ int main(int argc, char** argv)
   static int f_reco;
   static int f_twind;
   static int threshold = 0;
-  static double pix_dim = 0;
-  static double samp_time = 0;
+  static double pix_dim = 0.4;
+  static double samp_time = 1e-8;
   static std::string file_in;
   static std::string file_out;
   static double downsample = 1.;
