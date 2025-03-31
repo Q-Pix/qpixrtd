@@ -22,7 +22,8 @@ int main(int argc, char** argv)
   static int f_reco;
   static int f_twind;
   static int threshold = 0;
-  static double pix_dim = 0;
+  static double pix_dim = 0.4;
+  static double samp_time = 1e-8;
   static std::string file_in;
   static std::string file_out;
   static double downsample = 1.;
@@ -42,13 +43,14 @@ int main(int argc, char** argv)
       /* these options take inputs */
       {"threshold",       required_argument,  NULL,         't'},
       {"pix_dim",         required_argument,  NULL,         's'},
+      {"samp_time",       required_argument,  NULL,         'h'},
       {"input",           required_argument,  NULL,       'i'},
       {"output",          required_argument,  NULL,       'o'},
       {"downsample",      required_argument,  NULL,         'd'},
       {NULL,              0,                  NULL,         0}
       };
 
-    c = getopt_long(argc, argv, ":i:o:t:s:d:", long_options, &option_index);
+    c = getopt_long(argc, argv, ":i:o:t:s:h:d:", long_options, &option_index);
     if (c == -1)
       break;
 
@@ -69,6 +71,10 @@ int main(int argc, char** argv)
       case 's':
         printf("Option s has arg: %s\n", optarg);
         pix_dim = atof(optarg);
+        break;
+      case 'h':
+        printf("Option h has arg: %s\n", optarg);
+        samp_time = atof(optarg);
         break;
       case 'd':
         printf("Option d has arg: %s\n", optarg);
@@ -118,6 +124,9 @@ int main(int argc, char** argv)
   // Set Pixel Size
   Qpix_params->Pix_Size = pix_dim;
 
+  // Set Sample Time
+  Qpix_params->Sample_time = samp_time;
+  
   // Set Downsampling (will be set to 1 by default)
   Qpix_params->Sampling = downsample;
 
