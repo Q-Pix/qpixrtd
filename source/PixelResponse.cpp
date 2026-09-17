@@ -41,7 +41,7 @@ namespace Qpix
         }
         NewID_Index.push_back( hit_e.size() );
 
-        // Now loop though thoues to make a pixel opject that is X, Y and a vect of times
+        // Now loop though those to make a pixel opject that is X, Y and a vect of times
         int N_Index = NewID_Index.size() - 1;
         for (int i=0; i<N_Index ; i++)
         {
@@ -50,20 +50,48 @@ namespace Qpix
 
             std::vector<int> tmp_trk_id;
             std::vector<double> tmp_time;
+
+            double mean_z = 0.0;
+            double M2_z = 0.0;
+            int n_electrons = 0;
+            
             for (int j=0; j<sub_vec.size() ; j++) 
             { 
                 tmp_time.push_back( sub_vec[j].time ); 
                 tmp_trk_id.push_back( sub_vec[j].Trk_ID ); 
+
+                double z = sub_vec[j].Initial_Z;
+                
+                n_electrons++;
+                
+                double delta = z - mean_z;
+                mean_z += delta / n_electrons;
+
+                double delta2 = z - mean_z;
+                M2_z += delta * delta2;
+            }
+
+            double std_z = 0.0;
+            if (n_electrons > 1)
+            {
+                std_z = sqrt(M2_z / n_electrons);
             }
 
             int Pix_Xloc, Pix_Yloc ;
             ID_Decoder(sub_vec[0].Pix_ID, Pix_Xloc, Pix_Yloc);
+            
             Pix_info.push_back(Pixel_Info());
+            
             Pix_info[i].ID      = sub_vec[0].Pix_ID;
             Pix_info[i].X_Pix   = Pix_Xloc;
             Pix_info[i].Y_Pix   = Pix_Yloc;
+            
             Pix_info[i].time    = tmp_time;
             Pix_info[i].Trk_ID  = tmp_trk_id;
+
+            Pix_info[i].Initial_Z_Mean = mean_z;
+            Pix_info[i].Initial_Z_Std = std_z;
+            Pix_info[i].N_Electrons = n_electrons;
         }
         return;
     }//Pixelize_Event
