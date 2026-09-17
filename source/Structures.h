@@ -13,6 +13,7 @@ namespace Qpix
         int    Pix_ID;
         double   time;
         int    Trk_ID;
+        double Initial_Z;
     };
 
 
@@ -24,7 +25,11 @@ namespace Qpix
         int ID;
         std::vector<double>  time;
         std::vector<int> Trk_ID;
-
+        
+        double Initial_Z_Mean;
+        double Initial_Z_Std;
+        int    N_Electrons;
+        
         std::vector<double>  RESET;
         std::vector<double>  TSLR;
         std::vector<std::vector<int>> RESET_TRUTH_ID;

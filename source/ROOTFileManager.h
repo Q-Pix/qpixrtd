@@ -55,17 +55,25 @@ namespace Qpix {
             std::vector< int > pixel_y_; 
             std::vector< std::vector < double > > pixel_reset_;
             std::vector< std::vector < double > > pixel_tslr_;
-            // std::vector< std::vector< std::vector < int > > > pixel_reset_truth_track_id_;
-            // std::vector< std::vector< std::vector < double > > > pixel_reset_truth_weight_;
+ 
             std::vector< std::vector< std::vector < int > > > pixel_reset_truth_track_id_;
             std::vector< std::vector< std::vector < int > > > pixel_reset_truth_weight_;
+
+            std::vector<double> pixel_initial_z_mean_;
+            std::vector<double> pixel_initial_z_std_;
+            std::vector<int>    pixel_n_electrons_;
 
             TBranch * tbranch_x_;
             TBranch * tbranch_y_;
             TBranch * tbranch_reset_;
             TBranch * tbranch_tslr_;
+
             TBranch * tbranch_reset_truth_track_id_;
             TBranch * tbranch_reset_truth_weight_;
+
+            TBranch * tbranch_initial_z_mean_;
+            TBranch * tbranch_initial_z_std_;
+            TBranch * tbranch_n_electrons_;
 
             //--------------------------------------------------
             // existing branch variables

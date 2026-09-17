@@ -44,9 +44,14 @@ namespace Qpix {
         tbranch_y_ = ttree_->Branch("pixel_y", &pixel_y_);
         tbranch_reset_ = ttree_->Branch("pixel_reset", &pixel_reset_);
         tbranch_tslr_ = ttree_->Branch("pixel_tslr", &pixel_tslr_);
+		
         tbranch_reset_truth_track_id_ = ttree_->Branch("pixel_reset_truth_track_id", &pixel_reset_truth_track_id_);
         tbranch_reset_truth_weight_ = ttree_->Branch("pixel_reset_truth_weight", &pixel_reset_truth_weight_);
 
+		tbranch_initial_z_mean_ = ttree_->Branch("pixel_initial_z_mean", &pixel_initial_z_mean_);
+		tbranch_initial_z_std_ = ttree_->Branch( "pixel_initial_z_std", &pixel_initial_z_std_);
+		tbranch_n_electrons_ = ttree_->Branch("pixel_n_electrons", &pixel_n_electrons_);
+		
         metadata_ = (TTree*) tfile_->Get("metadata");
 
         tbranch_w_value_ = metadata_->Branch("w_value", &w_value_);
@@ -162,8 +167,13 @@ namespace Qpix {
         tbranch_y_->Fill();
         tbranch_reset_->Fill();
         tbranch_tslr_->Fill();
+		
         tbranch_reset_truth_track_id_->Fill();
         tbranch_reset_truth_weight_->Fill();
+
+	    tbranch_initial_z_mean_->Fill();
+    	tbranch_initial_z_std_->Fill();
+    	tbranch_n_electrons_->Fill();		
     }
 
     //--------------------------------------------------------------------------
@@ -173,8 +183,13 @@ namespace Qpix {
         pixel_y_.clear();
         pixel_reset_.clear();
         pixel_tslr_.clear();
+		
         pixel_reset_truth_track_id_.clear();
         pixel_reset_truth_weight_.clear();
+		
+		pixel_initial_z_mean_.clear();
+		pixel_initial_z_std_.clear();
+		pixel_n_electrons_.clear();
     }
 
     //--------------------------------------------------------------------------
@@ -309,17 +324,29 @@ namespace Qpix {
             // Loop through the electrons 
             for (int i = 0; i < Nelectron; i++) 
             {
+				// Save the initial position of this electron
+    			double const initial_x = electron_loc_x;
+    			double const initial_y = electron_loc_y;
+    			double const initial_z = electron_loc_z;
+    			double const initial_t = electron_loc_t;
+				
                 // calculate drift time for diffusion 
-                T_drift = electron_loc_z / Qpix_params->E_vel;
+                T_drift = initial_z / Qpix_params->E_vel;
+
+				electron_loc_x += step_x;
+    			electron_loc_y += step_y;
+   				electron_loc_z += step_z;
+    			electron_loc_t += step_t;
+				
                 // electron lifetime
                 if (Qpix::RandomUniform() >= exp(-T_drift/Qpix_params->Life_Time)){continue;}
                 
                 // diffuse the electrons position
                 sigma_T = sqrt(2*Qpix_params->DiffusionT*T_drift);
                 sigma_L = sqrt(2*Qpix_params->DiffusionL*T_drift);
-                electron_x = Qpix::RandomNormal(electron_loc_x,sigma_T);
-                electron_y = Qpix::RandomNormal(electron_loc_y,sigma_T);
-                electron_z = Qpix::RandomNormal(electron_loc_z,sigma_L);
+                electron_x = Qpix::RandomNormal(initial_x, sigma_T);
+                electron_y = Qpix::RandomNormal(initial_y, sigma_T);
+                electron_z = Qpix::RandomNormal(initial_z, sigma_L);
 		
                 // add the electron to the vector.
                 hit_e.push_back(Qpix::ELECTRON());
@@ -330,14 +357,11 @@ namespace Qpix {
                 Pix_Yloc = (int) ceil(electron_y / Qpix_params->Pix_Size);
 
                 hit_e[indexer].Pix_ID = (int)(Pix_Xloc*10000+Pix_Yloc);
-                hit_e[indexer].time = electron_loc_t + ( electron_z / Qpix_params->E_vel );
+                hit_e[indexer].time = initial_t + ( electron_z / Qpix_params->E_vel);
                 hit_e[indexer].Trk_ID = hit_trk_id;
+				hit_e[indexer].Initial_Z = initial_z;
                 
                 // Move to the next electron
-                electron_loc_x += step_x;
-                electron_loc_y += step_y;
-                electron_loc_z += step_z;
-                electron_loc_t += step_t;
                 indexer += 1;
             }
         }
@@ -361,8 +385,13 @@ namespace Qpix {
             pixel_y_.push_back(Pixel[i].Y_Pix);
             pixel_reset_.push_back(Pixel[i].RESET);
             pixel_tslr_.push_back(Pixel[i].TSLR);
+			
             pixel_reset_truth_track_id_.push_back(Pixel[i].RESET_TRUTH_ID);
             pixel_reset_truth_weight_.push_back(Pixel[i].RESET_TRUTH_W);
+
+			pixel_initial_z_mean_.push_back(Pixel[i].Initial_Z_Mean);
+			pixel_initial_z_std_.push_back(Pixel[i].Initial_Z_Std);
+			pixel_n_electrons_.push_back(Pixel[i].N_Electrons);
         }
 
     }//AddEvent
